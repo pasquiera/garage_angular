@@ -1,0 +1,45 @@
+[
+    {
+
+        "id": 1,
+        "type": "auto",
+        "name": "Buea sweet life",
+        "year": 1999,
+        "description": "Belle vue au bord de la mer",
+        "price": 230.5,
+        "imageUrls":["assets/img/hotel-room.jpg","assets/img/the-interior.jpg"],
+        "endDate":1625971117000
+    },
+    {
+        "id": 2,
+        "type": "auto",
+        "name": "Marakech",
+        "year": 1999,
+        "description": "Profitez de la vue sur les montagnes",
+        "price": 145.5,
+        "imageUrls": ["assets/img/the-interior.jpg","assets/img/window.jpg","assets/img/window.jpg","assets/img/window.jpg"],
+        "endDate":1639177925000
+
+    },
+    {
+        "id": 3,
+        "type": "moto",
+        "name": "Abudja new look palace",
+        "year": 1999,
+        "description": "Séjour complet avec service de voitures",
+        "price": 120.12,
+        "imageUrls": ["assets/img/indoors.jpg","assets/img/the-interior.jpg"],
+        "endDate":1631315525000
+
+    },
+    {
+        "id": 4,
+        "type": "auto",
+        "name": "Cape town city",
+        "year": 1998,
+        "description": "Magnifique cadre pour votre séjour",
+        "price": 135.12,
+        "imageUrls": ["assets/img/window.jpg","assets/img/the-interior.jpg"],
+        "endDate":1633907525000
+    }
+]

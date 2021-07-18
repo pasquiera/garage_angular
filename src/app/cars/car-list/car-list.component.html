@@ -1,0 +1,79 @@
+<h2 class="title" *ngIf="cars && cars.length > 0">{{ title }}</h2>
+<!-- contenu affiché que si la liste cars n'est pas vide -->
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm">
+      <input class="favorite styled" type="button" value="TOUS" (click)="setType(0)">
+    </div>
+    <div class="col-sm">
+      <input class="favorite styled" type="button" value="AUTOS" (click)="setType(1)">
+    </div>
+    <div class="col-sm">
+      <input class="favorite styled" type="button" value="MOTOS" (click)="setType(2)">
+    </div>
+  </div>
+
+  <div class="row gy-4">
+    <div class="col-md-6" *ngFor="let car of filteredCars">
+      <div class="card">
+        <div class="card-body">
+
+          <span class="badge alert-success badge-pill badge-info" style="margin-right: 10px" *ngIf="car.year > 1998">
+            Nouveau </span>
+          <h5 class="card-title" style="display: inline-block">
+            <a [routerLink]="['/car', car.id]"> {{ car.name }} </a>
+          </h5>
+
+          <div class="row" style="padding-bottom: 15px;">
+            <div class="col-sm">
+              <h6>Meilleure enchère :</h6>
+              <p class="card-text">
+                {{ car.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}
+                <!-- registerLocaleData(localeFr, 'fr'); -->
+              </p>
+            </div>
+            <div class="col-sm">
+              <h6>Countdown :</h6>
+              <p class="card-text">
+                <app-count-down [endDate]="car.endDate"></app-count-down>
+                <!-- [endDate] = même valeur que le input() fichier count-down -->
+              </p>
+            </div>
+          </div>
+
+          <div id="carousel{{car.id}}" class="carousel slide" data-bs-interval="false">
+            <div class="carousel-inner">
+              <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
+                [ngClass]="{'active': i == 0 }">
+                <a [routerLink]="['/car', car.id]">
+                  <img [src]="image" [title]="car.name | uppercase" class="card-img-top" [alt]="car.name" />
+                </a>
+              </div>
+
+              <a class="carousel-control-prev" [attr.data-bs-target]="'#carousel' + car.id" type="button"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </a>
+              <a class="carousel-control-next" [attr.data-bs-target]="'#carousel' + car.id" type="button"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <input type="text" class="form-control" [(ngModel)]="carFilter">
+  </div>
+
+
+</div>

@@ -1,0 +1,44 @@
+.container {
+    font-family: "PT Sans Narrow",sans-serif;
+    color: #000;
+}
+
+
+.title {
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.card {
+    border: none;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+a {
+    color: #000;
+    text-decoration: none; 
+}
+
+h5 {
+    margin-bottom: 2px;
+}
+
+h6 {
+    font-size: .8571428571rem;
+    color: #8b8c93;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 1em;
+}
+
+.carousel-item {
+    transition-duration: 0.3s;
+  }
+
+
+
