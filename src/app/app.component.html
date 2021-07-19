@@ -14,7 +14,7 @@
           <a class="nav-link" [routerLink]="['/vendre']">VENDRE</a>
         </li>
         <li class="nav-item">
-          <div *ngIf="loggedIn() && userHasProfile">{{userDocument.publicName}}</div>
+          <div *ngIf="loggedIn() && userHasProfile">{{userDocument.publicName}}</div> <!-- replace by {{userDocument?.publicName}} -->
         </li>
 
       </ul>

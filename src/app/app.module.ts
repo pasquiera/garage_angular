@@ -16,13 +16,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { FirebaseTSApp } from 'firebasets/firebasetsApp/firebaseTSApp';
 import { environment } from 'src/environments/environment';
-import { AuthenticatorComponent } from './authenticator/authenticator.component';
+import { AuthenticatorComponent } from './accounts/authenticator/authenticator.component';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { EmailVerificationComponent } from './email-verification/email-verification.component';
-import { ProfileComponent } from './profile/profile.component';
+import { EmailVerificationComponent } from './accounts/email-verification/email-verification.component';
+import { ProfileComponent } from './accounts/profile/profile.component';
 
 
 

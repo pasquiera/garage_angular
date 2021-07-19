@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthenticatorComponent } from './authenticator/authenticator.component';
+import { AuthenticatorComponent } from './accounts/authenticator/authenticator.component';
 import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
 import { Router, RouterOutlet } from '@angular/router';
 import { fader } from './route-animations'
@@ -38,7 +38,6 @@ export class AppComponent {
               this.getUserProfile();
             },
             whenChanged: user => {
-
             }
           }
         );
@@ -65,6 +64,9 @@ export class AppComponent {
 
   onLogoutClick() {
     this.auth.signOut();
+    this.firestore.stopListeningToAll();
+    this.userDocument.publicName = "";
+    this.userDocument.description = "";
   }
 
   loggedIn() {
@@ -81,4 +83,5 @@ export class AppComponent {
 export interface UserDocument {
   publicName: string; // match de name of the property on the database
   description: string;
+
 }
