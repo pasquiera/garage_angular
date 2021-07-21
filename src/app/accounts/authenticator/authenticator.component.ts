@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth'
+import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -11,7 +12,10 @@ export class AuthenticatorComponent implements OnInit {
 
   state = AuthenticatorCompState.LOGIN;
   firebasetsAuth: FirebaseTSAuth;
-  constructor(private dialogRef: MatDialogRef<AuthenticatorComponent>) {
+  firestore: FirebaseTSFirestore;
+
+  constructor(private dialogRef: MatDialogRef<AuthenticatorComponent>,) {
+    this.firestore = new FirebaseTSFirestore();
     this.firebasetsAuth = new FirebaseTSAuth;
   }
 
@@ -42,15 +46,18 @@ export class AuthenticatorComponent implements OnInit {
   }
 
   onRegisterClick(
+    registerName: HTMLInputElement,
     registerEmail: HTMLInputElement,
     registerPassword: HTMLInputElement,
     registerConfirmPassword: HTMLInputElement
   ) {
+    let name = registerName.value;
     let email = registerEmail.value;
     let password = registerPassword.value;
     let confirmPassword = registerConfirmPassword.value;
 
     if (
+      this.isNotEmpty(name) &&
       this.isNotEmpty(email) &&
       this.isNotEmpty(password) &&
       this.isNotEmpty(confirmPassword) &&
@@ -61,14 +68,26 @@ export class AuthenticatorComponent implements OnInit {
         password: password,
         onComplete: (uc) => {
           this.dialogRef.close();
+          this.firestore.create(
+            {
+              path: ["Users", this.firebasetsAuth.getAuth().currentUser!.uid], // uid firebase
+              data: {
+                publicName: name,
+              },
+              onComplete: (docId) => { },
+              onFail: (err) => { }
+            });
         },
         onFail: (err) => {
           alert("Une erreur est survenue lors de la création");
         }
       });
     }
-
   }
+
+
+
+
 
   onResetClick(resetEmail: HTMLInputElement) {
     let email = resetEmail.value;

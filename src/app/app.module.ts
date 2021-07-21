@@ -22,7 +22,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { EmailVerificationComponent } from './accounts/email-verification/email-verification.component';
-import { ProfileComponent } from './accounts/profile/profile.component';
 
 
 
@@ -37,7 +36,6 @@ registerLocaleData(localeFr, 'fr');
     CarDetailComponent,
     AuthenticatorComponent,
     EmailVerificationComponent,
-    ProfileComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur

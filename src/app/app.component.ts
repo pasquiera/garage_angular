@@ -33,6 +33,7 @@ export class AppComponent {
             },
             whenSignedInAndEmailNotVerified: user => {
               this.router.navigate(["emailVerification"]);
+              this.getUserProfile();
             },
             whenSignedInAndEmailVerified: user => {
               this.getUserProfile();

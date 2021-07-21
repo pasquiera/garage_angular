@@ -10,12 +10,24 @@ import { Router } from '@angular/router';
 export class EmailVerificationComponent implements OnInit {
 
   auth = new FirebaseTSAuth();
+  checkForVerifiedInterval;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     if (this.auth.isSignedIn() && !this.auth.getAuth().currentUser!.emailVerified) {
       this.auth.sendVerificationEmail();
+      this.checkForVerifiedInterval = setInterval(() => {
+        console.log(this.checkForVerifiedInterval);
+        this.auth.getAuth().currentUser.reload()
+          .then(ok => {
+            if (this.auth.getAuth().currentUser.emailVerified) {
+                clearInterval(this.checkForVerifiedInterval);
+                this.router.navigate(['']);
+                console.log(this.checkForVerifiedInterval);
+            }
+          })
+    }, 1000)
     } else {
       this.router.navigate(['']);
     }

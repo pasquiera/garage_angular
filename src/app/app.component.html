@@ -13,16 +13,25 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/vendre']">VENDRE</a>
         </li>
-        <li class="nav-item">
-          <div *ngIf="loggedIn() && userHasProfile">{{userDocument.publicName}}</div> <!-- replace by {{userDocument?.publicName}} -->
-        </li>
-
       </ul>
 
       <ul class="nav navbar-nav navbar-right ms-auto">
+
+        <div class="dropdown" *ngIf="loggedIn()">
+          <button *ngIf="loggedIn()" class="dropdown-toggle" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{userDocument?.publicName}}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#"> <span class="material-icons-outlined">settings</span> Paramètres</a></li>
+            <li><span class="dropdown-item" (click)="onLogoutClick()"> <span
+                  class="material-icons-outlined">power_settings_new</span> Déconnexion</span></li>
+          </ul>
+        </div>
+
         <div class="btn-nav">
-          <button *ngIf="!loggedIn()" (click)="onLoginClick()">CONNEXION</button>
-          <button *ngIf="loggedIn()" (click)="onLogoutClick()">DÉCONNEXION</button>
+          <button *ngIf="!loggedIn()" (click)="onLoginClick()"><span
+              class="material-icons-outlined">account_circle</span> Connexion</button>
         </div>
       </ul>
 
@@ -34,4 +43,3 @@
   <router-outlet #outlet="outlet"></router-outlet> <!-- path dans RouterModule -->
 </div>
 
-<app-profile [show]="loggedIn() && !userHasProfile"></app-profile> <!-- profile.component seulement si show == true -->
