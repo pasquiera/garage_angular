@@ -5,6 +5,7 @@ import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
 import { Router, RouterOutlet } from '@angular/router';
 import { fader } from './route-animations'
 import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
+import { IUserDocument } from './shared/models/userDocument';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent {
   auth = new FirebaseTSAuth();
   firestore = new FirebaseTSFirestore();
   userHasProfile = true;
-  userDocument: UserDocument;
+  userDocument: IUserDocument;
 
   constructor(private dialog: MatDialog,
     private router: Router) {
@@ -52,7 +53,7 @@ export class AppComponent {
         name: "Getting Document",
         path: ["Users", this.auth.getAuth().currentUser!.uid],
         onUpdate: (result) => {
-          this.userDocument = <UserDocument>result.data();
+          this.userDocument = <IUserDocument>result.data();
           this.userHasProfile = result.exists;
         }
       }
@@ -66,8 +67,8 @@ export class AppComponent {
   onLogoutClick() {
     this.auth.signOut();
     this.firestore.stopListeningToAll();
-    this.userDocument.publicName = "";
-    this.userDocument.description = "";
+    this.userDocument.userName = "";
+    this.router.navigate(["auctions"]);
   }
 
   loggedIn() {
@@ -78,11 +79,5 @@ export class AppComponent {
     if (outlet.isActivated) return outlet.activatedRoute.snapshot.url
     return '';
   }
-
-}
-
-export interface UserDocument {
-  publicName: string; // match de name of the property on the database
-  description: string;
 
 }

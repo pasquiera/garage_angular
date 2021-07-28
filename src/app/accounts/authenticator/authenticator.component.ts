@@ -72,7 +72,12 @@ export class AuthenticatorComponent implements OnInit {
             {
               path: ["Users", this.firebasetsAuth.getAuth().currentUser!.uid], // uid firebase
               data: {
-                publicName: name,
+                surname: '',
+                name: '',
+                userName: name,
+                email: '',
+                address: '',
+                phoneNumber: '',
               },
               onComplete: (docId) => { },
               onFail: (err) => { }

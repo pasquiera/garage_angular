@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { EmailVerificationComponent } from './accounts/email-verification/email-verification.component';
+import { ProfileSettingComponent } from './accounts/profile-setting/profile-setting.component';
 
 
 
@@ -36,15 +37,18 @@ registerLocaleData(localeFr, 'fr');
     CarDetailComponent,
     AuthenticatorComponent,
     EmailVerificationComponent,
+    ProfileSettingComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: 'auctions', component: CarListComponent },
       { path: '', redirectTo: 'auctions', pathMatch: 'full' },
+      { path: 'settings', component: ProfileSettingComponent},
       { path: "emailVerification", component: EmailVerificationComponent },
       { path: 'car/:id', component: CarDetailComponent },
       { path: '**', redirectTo: 'auctions', pathMatch: 'full' },

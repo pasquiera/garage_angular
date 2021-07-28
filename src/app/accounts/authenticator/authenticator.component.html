@@ -3,13 +3,20 @@
         <mat-card-header>
             <mat-card-title>{{getStateText()}}</mat-card-title>
         </mat-card-header>
+
         <div *ngIf="isLoginState()">
-            <input #loginEmail placeholder="Email" />
-            <input #loginPassword placeholder="Password" type="password">
-            <button (click)="onLogin(loginEmail, loginPassword)" mat-flat-button color="warn"
-                (click)="onLoginClick()">Connexion</button>
+
+            <form>
+                <input #loginEmail placeholder="Email">
+                <input #loginPassword placeholder="Password" type="password">
+                <button (click)="onLogin(loginEmail, loginPassword)" mat-flat-button color="warn"
+                    (click)="onLoginClick()">Connexion</button>
+            </form>
+
         </div>
+
         <div *ngIf="isRegisterState()">
+
             <input #registerName placeholder="Nom d'utilisateur">
             <input #registerEmail placeholder="Email">
             <input #registerPassword placeholder="Mot de passe" type="password">
@@ -20,14 +27,20 @@
                     registerPassword,
                     registerConfirmPassword
                 )" mat-flat-button color="warn">Créer</button>
+
         </div>
+
         <div *ngIf="isForgotPasswordState()">
+
             <input #resetEmail placeholder="Email">
             <button (click)="onResetClick(resetEmail)" mat-flat-button color="warn">Réinitialiser</button>
+
         </div>
+
         <mat-card-actions align="end">
             <button *ngIf="!isLoginState()" mat-flat-button (click)="onLoginClick()">Connexion</button>
-            <button *ngIf="!isForgotPasswordState()" mat-flat-button (click)="onForgotPasswordClick()">Mot de Passe Oublié</button>
+            <button *ngIf="!isForgotPasswordState()" mat-flat-button (click)="onForgotPasswordClick()">Mot de Passe
+                Oublié</button>
             <button *ngIf="!isRegisterState()" mat-flat-button (click)="onCreateAccountClick()">Créer un Compte</button>
         </mat-card-actions>
     </mat-card>

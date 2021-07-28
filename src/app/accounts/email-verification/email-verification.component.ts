@@ -22,7 +22,6 @@ export class EmailVerificationComponent implements OnInit {
         this.auth.getAuth().currentUser.reload()
           .then(ok => {
             if (this.auth.getAuth().currentUser.emailVerified) {
-                clearInterval(this.checkForVerifiedInterval);
                 this.router.navigate(['']);
                 console.log(this.checkForVerifiedInterval);
             }
@@ -35,6 +34,10 @@ export class EmailVerificationComponent implements OnInit {
 
   onResendClick() {
     this.auth.sendVerificationEmail();
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.checkForVerifiedInterval);
   }
 
 }
