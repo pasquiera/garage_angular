@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
-import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
-import { IUserDocument } from 'src/app/shared/models/userDocument';
+/* import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
+import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/firebaseTSFirestore'; */
+import { IUser } from 'src/app/user';
 
 @Component({
   selector: 'app-profile-setting',
@@ -13,9 +13,9 @@ export class ProfileSettingComponent implements OnInit {
 
   public profileForm: FormGroup;
 
-  auth = new FirebaseTSAuth();
-  firestore = new FirebaseTSFirestore();
-  userDocument: IUserDocument;
+/*   auth = new FirebaseTSAuth();
+  firestore = new FirebaseTSFirestore(); */
+  user: IUser;
 
   constructor(private fb: FormBuilder) {
   }
@@ -36,7 +36,7 @@ export class ProfileSettingComponent implements OnInit {
 
   updateUserName(): void {
     if (this.profileForm.valid) {
-      this.firestore.update(
+      /* this.firestore.update(
         {
           path: ["Users", this.auth.getAuth().currentUser!.uid], // uid firebase
           data: {
@@ -46,13 +46,14 @@ export class ProfileSettingComponent implements OnInit {
             address: this.profileForm.get('profileAddress').value,
             phoneNumber: this.profileForm.get('profilePhoneNumber').value,
           },
-        });
+        }); */
+        
     }
   }
 
   getUserInfo(): void {
 
-    this.firestore.getDocument(
+    /* this.firestore.getDocument(
       {
         path: ["Users", this.auth.getAuth().currentUser!.uid],
         onComplete: (result) => {
@@ -66,7 +67,8 @@ export class ProfileSettingComponent implements OnInit {
           })
         }
       }
-    );
+    ); */
+
   }
 
 }

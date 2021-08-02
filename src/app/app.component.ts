@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthenticatorComponent } from './accounts/authenticator/authenticator.component';
-import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, RouterOutlet } from '@angular/router';
 import { fader } from './route-animations'
-import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
-import { IUserDocument } from './shared/models/userDocument';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { IUser } from './user';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +18,14 @@ import { IUserDocument } from './shared/models/userDocument';
 })
 export class AppComponent {
   title: string = "Garage Automobile";
-  auth = new FirebaseTSAuth();
-  firestore = new FirebaseTSFirestore();
   userHasProfile = true;
-  userDocument: IUserDocument;
+  user: IUser;
 
   constructor(private dialog: MatDialog,
-    private router: Router) {
-    this.auth.listenToSignInStateChanges(
+    private router: Router, public auth: AuthService
+  ) {
+
+    /* this.auth.listenToSignInStateChanges(
       user => {
         this.auth.checkSignInState(
           {
@@ -44,11 +45,11 @@ export class AppComponent {
           }
         );
       }
-    );
+    ); */
   }
 
   getUserProfile() {
-    this.firestore.listenToDocument(
+    /* this.firestore.listenToDocument(
       {
         name: "Getting Document",
         path: ["Users", this.auth.getAuth().currentUser!.uid],
@@ -57,7 +58,7 @@ export class AppComponent {
           this.userHasProfile = result.exists;
         }
       }
-    );
+    ); */
   }
 
   onLoginClick() {
@@ -65,14 +66,16 @@ export class AppComponent {
   }
 
   onLogoutClick() {
-    this.auth.signOut();
-    this.firestore.stopListeningToAll();
-    this.userDocument.userName = "";
-    this.router.navigate(["auctions"]);
+    this.auth.signOut().then(res => {
+      /* this.firestore.stopListeningToAll();
+      this.user.userName = ""; */
+      this.auth.setLoginState(false);
+      this.router.navigate(["auctions"]);
+    });
   }
 
   loggedIn() {
-    return this.auth.isSignedIn();
+    return this.auth.isLoggedIn;
   }
 
   prepareRoute(outlet: RouterOutlet) {

@@ -7,16 +7,17 @@ import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
-
 import { AppComponent } from './app.component';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { CountDownComponent } from './shared/count-down/count-down.component';
 import { CarDetailComponent } from './cars/car-detail/car-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { FirebaseTSApp } from 'firebasets/firebasetsApp/firebaseTSApp';
+import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AuthenticatorComponent } from './accounts/authenticator/authenticator.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -55,13 +56,16 @@ registerLocaleData(localeFr, 'fr');
     ], { scrollPositionRestoration: 'enabled' }),
     MatDialogModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase), // link firebase to the project
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor() {
-    FirebaseTSApp.init(environment.firebaseConfig); // link firebase to the project
+
   }
 }

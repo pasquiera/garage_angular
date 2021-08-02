@@ -111,6 +111,10 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

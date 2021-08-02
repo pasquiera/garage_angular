@@ -20,10 +20,11 @@
         <div class="dropdown" *ngIf="loggedIn()">
           <button *ngIf="loggedIn()" class="dropdown-toggle" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            {{userDocument?.userName}}
+            {{user?.userName}}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" [routerLink]="['/settings']"> <span class="material-icons-outlined">settings</span> Paramètres</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/settings']"> <span
+                  class="material-icons-outlined">settings</span> Paramètres</a></li>
             <li><span class="dropdown-item" (click)="onLogoutClick()"> <span
                   class="material-icons-outlined">power_settings_new</span> Déconnexion</span></li>
           </ul>
@@ -42,4 +43,3 @@
 <div [@routeAnimations]="prepareRoute(outlet)" class="content">
   <router-outlet #outlet="outlet"></router-outlet> <!-- path dans RouterModule -->
 </div>
-

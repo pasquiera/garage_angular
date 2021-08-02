@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  firebaseConfig: {
+  firebase: {
     apiKey: "AIzaSyBLFRxKWSzlfv3_bxz0KghH5wnGr34vJws",
     authDomain: "garageangularproject.firebaseapp.com",
     projectId: "garageangularproject",

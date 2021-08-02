@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth'
-import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-authenticator',
@@ -11,12 +11,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class AuthenticatorComponent implements OnInit {
 
   state = AuthenticatorCompState.LOGIN;
-  firebasetsAuth: FirebaseTSAuth;
-  firestore: FirebaseTSFirestore;
 
-  constructor(private dialogRef: MatDialogRef<AuthenticatorComponent>,) {
-    this.firestore = new FirebaseTSFirestore();
-    this.firebasetsAuth = new FirebaseTSAuth;
+  constructor(private router: Router, private dialogRef: MatDialogRef<AuthenticatorComponent>, public auth: AuthService) {
   }
 
   ngOnInit(): void {
@@ -30,18 +26,23 @@ export class AuthenticatorComponent implements OnInit {
     let password = loginPassword.value;
 
     if (this.isNotEmpty(email) && this.isNotEmpty(password)) {
-      this.firebasetsAuth.signInWith(
-        {
-          email: email,
-          password: password,
-          onComplete: (uc) => {
-            this.dialogRef.close();
-          },
-          onFail: (err) => {
-            alert(err);
-          }
+
+      this.auth.signIn(email, password).then(res => { //make a callback function isEmailVerified
+
+        if (this.auth.isLoggedIn) {
+          this.dialogRef.close();
+
+          this.auth.getCurrentUser().then(res => {
+            if (res.emailVerified == true) {
+              this.router.navigate(["auctions"]);
+            } else {
+              this.router.navigate(["emailVerification"]);
+            }
+          })
         }
-      )
+
+      });
+
     }
   }
 
@@ -63,46 +64,17 @@ export class AuthenticatorComponent implements OnInit {
       this.isNotEmpty(confirmPassword) &&
       this.isAMatch(password, confirmPassword)
     ) {
-      this.firebasetsAuth.createAccountWith({
-        email: email,
-        password: password,
-        onComplete: (uc) => {
-          this.dialogRef.close();
-          this.firestore.create(
-            {
-              path: ["Users", this.firebasetsAuth.getAuth().currentUser!.uid], // uid firebase
-              data: {
-                surname: '',
-                name: '',
-                userName: name,
-                email: '',
-                address: '',
-                phoneNumber: '',
-              },
-              onComplete: (docId) => { },
-              onFail: (err) => { }
-            });
-        },
-        onFail: (err) => {
-          alert("Une erreur est survenue lors de la création");
-        }
-      });
+
+      this.auth.SignUp(name, email, password).then(res => {
+        this.dialogRef.close();
+      })
     }
   }
-
-
-
-
 
   onResetClick(resetEmail: HTMLInputElement) {
     let email = resetEmail.value;
     if (this.isNotEmpty(email)) {
-      this.firebasetsAuth.sendPasswordResetEmail({
-        email: email,
-        onComplete: (err) => {
-          alert(`Email de récupération envoyé à ${email}`);
-        }
-      });
+      this.auth.forgotPassword(email);
     }
   }
 

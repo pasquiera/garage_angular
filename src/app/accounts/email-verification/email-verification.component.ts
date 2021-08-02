@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-email-verification',
@@ -9,31 +9,31 @@ import { Router } from '@angular/router';
 })
 export class EmailVerificationComponent implements OnInit {
 
-  auth = new FirebaseTSAuth();
   checkForVerifiedInterval;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public auth: AuthService) { }
 
   ngOnInit(): void {
-    if (this.auth.isSignedIn() && !this.auth.getAuth().currentUser!.emailVerified) {
-      this.auth.sendVerificationEmail();
+
       this.checkForVerifiedInterval = setInterval(() => {
         console.log(this.checkForVerifiedInterval);
-        this.auth.getAuth().currentUser.reload()
-          .then(ok => {
-            if (this.auth.getAuth().currentUser.emailVerified) {
-                this.router.navigate(['']);
-                console.log(this.checkForVerifiedInterval);
+
+        this.auth.getCurrentUser().then(res => {
+          res.reload();
+          this.auth.getCurrentUser().then(res => {
+            if(res.emailVerified == true){
+              this.router.navigate(['']);
+              console.log('done');
             }
           })
+        })
+
     }, 1000)
-    } else {
-      this.router.navigate(['']);
-    }
+
   }
 
   onResendClick() {
-    this.auth.sendVerificationEmail();
+    this.auth.sendEmailVerif();
   }
 
   ngOnDestroy(): void {
