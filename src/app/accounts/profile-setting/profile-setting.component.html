@@ -6,19 +6,27 @@
         </div>
 
         <div class="card-body">
+
+            <img src={{img}}>
+
             <form novalidate (ngSubmit)="updateUserName()" [formGroup]="profileForm">
+
+                <app-file-upload formControlName="profileImage"></app-file-upload>
+
                 <div class="form-group row mb-2">
                     <label for="profileSurnameId" class="col-md-2 col-form-label"> Nom </label>
                     <div class="col-md-8">
                         <input id="profileSurnameId" type="text" class="form-control" formControlName="profileSurname">
                     </div>
                 </div>
+
                 <div class="form-group row mb-2">
                     <label for="profileNameId" class="col-md-2 col-form-label"> Prénom </label>
                     <div class="col-md-8">
                         <input id="profileNameId" type="text" class="form-control" formControlName="profileName">
                     </div>
                 </div>
+
                 <div class="form-group row mb-2">
                     <label for="profileUserNameId" class="col-md-2 col-form-label"> Nom d'utilisateur </label>
                     <div class="col-md-8">
@@ -29,18 +37,21 @@
                             d'utilisateur requis</span>
                     </div>
                 </div>
+
                 <div class="form-group row mb-2">
                     <label for="profileEmail" class="col-md-2 col-form-label"> Email </label>
                     <div class="col-md-8">
                         <input id="profileEmail" type="text" class="form-control" formControlName="profileEmail">
                     </div>
                 </div>
+
                 <div class="form-group row mb-2">
                     <label for="profileAddress" class="col-md-2 col-form-label"> Adresse </label>
                     <div class="col-md-8">
                         <input id="profileAddress" type="text" class="form-control" formControlName="profileAddress">
                     </div>
                 </div>
+
                 <div class="form-group row mb-2">
                     <label for="profilePhoneNumberId" class="col-md-2 col-form-label"> Numéro de téléphone </label>
                     <div class="col-md-8">

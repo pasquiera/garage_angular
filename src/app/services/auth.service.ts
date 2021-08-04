@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { IUser } from '../user';
 
 @Injectable({
@@ -10,19 +12,18 @@ import { IUser } from '../user';
 export class AuthService {
 
   isLoggedIn = false;
-  isEmailVerified = false;
+  userID;
+  userData: Observable<IUser>;
 
-  constructor(public firebaseAuth: AngularFireAuth, public afs: AngularFirestore,) { }
+  constructor(public firebaseAuth: AngularFireAuth, public afs: AngularFirestore, public storage: AngularFireStorage) { }
 
   signIn(email: string, password: string) {
     return this.firebaseAuth.signInWithEmailAndPassword(email, password)
       .then(userCredential => {
 
         this.setLoginState(true);
-
-        localStorage.setItem('user', JSON.stringify(userCredential.user));
-        let data = JSON.parse(localStorage.getItem('user'));
-        this.isEmailVerified = data.emailVerified;
+        this.userID = userCredential.user.uid;
+        console.log(this.userID);
 
       }).catch(err => {
         alert(err.message);
@@ -36,7 +37,11 @@ export class AuthService {
         const newUser: IUser = {
           userName,
           email,
-          uid: result.user.uid
+          uid: result.user.uid,
+          surname: '',
+          name: '',
+          address: '',
+          phoneNumber: ''
         }
 
         this.sendEmailVerif();
@@ -78,11 +83,36 @@ export class AuthService {
   getCurrentUser() {
     return this.firebaseAuth.currentUser;
   }
-  
+
   setLoginState(value: boolean) {
     this.isLoggedIn = value;
   }
 
+  getUserData() {
+    // retrive userData from firebase db
+    return this.afs.collection<IUser>('users').doc(this.userID).valueChanges();
+  }
 
+  getUserImage() {
+    return this.storage.ref('users/' + this.userID + '/profile.jpg').getDownloadURL().toPromise();
+  }
+
+  updateDocument(surname: string, name: string, userName: string, address: string, phoneNumber: string) {
+    this.afs.collection<IUser>('users').doc(this.userID).update({
+      surname: surname,
+      name: name,
+      userName: userName,
+      address: address,
+      phoneNumber: phoneNumber
+    });
+  }
+
+  uploadImage(image: any) {
+    return this.storage.ref('users/' + this.userID + '/profile.jpg').put(image).then(() => {
+      console.log('image uploaded successfully');
+    }).catch(err => {
+      console.log(err);
+    })
+  }
 
 }

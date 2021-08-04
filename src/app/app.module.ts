@@ -18,12 +18,14 @@ import { environment } from 'src/environments/environment';
 import { AuthenticatorComponent } from './accounts/authenticator/authenticator.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { EmailVerificationComponent } from './accounts/email-verification/email-verification.component';
 import { ProfileSettingComponent } from './accounts/profile-setting/profile-setting.component';
+import { FileUploadComponent } from './accounts/file-upload/file-upload.component';
 
 
 
@@ -39,6 +41,7 @@ registerLocaleData(localeFr, 'fr');
     AuthenticatorComponent,
     EmailVerificationComponent,
     ProfileSettingComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur
@@ -59,6 +62,7 @@ registerLocaleData(localeFr, 'fr');
     MatButtonModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase), // link firebase to the project
   ],
   providers: [],

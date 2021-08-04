@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-/* import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
-import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/firebaseTSFirestore'; */
+import { AuthService } from 'src/app/services/auth.service';
 import { IUser } from 'src/app/user';
 
 @Component({
@@ -13,15 +12,15 @@ export class ProfileSettingComponent implements OnInit {
 
   public profileForm: FormGroup;
 
-/*   auth = new FirebaseTSAuth();
-  firestore = new FirebaseTSFirestore(); */
   user: IUser;
+  img: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public auth: AuthService) {
   }
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
+      profileImage: [null],
       profileSurname: [''],
       profileName: [''],
       profileUserName: ['', [Validators.required]],
@@ -31,43 +30,48 @@ export class ProfileSettingComponent implements OnInit {
     });
 
     this.getUserInfo();
+    this.getProfileImg();
 
   }
 
   updateUserName(): void {
     if (this.profileForm.valid) {
-      /* this.firestore.update(
-        {
-          path: ["Users", this.auth.getAuth().currentUser!.uid], // uid firebase
-          data: {
-            surname: this.profileForm.get('profileSurname').value,
-            name: this.profileForm.get('profileName').value,
-            userName: this.profileForm.get('profileUserName').value,
-            address: this.profileForm.get('profileAddress').value,
-            phoneNumber: this.profileForm.get('profilePhoneNumber').value,
-          },
-        }); */
-        
+      let image = this.profileForm.get('profileImage').value;
+      let surname = this.profileForm.get('profileSurname').value;
+      let name = this.profileForm.get('profileName').value;
+      let userName = this.profileForm.get('profileUserName').value;
+      let address = this.profileForm.get('profileAddress').value;
+      let phoneNumber = this.profileForm.get('profilePhoneNumber').value;
+
+      this.auth.updateDocument(surname, name, userName, address, phoneNumber);
+
+      if (image != null) {
+        this.auth.uploadImage(image).then(() => {
+          this.getProfileImg();
+        });
+      }
+
     }
+  }
+
+  getProfileImg(): void {
+    this.auth.getUserImage().then(val => {
+      this.img = val;
+      console.log(this.img);
+    })
   }
 
   getUserInfo(): void {
 
-    /* this.firestore.getDocument(
-      {
-        path: ["Users", this.auth.getAuth().currentUser!.uid],
-        onComplete: (result) => {
-          this.userDocument = <IUserDocument>result.data();
-          this.profileForm.patchValue({
-            profileSurname: this.userDocument.surname,
-            profileName: this.userDocument.name,
-            profileUserName: this.userDocument.userName,
-            profileAddress: this.userDocument.address,
-            profilePhoneNumber: this.userDocument.phoneNumber
-          })
-        }
-      }
-    ); */
+    this.auth.getUserData().subscribe(val => {
+      this.profileForm.patchValue({
+        profileSurname: val.surname,
+        profileName: val.name,
+        profileUserName: val.userName,
+        profileAddress: val.address,
+        profilePhoneNumber: val.phoneNumber
+      })
+    })
 
   }
 
