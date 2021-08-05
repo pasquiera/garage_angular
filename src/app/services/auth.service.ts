@@ -41,7 +41,8 @@ export class AuthService {
           surname: '',
           name: '',
           address: '',
-          phoneNumber: ''
+          phoneNumber: '',
+          imageProfile: 'users/' + result.user.uid + '/profile.jpg'
         }
 
         this.sendEmailVerif();
@@ -93,8 +94,8 @@ export class AuthService {
     return this.afs.collection<IUser>('users').doc(this.userID).valueChanges();
   }
 
-  getUserImage() {
-    return this.storage.ref('users/' + this.userID + '/profile.jpg').getDownloadURL().toPromise();
+  getUserImage(path: string) {
+    return this.storage.ref(path).getDownloadURL();
   }
 
   updateDocument(surname: string, name: string, userName: string, address: string, phoneNumber: string) {
@@ -108,8 +109,14 @@ export class AuthService {
   }
 
   uploadImage(image: any) {
+    console.log(image);
     return this.storage.ref('users/' + this.userID + '/profile.jpg').put(image).then(() => {
       console.log('image uploaded successfully');
+
+      this.afs.collection<IUser>('users').doc(this.userID).update({
+        imageProfile: 'users/' + this.userID + '/profile.jpg'
+      });
+
     }).catch(err => {
       console.log(err);
     })

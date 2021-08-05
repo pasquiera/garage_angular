@@ -30,7 +30,6 @@ export class ProfileSettingComponent implements OnInit {
     });
 
     this.getUserInfo();
-    this.getProfileImg();
 
   }
 
@@ -46,30 +45,27 @@ export class ProfileSettingComponent implements OnInit {
       this.auth.updateDocument(surname, name, userName, address, phoneNumber);
 
       if (image != null) {
-        this.auth.uploadImage(image).then(() => {
-          this.getProfileImg();
-        });
+        this.auth.uploadImage(image);
       }
 
     }
   }
 
-  getProfileImg(): void {
-    this.auth.getUserImage().then(val => {
-      this.img = val;
-      console.log(this.img);
-    })
-  }
-
   getUserInfo(): void {
 
     this.auth.getUserData().subscribe(val => {
+
       this.profileForm.patchValue({
         profileSurname: val.surname,
         profileName: val.name,
         profileUserName: val.userName,
         profileAddress: val.address,
         profilePhoneNumber: val.phoneNumber
+      })
+
+      this.auth.getUserImage(val.imageProfile).subscribe(val => {
+        this.img = val;
+
       })
     })
 
