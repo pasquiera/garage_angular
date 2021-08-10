@@ -48,6 +48,8 @@ export class ProfileSettingComponent implements OnInit {
         this.auth.uploadImage(image);
       }
 
+      this.profileForm.reset();
+
     }
   }
 

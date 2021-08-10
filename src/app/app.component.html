@@ -20,7 +20,7 @@
         <div class="dropdown" *ngIf="loggedIn()">
           <button *ngIf="loggedIn()" class="dropdown-toggle" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
-            {{user?.userName}}
+            {{userName}}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" [routerLink]="['/settings']"> <span

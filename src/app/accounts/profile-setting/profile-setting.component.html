@@ -11,7 +11,9 @@
 
             <form novalidate (ngSubmit)="updateUserName()" [formGroup]="profileForm">
 
-                <app-file-upload formControlName="profileImage"></app-file-upload>
+                <div class="form-group row mb-2">
+                    <app-file-upload formControlName="profileImage"></app-file-upload>
+                </div>
 
                 <div class="form-group row mb-2">
                     <label for="profileSurnameId" class="col-md-2 col-form-label"> Nom </label>
@@ -63,10 +65,7 @@
                 <div class="form-group row mb-2">
                     <div class="offset-md-2 col-md-4">
                         <button class="btn btn-info mr-3" type="submit">
-                            sauvegarder
-                        </button>
-                        <button class="btn btn-outline-secondary mr-3" type="button" [routerLink]="['/auctions']">
-                            annuler
+                            Enregistrer les parametres
                         </button>
                     </div>
                 </div>

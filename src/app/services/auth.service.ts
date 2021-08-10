@@ -14,6 +14,7 @@ export class AuthService {
   isLoggedIn = false;
   userID;
   userData: Observable<IUser>;
+  unsubscribe;
 
   constructor(public firebaseAuth: AngularFireAuth, public afs: AngularFirestore, public storage: AngularFireStorage) { }
 
@@ -22,8 +23,8 @@ export class AuthService {
       .then(userCredential => {
 
         this.setLoginState(true);
-        this.userID = userCredential.user.uid;
-        console.log(this.userID);
+        //this.userID = userCredential.user.uid;
+        //console.log(this.userID);
 
       }).catch(err => {
         alert(err.message);
@@ -68,8 +69,9 @@ export class AuthService {
 
   signOut() {
     return this.firebaseAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-    })
+      this.userID = null;
+      this.setLoginState(false);
+    });
   }
 
   forgotPassword(passwordResetEmail: string) {

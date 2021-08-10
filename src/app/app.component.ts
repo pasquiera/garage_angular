@@ -4,8 +4,6 @@ import { AuthenticatorComponent } from './accounts/authenticator/authenticator.c
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, RouterOutlet } from '@angular/router';
 import { fader } from './route-animations'
-import { AngularFirestore } from '@angular/fire/firestore';
-import { IUser } from './user';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -19,46 +17,35 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title: string = "Garage Automobile";
   userHasProfile = true;
-  user: IUser;
+  userName: string;
+  subscription: any;
 
   constructor(private dialog: MatDialog,
-    private router: Router, public auth: AuthService
+    private router: Router,
+    public auth: AuthService,
+    private afAuth: AngularFireAuth,
   ) {
 
-    /* this.auth.listenToSignInStateChanges(
-      user => {
-        this.auth.checkSignInState(
-          {
-            whenSignedIn: user => {
-            },
-            whenSignedOut: user => {
-            },
-            whenSignedInAndEmailNotVerified: user => {
-              this.router.navigate(["emailVerification"]);
-              this.getUserProfile();
-            },
-            whenSignedInAndEmailVerified: user => {
-              this.getUserProfile();
-            },
-            whenChanged: user => {
-            }
-          }
-        );
+    this.afAuth.onAuthStateChanged(user => {
+      //var user = firebase.auth().currentUser;
+      if (user) {
+        this.auth.userID = user.uid;
+        this.displayUserName();
+      } else {
+        setInterval(() => {
+          console.log(this.auth.userID);
+        }, 1000)
       }
-    ); */
+
+    });
+
   }
 
-  getUserProfile() {
-    /* this.firestore.listenToDocument(
-      {
-        name: "Getting Document",
-        path: ["Users", this.auth.getAuth().currentUser!.uid],
-        onUpdate: (result) => {
-          this.userDocument = <IUserDocument>result.data();
-          this.userHasProfile = result.exists;
-        }
-      }
-    ); */
+  displayUserName() {
+    this.subscription = this.auth.getUserData().subscribe(user => {
+      this.userName = user.userName;
+    })
+
   }
 
   onLoginClick() {
@@ -66,12 +53,10 @@ export class AppComponent {
   }
 
   onLogoutClick() {
-    this.auth.signOut().then(res => {
-      /* this.firestore.stopListeningToAll();
-      this.user.userName = ""; */
-      this.auth.setLoginState(false);
-      this.router.navigate(["auctions"]);
-    });
+    this.auth.signOut();
+    this.subscription.unsubscribe();
+    this.userName = '';
+    this.router.navigate(["auctions"]);
   }
 
   loggedIn() {
