@@ -23,21 +23,14 @@ export class AppComponent {
   constructor(private dialog: MatDialog,
     private router: Router,
     public auth: AuthService,
-    private afAuth: AngularFireAuth,
   ) {
 
-    this.afAuth.onAuthStateChanged(user => {
-      //var user = firebase.auth().currentUser;
-      if (user) {
-        this.auth.userID = user.uid;
+    this.auth.initialize().subscribe(val => {
+      if(val){
+        console.log(val);
         this.displayUserName();
-      } else {
-        setInterval(() => {
-          console.log(this.auth.userID);
-        }, 1000)
       }
-
-    });
+    })
 
   }
 
@@ -53,10 +46,10 @@ export class AppComponent {
   }
 
   onLogoutClick() {
+    this.router.navigate(["auctions"]);
     this.auth.signOut();
     this.subscription.unsubscribe();
     this.userName = '';
-    this.router.navigate(["auctions"]);
   }
 
   loggedIn() {

@@ -1,78 +1,60 @@
 <div class="container">
-    <div class="card">
+    <div class="title">Mes informations</div>
 
-        <div class="card-header text-white bg-info">
-            Test
+    <form novalidate (ngSubmit)="updateUserName()" [formGroup]="profileForm">
+
+        <img [src]="imgURL">
+
+        <div class="">
+            <app-file-upload (imageEvent)="receiveURL($event)" formControlName="profileImage"></app-file-upload>
         </div>
 
-        <div class="card-body">
+        <div class="user-details">
 
-            <img src={{img}}>
+            <div class="input-box">
+                <label for="profileUserNameId" class="details"> Nom d'utilisateur </label>
+                <input id="profileUserNameId" type="text" class="form-control" formControlName="profileUserName"
+                    required>
+                <span class="text-danger"
+                    *ngIf="profileForm.get('profileUserName').hasError('required') && profileForm.get('profileUserName').touched">Nom
+                    d'utilisateur requis</span>
+            </div>
 
-            <form novalidate (ngSubmit)="updateUserName()" [formGroup]="profileForm">
+            <div class="input-box">
+                <label for="profileLastNameId" class="details"> Nom </label>
+                <input id="profileLastNameId" type="text" class="form-control" formControlName="profileLastName">
+            </div>
 
-                <div class="form-group row mb-2">
-                    <app-file-upload formControlName="profileImage"></app-file-upload>
-                </div>
+            <div class="input-box">
+                <label for="profileFirstNameId" class="details"> Prénom </label>
+                <input id="profileFirstNameId" type="text" class="form-control" formControlName="profileFirstName">
+            </div>
 
-                <div class="form-group row mb-2">
-                    <label for="profileSurnameId" class="col-md-2 col-form-label"> Nom </label>
-                    <div class="col-md-8">
-                        <input id="profileSurnameId" type="text" class="form-control" formControlName="profileSurname">
-                    </div>
-                </div>
+            <div class="input-box">
+                <label for="profileEmail" class="details"> Email </label>
+                <input id="profileEmail" type="text" class="form-control" formControlName="profileEmail">
+            </div>
 
-                <div class="form-group row mb-2">
-                    <label for="profileNameId" class="col-md-2 col-form-label"> Prénom </label>
-                    <div class="col-md-8">
-                        <input id="profileNameId" type="text" class="form-control" formControlName="profileName">
-                    </div>
-                </div>
+            <div class="input-box">
+                <label for="profileAddress" class="details"> Adresse </label>
+                <input id="profileAddress" type="text" class="form-control" formControlName="profileAddress">
+            </div>
 
-                <div class="form-group row mb-2">
-                    <label for="profileUserNameId" class="col-md-2 col-form-label"> Nom d'utilisateur </label>
-                    <div class="col-md-8">
-                        <input id="profileUserNameId" type="text" class="form-control" formControlName="profileUserName"
-                            required>
-                        <span class="text-danger"
-                            *ngIf="profileForm.get('profileUserName').hasError('required') && profileForm.get('profileUserName').touched">Nom
-                            d'utilisateur requis</span>
-                    </div>
-                </div>
+            <div class="input-box">
+                <label for="profilePhoneNumberId" class="details"> Numéro de téléphone </label>
+                <input id="profilePhoneNumberId" type="number" class="form-control"
+                    formControlName="profilePhoneNumber">
+            </div>
 
-                <div class="form-group row mb-2">
-                    <label for="profileEmail" class="col-md-2 col-form-label"> Email </label>
-                    <div class="col-md-8">
-                        <input id="profileEmail" type="text" class="form-control" formControlName="profileEmail">
-                    </div>
-                </div>
+            <div class="text-center">
+                <button class="btn" type="submit">
+                    Enregistrer les paramètres
+                </button>
+            </div>
 
-                <div class="form-group row mb-2">
-                    <label for="profileAddress" class="col-md-2 col-form-label"> Adresse </label>
-                    <div class="col-md-8">
-                        <input id="profileAddress" type="text" class="form-control" formControlName="profileAddress">
-                    </div>
-                </div>
-
-                <div class="form-group row mb-2">
-                    <label for="profilePhoneNumberId" class="col-md-2 col-form-label"> Numéro de téléphone </label>
-                    <div class="col-md-8">
-                        <input id="profilePhoneNumberId" type="text" class="form-control"
-                            formControlName="profilePhoneNumber">
-                    </div>
-                </div>
-
-                <div class="form-group row mb-2">
-                    <div class="offset-md-2 col-md-4">
-                        <button class="btn btn-info mr-3" type="submit">
-                            Enregistrer les parametres
-                        </button>
-                    </div>
-                </div>
-            </form>
         </div>
+    </form>
 
-    </div>
 </div>
 
 <pre>

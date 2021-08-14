@@ -14,7 +14,6 @@ export class AuthService {
   isLoggedIn = false;
   userID;
   userData: Observable<IUser>;
-  unsubscribe;
 
   constructor(public firebaseAuth: AngularFireAuth, public afs: AngularFirestore, public storage: AngularFireStorage) { }
 
@@ -39,8 +38,8 @@ export class AuthService {
           userName,
           email,
           uid: result.user.uid,
-          surname: '',
-          name: '',
+          lastName: '',
+          firstName: '',
           address: '',
           phoneNumber: '',
           imageProfile: 'users/' + result.user.uid + '/profile.jpg'
@@ -96,14 +95,14 @@ export class AuthService {
     return this.afs.collection<IUser>('users').doc(this.userID).valueChanges();
   }
 
-  getUserImage(path: string) {
-    return this.storage.ref(path).getDownloadURL();
+  getUserImage() {
+    return this.storage.ref('users/' + this.userID + '/profile.jpg').getDownloadURL().toPromise();
   }
 
-  updateDocument(surname: string, name: string, userName: string, address: string, phoneNumber: string) {
+  updateDocument(lastName: string, firstName: string, userName: string, address: string, phoneNumber: string) {
     this.afs.collection<IUser>('users').doc(this.userID).update({
-      surname: surname,
-      name: name,
+      lastName: lastName,
+      firstName: firstName,
       userName: userName,
       address: address,
       phoneNumber: phoneNumber
@@ -122,6 +121,19 @@ export class AuthService {
     }).catch(err => {
       console.log(err);
     })
+  }
+
+  initialize(): Observable<boolean> {
+    return new Observable(observer => {
+      console.log("Observable Initialized");
+      this.firebaseAuth.onAuthStateChanged((user) => {
+        if (user) {
+          console.log(user.uid);
+          this.userID = user.uid;
+          observer.next(!!user)
+        }
+      });
+    });
   }
 
 }

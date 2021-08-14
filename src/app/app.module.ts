@@ -26,6 +26,7 @@ import { MatCardModule } from '@angular/material/card';
 import { EmailVerificationComponent } from './accounts/email-verification/email-verification.component';
 import { ProfileSettingComponent } from './accounts/profile-setting/profile-setting.component';
 import { FileUploadComponent } from './accounts/file-upload/file-upload.component';
+import { CarCreateComponent } from './cars/car-create/car-create.component';
 
 
 
@@ -42,6 +43,7 @@ registerLocaleData(localeFr, 'fr');
     EmailVerificationComponent,
     ProfileSettingComponent,
     FileUploadComponent,
+    CarCreateComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur

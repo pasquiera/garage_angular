@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { IUser } from 'src/app/user';
 
+
 @Component({
   selector: 'app-profile-setting',
   templateUrl: './profile-setting.component.html',
@@ -13,7 +14,8 @@ export class ProfileSettingComponent implements OnInit {
   public profileForm: FormGroup;
 
   user: IUser;
-  img: string;
+  imgURL: string;
+  subscription;
 
   constructor(private fb: FormBuilder, public auth: AuthService) {
   }
@@ -21,8 +23,8 @@ export class ProfileSettingComponent implements OnInit {
   ngOnInit(): void {
     this.profileForm = this.fb.group({
       profileImage: [null],
-      profileSurname: [''],
-      profileName: [''],
+      profileLastName: [''],
+      profileFirstName: [''],
       profileUserName: ['', [Validators.required]],
       profileEmail: [''],
       profileAddress: [''],
@@ -30,24 +32,26 @@ export class ProfileSettingComponent implements OnInit {
     });
 
     this.getUserInfo();
+    this.getUserImage();
 
   }
 
   updateUserName(): void {
     if (this.profileForm.valid) {
       let image = this.profileForm.get('profileImage').value;
-      let surname = this.profileForm.get('profileSurname').value;
-      let name = this.profileForm.get('profileName').value;
+      let lastName = this.profileForm.get('profileLastName').value;
+      let firstName = this.profileForm.get('profileFirstName').value;
       let userName = this.profileForm.get('profileUserName').value;
       let address = this.profileForm.get('profileAddress').value;
       let phoneNumber = this.profileForm.get('profilePhoneNumber').value;
 
-      this.auth.updateDocument(surname, name, userName, address, phoneNumber);
+      this.auth.updateDocument(lastName, firstName, userName, address, phoneNumber);
 
       if (image != null) {
         this.auth.uploadImage(image);
       }
 
+      // avoid image reupload for each submit
       this.profileForm.reset();
 
     }
@@ -55,22 +59,33 @@ export class ProfileSettingComponent implements OnInit {
 
   getUserInfo(): void {
 
-    this.auth.getUserData().subscribe(val => {
+    this.subscription = this.auth.getUserData().subscribe(val => {
 
       this.profileForm.patchValue({
-        profileSurname: val.surname,
-        profileName: val.name,
+        profileLastName: val.lastName,
+        profileFirstName: val.firstName,
         profileUserName: val.userName,
         profileAddress: val.address,
         profilePhoneNumber: val.phoneNumber
       })
 
-      this.auth.getUserImage(val.imageProfile).subscribe(val => {
-        this.img = val;
-
-      })
     })
+  }
 
+  getUserImage(): void {
+    this.auth.getUserImage().then(val => {
+      this.imgURL = val;
+    })
+  }
+
+
+  receiveURL($event) {
+    this.imgURL = $event;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    console.log("done");
   }
 
 }
