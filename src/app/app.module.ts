@@ -39,11 +39,11 @@ registerLocaleData(localeFr, 'fr');
     CarListComponent,
     CountDownComponent,
     CarDetailComponent,
+    CarCreateComponent,
     AuthenticatorComponent,
     EmailVerificationComponent,
     ProfileSettingComponent,
     FileUploadComponent,
-    CarCreateComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur
@@ -55,6 +55,7 @@ registerLocaleData(localeFr, 'fr');
       { path: 'auctions', component: CarListComponent },
       { path: '', redirectTo: 'auctions', pathMatch: 'full' },
       { path: 'settings', component: ProfileSettingComponent},
+      { path: 'create', component: CarCreateComponent},
       { path: "emailVerification", component: EmailVerificationComponent },
       { path: 'car/:id', component: CarDetailComponent },
       { path: '**', redirectTo: 'auctions', pathMatch: 'full' },

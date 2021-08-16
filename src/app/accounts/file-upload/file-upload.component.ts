@@ -17,14 +17,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class FileUploadComponent implements OnInit, ControlValueAccessor {
 
   onChange: Function;
-  file: File | null = null;
   imageURL: string;
   @Output() imageEvent = new EventEmitter<string>();
 
   @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
     const file = event.item(0);
     this.onChange(file);
-    this.file = file;
 
     // image preview
     const reader = new FileReader();
@@ -46,7 +44,6 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
     // called when the formControl is instantiated
     // when the formControl value changes (patch)
     this.host.nativeElement.value = '';
-    this.file = null;
   }
 
   registerOnChange(onChange: any): void {

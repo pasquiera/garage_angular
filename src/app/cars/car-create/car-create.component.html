@@ -1,1 +1,14 @@
-<p>car-create works!</p>
+<div class="">
+    <label for="file" class="label-file">Choisir une image</label>
+    <input id="file" class="input-file" type="file" multiple (change)="selectFiles($event)">
+</div>
+
+<div class="">
+    <button (click)="show()">Console</button>
+</div>
+
+
+<div *ngFor="let image of imageURL; let i = index">
+    <img [src]="image" style="width:250px">
+    <button (click)="removeImage(i)">Remove Image</button>
+  </div> 
