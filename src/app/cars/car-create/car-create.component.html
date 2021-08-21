@@ -7,8 +7,29 @@
     <button (click)="show()">Console</button>
 </div>
 
+<div class="container" cdkDropList (cdkDropListDropped)="drop($event)">
 
-<div *ngFor="let image of imageURL; let i = index">
-    <img [src]="image" style="width:250px">
-    <button (click)="removeImage(i)">Remove Image</button>
-  </div> 
+    <div class="file_upload_list" cdkDrag *ngFor="let image of imageName; let i = index">
+        <ul>
+            <li>
+                <div class="file_item">
+                    <div class="icone">
+                        <span class="file_icon material-icons-outlined">
+                            file_present
+                        </span>
+                    </div>
+                    <div class="file_info">
+                        <div class="file_name">
+                            {{image}}
+                        </div>
+                    </div>
+                    <span class="exit_icon material-icons-outlined" (click)="removeImage(i)">
+                        close
+                    </span>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>

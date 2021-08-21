@@ -28,6 +28,7 @@ import { ProfileSettingComponent } from './accounts/profile-setting/profile-sett
 import { FileUploadComponent } from './accounts/file-upload/file-upload.component';
 import { CarCreateComponent } from './cars/car-create/car-create.component';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -66,6 +67,7 @@ registerLocaleData(localeFr, 'fr');
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    DragDropModule,
     AngularFireModule.initializeApp(environment.firebase), // link firebase to the project
   ],
   providers: [],

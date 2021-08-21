@@ -1,4 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-car-create',
@@ -8,6 +9,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class CarCreateComponent implements OnInit {
 
   selectedFiles: FileList;
+  imageName: string[] = [];
   imageURL: string[] = [];
 
   constructor() { }
@@ -32,18 +34,24 @@ export class CarCreateComponent implements OnInit {
 
       // starts reading the contents of the specified Blob
       reader.readAsDataURL(selectedFiles[i]);
+      this.imageName.push(selectedFiles[i].name as string);
     }
 
   }
 
   show() {
     for (let i = 0; i < this.imageURL.length; i++) {
-      console.log(this.imageURL[i]);
+      console.log(this.imageName[i]);
     }
   }
 
-  removeImage(index: number){
-    this.imageURL.splice(index, 1);
+  removeImage(index: number) {
+    this.imageName.splice(index, 1);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.imageName, event.previousIndex, event.currentIndex);
+    //moveItemInArray(this.imageURL, event.previousIndex, event.currentIndex);
   }
 
   ngOnInit(): void {
