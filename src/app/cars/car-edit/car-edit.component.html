@@ -1,0 +1,15 @@
+<form novalidate (ngSubmit)="updateCar()" [formGroup]="carForm">
+
+    <app-upload-box formControlName="carImage" (imageEvent)="receiveName($event)"></app-upload-box>
+
+    <div class="text-center">
+        <button class="btn" type="submit">
+            Enregistrer les paramètres
+        </button>
+    </div>
+
+</form>
+
+<pre>
+    {{ carForm.value | json }}
+</pre>

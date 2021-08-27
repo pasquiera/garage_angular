@@ -56,7 +56,6 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
     // called whenever ths UI is interacted with, like a blur event
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

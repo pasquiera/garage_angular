@@ -44,7 +44,7 @@ export class ProfileSettingComponent implements OnInit {
       let userName = this.profileForm.get('profileUserName').value;
       let address = this.profileForm.get('profileAddress').value;
       let phoneNumber = this.profileForm.get('profilePhoneNumber').value;
-
+      
       this.auth.updateDocument(lastName, firstName, userName, address, phoneNumber);
 
       if (image != null) {

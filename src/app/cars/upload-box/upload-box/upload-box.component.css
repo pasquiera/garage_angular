@@ -80,11 +80,12 @@
 
 .file_item .file_info{
     display:flex;
+    padding-left: 5px;
     align-items: center;
 }
 
 .exit_icon {
-    margin-top: 4px;
+    margin-top: 8px;
     margin-left: auto;
     cursor: pointer;
 }
@@ -93,11 +94,13 @@
     color:grey;
 }
 
-
-.file_item .file_icon {
+.file_item .photo_icon {
     color:  #10ac17;
-    text-align: center;
-    margin-right: 15px;
+    margin-top: -2px;
+}
+
+.file_item .photo_icon:hover {
+    color:  #a2e9a5;
 }
 
 .container::-webkit-scrollbar {
@@ -133,3 +136,4 @@
   .container.cdk-drop-list-dragging .file_upload_list:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
+
