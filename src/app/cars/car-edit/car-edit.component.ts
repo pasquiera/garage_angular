@@ -13,11 +13,12 @@ export class CarEditComponent implements OnInit {
   public carForm: FormGroup;
   imgName: string[];
 
-  constructor(private fb: FormBuilder, public auth: AuthService, public car: CarService) { }
+  constructor(private fb: FormBuilder, public car: CarService) { }
 
   
   ngOnInit(): void {
     this.carForm = this.fb.group({
+      carBrand: [''],
       carImage: [null],
     });
   }
@@ -26,10 +27,11 @@ export class CarEditComponent implements OnInit {
     this.imgName = $event;
   }
 
-  updateCar(){
+  createCar(){
     if (this.carForm.valid) {
+      let brand = this.carForm.get('carBrand').value;
       let image = this.carForm.get('carImage').value;
-      this.car.uploadImage(image, this.imgName);
+      this.car.createCar(brand, image, this.imgName);
     }
   }
 

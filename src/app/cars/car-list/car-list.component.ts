@@ -56,7 +56,7 @@ export class CarListComponent implements OnInit {
         filtre = filtre.toLocaleLowerCase();
 
         const res = this.cars.filter(
-            (car: ICar) => car.name.toLocaleLowerCase().indexOf(filtre) != -1
+            (car: ICar) => car.brand.toLocaleLowerCase().indexOf(filtre) != -1
         );
 
         return res;

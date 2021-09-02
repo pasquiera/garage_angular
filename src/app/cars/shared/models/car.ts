@@ -1,10 +1,18 @@
 export interface ICar {
-    id: number;
+    owner: string
+    id: string;
     type: string;
-    name: string;
+    brand: string;
+    model: string;
     year: number;
-    description: string;
+    mileage: number;
+    fuel: string;
+    gearbox: string;
+    engine: string;
+    hp: number;
+    consumption: number;
     price: number;
+    description: string;
     imageUrls: string[];
     endDate: number;
 
@@ -12,15 +20,24 @@ export interface ICar {
 
 export class Car implements ICar {
     constructor(
-        public id: number,
+
+        public owner: string,
+        public id: string,
         public type: string,
-        public name: string,
+        public brand: string,
+        public model: string,
         public year: number,
-        public description: string,
+        public mileage: number,
+        public fuel: string,
+        public gearbox: string,
+        public engine: string,
+        public hp: number,
+        public consumption: number,
         public price: number,
+        public description: string,
         public imageUrls: string[],
         public endDate: number,
 
-    ) {}
+    ) { }
 
 }

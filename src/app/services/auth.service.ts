@@ -62,6 +62,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
     return userRef.set(user, {
+      // update fields in the document or create it if it doesn't exists
       merge: true
     })
   }

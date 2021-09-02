@@ -1,5 +1,5 @@
 <div class="container">
-    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="carousel" class="carousel" data-bs-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item" *ngFor="let image of data.imageURL; let i = index"
                 [ngClass]="{'active': i == data.index }">

@@ -1,0 +1,10 @@
+.carousel {
+    height: 500px;
+    width: 900px;
+}
+
+.carousel-inner {
+    width: 100%;
+    height: 100%;
+  }
+ 

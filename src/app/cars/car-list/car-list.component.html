@@ -23,7 +23,7 @@
           <span class="badge alert-success badge-pill badge-info" style="margin-right: 10px" *ngIf="car.year > 1998">
             Nouveau </span>
           <h5 class="card-title" style="display: inline-block">
-            <a [routerLink]="['/car', car.id]"> {{ car.name }} </a>
+            <a [routerLink]="['/car', car.id]"> {{ car.brand }} </a>
           </h5>
 
           <div class="row" style="padding-bottom: 15px;">
@@ -48,7 +48,7 @@
               <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
                 [ngClass]="{'active': i == 0 }">
                 <a [routerLink]="['/car', car.id]">
-                  <img [src]="image" [title]="car.name | uppercase" class="card-img-top" [alt]="car.name" />
+                  <img [src]="image" [title]="car.brand | uppercase" class="card-img-top" [alt]="car.brand" />
                 </a>
               </div>
 
