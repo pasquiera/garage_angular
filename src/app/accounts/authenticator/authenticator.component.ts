@@ -86,6 +86,15 @@ export class AuthenticatorComponent implements OnInit {
     return text == comparedWith;
   }
 
+  signUpClick() {
+    document.getElementById('container').classList.add('right-panel-active');
+  }
+
+  signInClick() {
+    document.getElementById('container').classList.remove('right-panel-active');
+    this.onLoginClick();
+  }
+
   onForgotPasswordClick() {
     this.state = AuthenticatorCompState.FORGOT_PASSWORD;
   }
@@ -108,17 +117,6 @@ export class AuthenticatorComponent implements OnInit {
 
   isForgotPasswordState() {
     return this.state == AuthenticatorCompState.FORGOT_PASSWORD;
-  }
-
-  getStateText() {
-    switch (this.state) {
-      case AuthenticatorCompState.LOGIN:
-        return "Connexion";
-      case AuthenticatorCompState.REGISTER:
-        return "Créer un Compte";
-      case AuthenticatorCompState.FORGOT_PASSWORD:
-        return "Mot de Passe Oublié";
-    }
   }
 
 }

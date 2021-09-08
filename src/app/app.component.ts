@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { AuthenticatorComponent } from './accounts/authenticator/authenticator.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, RouterOutlet } from '@angular/router';
@@ -26,7 +27,7 @@ export class AppComponent {
   ) {
 
     this.auth.initialize().subscribe(val => {
-      if(val){
+      if (val) {
         console.log(val);
         this.displayUserName();
       }
@@ -42,7 +43,11 @@ export class AppComponent {
   }
 
   onLoginClick() {
-    this.dialog.open(AuthenticatorComponent)
+    this.dialog.open(AuthenticatorComponent, {
+      // NoopScrollStrategy: does nothing
+      scrollStrategy: new NoopScrollStrategy(),
+      panelClass: 'custom-modalbox'
+    })
   }
 
   onLogoutClick() {

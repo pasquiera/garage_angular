@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CarService } from 'src/app/services/car.service';
 import { ICar } from '../shared/models/car';
 import { CarListService } from '../shared/services/car-list.service';
 
@@ -19,9 +20,18 @@ export class CarListComponent implements OnInit {
     public cars: ICar[] = [];
 
 
-    constructor(private carListService: CarListService) { }
+    constructor(private carListService: CarListService, public car: CarService) { }
 
     ngOnInit(): void {
+
+        this.car.getAllCar().subscribe(querySnapshot => {
+            // QuerySnapshot contains the results of a query
+            querySnapshot.docs.forEach(doc => {
+                console.log(doc.data());
+                console.log(doc.get("brand"));
+          });
+        });
+          
         this.carListService.getCars().subscribe({
             next: cars => {
                 this.cars = cars; // asynchrone, on reçoit d'abord toutes les valeurs

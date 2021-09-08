@@ -1,4 +1,66 @@
-<div id="authenticator">
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="#">
+            <h1>Inscription</h1>
+            <input #registerName type="text" placeholder="Nom d'utilisateur" />
+            <input #registerEmail type="email" placeholder="Email" />
+            <input #registerPassword type="password" placeholder="Mot de passe" />
+            <input #registerConfirmPassword type="password" placeholder="Confirmer mot de passe" />
+            <button (click)="onRegisterClick(
+                registerName,
+                registerEmail,
+                registerPassword,
+                registerConfirmPassword
+            )">Créer</button>
+        </form>
+    </div>
+
+    <div  *ngIf="isLoginState()">
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Connexion</h1>
+                <input #loginEmail type="email" placeholder="Email" />
+                <input #loginPassword type="password" placeholder="Mot de passe" />
+                <span (click)="onForgotPasswordClick()">Mot de passe oublié?</span>
+                <button (click)="onLogin(loginEmail, loginPassword)">Connexion</button>
+            </form>
+        </div>
+    </div>
+
+    <div *ngIf="isForgotPasswordState()">
+        <div class="form-container forgot-password-container">
+            <form action="#">
+                <h1>Réinitialiser</h1>
+                <input #resetEmail placeholder="Email">
+                <span (click)="onLoginClick()">Connexion</span>
+                <button (click)="onResetClick(resetEmail)">Réinitialiser</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="overlay-container">
+        <div class="overlay">
+
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn" (click)="signInClick()">Connexion</button>
+            </div>
+
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp" (click)="signUpClick()">Créer un compte</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- <div id="authenticator">
     <mat-card id="authenticator-content" class="mat-elevation-z0">
         <mat-card-header>
             <mat-card-title>{{getStateText()}}</mat-card-title>
@@ -44,4 +106,4 @@
             <button *ngIf="!isRegisterState()" mat-flat-button (click)="onCreateAccountClick()">Créer un Compte</button>
         </mat-card-actions>
     </mat-card>
-</div>
+</div> -->

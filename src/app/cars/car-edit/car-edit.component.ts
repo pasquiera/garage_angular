@@ -18,6 +18,7 @@ export class CarEditComponent implements OnInit {
   
   ngOnInit(): void {
     this.carForm = this.fb.group({
+      carType: [null],
       carBrand: [''],
       carImage: [null],
     });
@@ -29,9 +30,10 @@ export class CarEditComponent implements OnInit {
 
   createCar(){
     if (this.carForm.valid) {
+      let type = this.carForm.get('carType').value;
       let brand = this.carForm.get('carBrand').value;
       let image = this.carForm.get('carImage').value;
-      this.car.createCar(brand, image, this.imgName);
+      this.car.createCar(type, brand, image, this.imgName);
     }
   }
 

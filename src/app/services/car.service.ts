@@ -10,7 +10,7 @@ export class CarService {
 
   constructor(public afs: AngularFirestore, public storage: AngularFireStorage, public auth: AuthService) { }
 
-  createCar(name: string, image: File[], imageUrls: string[]) {
+  createCar(type: string, name: string, image: File[], imageUrls: string[]) {
 
     const carRef: AngularFirestoreCollection<any> = this.afs.collection(`cars`);
 
@@ -18,7 +18,7 @@ export class CarService {
 
       owner: null,
       id: null,
-      type: "auto",
+      type: type,
       brand: name,
       model: null,
       year: 1998,
@@ -29,9 +29,9 @@ export class CarService {
       hp: null,
       consumption: null,
       price: null,
-      description: null,
+      description: "new car test",
       imageUrls: imageUrls,
-      endDate: null,
+      endDate: 1633907525000,
 
     }).then(docRef => {
 
@@ -50,6 +50,10 @@ export class CarService {
         console.log(err);
       }));
 
+  }
+
+  getAllCar() {
+    return this.afs.collection("cars").get();
   }
 
 }

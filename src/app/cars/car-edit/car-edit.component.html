@@ -1,35 +1,24 @@
 <form novalidate (ngSubmit)="createCar()" [formGroup]="carForm">
 
+    <div>
+        <input type="radio" formControlName="carType" value="auto" checked>
+        <label class="form-check-label" for="carTypeAuto">Auto</label>
+    </div>
 
-            <div class="input-box">
-                <input id="carBrandId" type="text" autocomplete="off" class="form-control" formControlName="carBrand">
-                <label for="carBrandId" class="label-name">
-                    <span class="details">
-                        Marque
-                    </span>
-                </label>
-            </div>
-
-            <div class="input-box">
-                <input id="carBrandId" type="text" autocomplete="off" class="form-control" formControlName="carBrand">
-                <label for="carBrandId" class="label-name">
-                    <span class="details">
-                        Marque
-                    </span>
-                </label>
-            </div>
-
-            <div class="input-box">
-                <input id="carBrandId" type="text" autocomplete="off" class="form-control" formControlName="carBrand">
-                <label for="carBrandId" class="label-name">
-                    <span class="details">
-                        Marque
-                    </span>
-                </label>
-            </div>
+    <div>
+        <input type="radio" formControlName="carType" value="moto">
+        <label class="form-check-label" for="carTypeMoto">Moto</label>
+    </div>
 
 
-
+    <div class="input-box">
+        <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand">
+        <label for="carBrandId" class="label-name">
+            <span class="details">
+                Marque
+            </span>
+        </label>
+    </div>
 
     <app-upload-box formControlName="carImage" (imageEvent)="receiveName($event)"></app-upload-box>
 

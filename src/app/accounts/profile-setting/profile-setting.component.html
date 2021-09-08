@@ -1,5 +1,4 @@
 <div class="container">
-    <div class="title">Mes informations</div>
 
     <form novalidate (ngSubmit)="updateUserName()" [formGroup]="profileForm">
 
@@ -11,48 +10,49 @@
 
         <div class="user-details">
 
-            <div class="input-box">
+            <div class="input-data">
+                <input id="profileUserNameId" type="text" class="" formControlName="profileUserName" autocomplete="off" required>
+                <div class="underline"></div>
                 <label for="profileUserNameId" class="details"> Nom d'utilisateur </label>
-                <input id="profileUserNameId" type="text" class="form-control" formControlName="profileUserName"
-                    required>
-                <span class="text-danger"
-                    *ngIf="profileForm.get('profileUserName').hasError('required') && profileForm.get('profileUserName').touched">Nom
-                    d'utilisateur requis</span>
             </div>
 
-            <div class="input-box">
+            <div class="input-data">
+                <input id="profileLastNameId" type="text" class="" formControlName="profileLastName" autocomplete="off">
+                <div class="underline"></div>
                 <label for="profileLastNameId" class="details"> Nom </label>
-                <input id="profileLastNameId" type="text" class="form-control" formControlName="profileLastName">
             </div>
 
-            <div class="input-box">
+            <div class="input-data">
+                <input id="profileFirstNameId" type="text" class="" formControlName="profileFirstName" autocomplete="off">
+                <div class="underline"></div>
                 <label for="profileFirstNameId" class="details"> Prénom </label>
-                <input id="profileFirstNameId" type="text" class="form-control" formControlName="profileFirstName">
             </div>
 
-            <div class="input-box">
+            <div class="input-data">
+                <input id="profileEmail" type="text" class="" formControlName="profileEmail" autocomplete="off">
+                <div class="underline"></div>
                 <label for="profileEmail" class="details"> Email </label>
-                <input id="profileEmail" type="text" class="form-control" formControlName="profileEmail">
             </div>
 
-            <div class="input-box">
+            <div class="input-data">
+                <input id="profileAddress" type="text" class="" formControlName="profileAddress" autocomplete="off">
+                <div class="underline"></div>
                 <label for="profileAddress" class="details"> Adresse </label>
-                <input id="profileAddress" type="text" class="form-control" formControlName="profileAddress">
             </div>
 
-            <div class="input-box">
+            <div class="input-data">
+                <input id="profilePhoneNumberId" type="number" class="" formControlName="profilePhoneNumber" autocomplete="off">
+                <div class="underline"></div>
                 <label for="profilePhoneNumberId" class="details"> Numéro de téléphone </label>
-                <input id="profilePhoneNumberId" type="number" class="form-control"
-                    formControlName="profilePhoneNumber">
             </div>
 
-            <div class="text-center">
                 <button class="btn" type="submit">
                     Enregistrer les paramètres
                 </button>
-            </div>
+
 
         </div>
+        
     </form>
 
 </div>

@@ -4,7 +4,7 @@
 </div>
 
 <div class="">
-    <button (click)="show()">Console</button>
+    <button type="button" (click)="show()">Console</button>
 </div>
 
 <div class="container" cdkDropList (cdkDropListDropped)="drop($event)">
@@ -14,7 +14,7 @@
             <li>
                 <div class="file_item">
 
-                    <button mat-icon-button (click)="openDialog(i)">
+                    <button type="button" mat-icon-button (click)="openDialog(i)">
                         <mat-icon class="photo_icon">insert_photo</mat-icon>
                     </button>
 

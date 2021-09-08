@@ -1,5 +1,6 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ElementRef, HostListener, Output, EventEmitter, } from '@angular/core';
 import { CarouselDialogComponent } from '../carousel-dialog/carousel-dialog.component';
@@ -43,7 +44,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
 
     this.onChange(this.selectedFiles);
     this.emitFileName();
-    
+
     event.target.value = '';
 
   }
@@ -108,6 +109,8 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   openDialog(index: number) {
     this.dialog.open(CarouselDialogComponent,
       {
+        // NoopScrollStrategy: does nothing
+        scrollStrategy: new NoopScrollStrategy(),
         data: {
           imageURL: this.imageURL,
           index: index
