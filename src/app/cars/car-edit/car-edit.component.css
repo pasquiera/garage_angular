@@ -1,0 +1,128 @@
+.container{
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+}
+
+.title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background-color: black;
+}
+
+.container .car-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.container .car-details .input-box {
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+}
+
+.input-box input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input-box input:focus,
+.input-box input:valid {
+    border-color: #9b59b6;
+}
+
+.btn {
+    margin-top: 30px;
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    background-color:  black;
+}
+
+.btn:hover{
+    background-color:  rgb(88, 88, 88);
+}
+
+.radio-container {
+    width: 80%;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.radio-container label {
+    position: relative;
+    cursor: pointer;
+    font-weight: bold;
+    padding-right: 32px;
+}
+
+.radio-container label::before {
+    content: "";
+    border: 2px solid #222;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: -8px 20px;
+    margin-left: 0;
+    border-radius: 50%;
+}
+
+.radio-container label::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(34, 34, 34, 0);
+    left: 5px;
+    top: 8px;
+    margin: -8px 20px;
+    margin-left: 0;
+    border-radius: 50%;
+    transition: all 0.4s;
+ }
+
+input[type="radio"]:checked + label::after {
+    background: rgba(34, 34, 34, 1);
+ }
+
+@media (max-width: 584px){
+    .container{
+        max-width: 100%;
+    }
+
+    .container .car-details .input-box {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+}

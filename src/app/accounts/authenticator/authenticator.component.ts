@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-authenticator',
@@ -12,7 +13,10 @@ export class AuthenticatorComponent implements OnInit {
 
   state = AuthenticatorCompState.LOGIN;
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<AuthenticatorComponent>, public auth: AuthService) {
+  constructor(private router: Router,
+    private dialogRef: MatDialogRef<AuthenticatorComponent>,
+    public auth: AuthService,
+    public utility: UtilityService) {
   }
 
   ngOnInit(): void {
@@ -31,10 +35,9 @@ export class AuthenticatorComponent implements OnInit {
 
         if (this.auth.isLoggedIn) {
           this.dialogRef.close();
-
           this.auth.getCurrentUser().then(res => {
             if (res.emailVerified == true) {
-              this.router.navigate(["auctions"]);
+              //this.router.navigate(["auctions"]);
             } else {
               this.router.navigate(["emailVerification"]);
             }

@@ -6,6 +6,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, RouterOutlet } from '@angular/router';
 import { fader } from './route-animations'
 import { AuthService } from './services/auth.service';
+import { UtilityService } from './services/utility.service';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-root',
@@ -24,12 +26,17 @@ export class AppComponent {
   constructor(private dialog: MatDialog,
     private router: Router,
     public auth: AuthService,
+    public utility: UtilityService,
   ) {
 
     this.auth.initialize().subscribe(val => {
       if (val) {
-        console.log(val);
         this.displayUserName();
+        this.auth.getUserImage().then(val => {
+          this.utility.updateData(val);
+        })
+      } else {
+        this.utility.updateData("assets/img/the-interior.jpg");
       }
     })
 
@@ -51,7 +58,7 @@ export class AppComponent {
   }
 
   onLogoutClick() {
-    this.router.navigate(["auctions"]);
+    /* this.router.navigate(["auctions"]); */
     this.auth.signOut();
     this.subscription.unsubscribe();
     this.userName = '';
@@ -65,5 +72,6 @@ export class AppComponent {
     if (outlet.isActivated) return outlet.activatedRoute.snapshot.url
     return '';
   }
+
 
 }

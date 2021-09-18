@@ -126,12 +126,13 @@ export class AuthService {
 
   initialize(): Observable<boolean> {
     return new Observable(observer => {
-      console.log("Observable Initialized");
       this.firebaseAuth.onAuthStateChanged((user) => {
         if (user) {
           console.log(user.uid);
           this.userID = user.uid;
-          observer.next(!!user)
+          observer.next(!!user); //cast variable into true or false
+        } else {
+          observer.next(false);
         }
       });
     });

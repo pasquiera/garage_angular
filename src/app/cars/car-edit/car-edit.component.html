@@ -1,34 +1,96 @@
 <form novalidate (ngSubmit)="createCar()" [formGroup]="carForm">
 
-    <div>
-        <input type="radio" formControlName="carType" value="auto" checked>
-        <label class="form-check-label" for="carTypeAuto">Auto</label>
-    </div>
+    <div class="container">
+        <div class="title">Détails du vehicule</div>
+        <div class="car-details">
 
-    <div>
-        <input type="radio" formControlName="carType" value="moto">
-        <label class="form-check-label" for="carTypeMoto">Moto</label>
-    </div>
+            <div class="radio-container">
+                <input type="radio" formControlName="carType" id="carTypeAuto" value="auto" checked>
+                <label class="form-check-label" for="carTypeAuto">Auto</label>
+                <input type="radio" formControlName="carType" id="carTypeMoto" value="moto">
+                <label class="form-check-label" for="carTypeMoto">Moto</label>
+            </div>
+
+            <div class="input-box">
+                <label for="carBrandId" class="label-name">
+                    <span class="details">
+                        Marque
+                    </span>
+                </label>
+                <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand" required>
+            </div>
+
+            <div class="input-box">
+                <label for="carBrandId" class="label-name">
+                    <span class="details">
+                        Marque
+                    </span>
+                </label>
+                <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand" required>
+            </div>
+
+            <div class="input-box">
+                <label for="carBrandId" class="label-name">
+                    <span class="details">
+                        Marque
+                    </span>
+                </label>
+                <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand" required>
+            </div>
+
+            <div class="input-box">
+                <label for="carBrandId" class="label-name">
+                    <span class="details">
+                        Marque
+                    </span>
+                </label>
+                <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand" required>
+            </div>
+
+            <div class="input-box">
+                <label for="carBrandId" class="label-name">
+                    <span class="details">
+                        Marque
+                    </span>
+                </label>
+                <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand" required>
+            </div>
+
+            <div class="input-box">
+                <label for="carBrandId" class="label-name">
+                    <span class="details">
+                        Marque
+                    </span>
+                </label>
+                <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand" required>
+            </div>
+
+            <div class="input-box">
+                <label for="carBrandId" class="label-name">
+                    <span class="details">
+                        Marque
+                    </span>
+                </label>
+                <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand" required>
+            </div>
+
+        </div>
+
+        <app-upload-box class="upload-box" formControlName="carImage" (imageEvent)="receiveName($event)">
+        </app-upload-box>
 
 
-    <div class="input-box">
-        <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand">
-        <label for="carBrandId" class="label-name">
-            <span class="details">
-                Marque
-            </span>
-        </label>
-    </div>
+        <div class="text-center">
+            <button class="btn" type="submit">
+                Enregistrer les paramètres
+            </button>
+        </div>
 
-    <app-upload-box formControlName="carImage" (imageEvent)="receiveName($event)"></app-upload-box>
-
-    <div class="text-center">
-        <button class="btn" type="submit">
-            Enregistrer les paramètres
-        </button>
     </div>
 
 </form>
+
+
 
 
 
