@@ -28,7 +28,7 @@ export class CarListComponent implements OnInit {
             // QuerySnapshot contains the results of a query
             querySnapshot.docs.forEach(doc => {
                 //console.log(doc.data());
-                //console.log(doc.get("brand"));
+                console.log(doc.get("brand"));
           });
         });
           

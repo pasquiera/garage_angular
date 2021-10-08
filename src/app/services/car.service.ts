@@ -12,7 +12,7 @@ export class CarService {
 
   createCar(type: string, name: string, image: File[], imageUrls: string[]) {
 
-    const carRef: AngularFirestoreCollection<any> = this.afs.collection(`cars`);
+    const carRef: AngularFirestoreCollection<any> = this.afs.collection(`cars`).doc(this.auth.userID).collection(`user-cars`);
 
     carRef.add({
 
@@ -35,7 +35,7 @@ export class CarService {
 
     }).then(docRef => {
 
-      this.afs.doc(`cars/${docRef.id}`).update({ id: docRef.id });
+      this.afs.doc(`cars/${this.auth.userID}/user-cars/${docRef.id}`).update({ id: docRef.id });
       this.uploadImage(image, imageUrls, docRef.id);
 
     });
@@ -52,8 +52,8 @@ export class CarService {
 
   }
 
-  getAllCar() {
-    return this.afs.collection("cars").get();
-  }
+   getAllCar() {
+     return this.afs.collectionGroup("user-cars").get();
+   }
 
 }

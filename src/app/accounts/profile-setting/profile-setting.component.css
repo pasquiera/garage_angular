@@ -56,7 +56,8 @@ form .user-details .input-data{
 }
 
 
-.input-data input:focus ~ label {
+.input-data input:focus ~ label,
+.input-data input:not(:placeholder-shown) ~ label {
     transform: translateY(-20px);
     color: #3498db;
     font-size: 14px;

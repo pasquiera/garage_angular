@@ -91,10 +91,12 @@ export class AuthenticatorComponent implements OnInit {
 
   signUpClick() {
     document.getElementById('container').classList.add('right-panel-active');
+    document.getElementById('container').classList.remove('left-panel-active');
   }
 
   signInClick() {
     document.getElementById('container').classList.remove('right-panel-active');
+    document.getElementById('container').classList.add('left-panel-active');
     this.onLoginClick();
   }
 
