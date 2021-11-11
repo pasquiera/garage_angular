@@ -42,12 +42,12 @@ export class AuthService {
           firstName: '',
           address: '',
           phoneNumber: '',
-          imageProfile: 'users/' + result.user.uid + '/profile.jpg'
+          imageProfile: 'default/default.jpg'
         }
 
         this.sendEmailVerif();
         this.setUserData(newUser);
-        alert("Création du compte");
+        this.setLoginState(true);
 
       }).catch((error) => {
         alert(error.message);
@@ -96,8 +96,8 @@ export class AuthService {
     return this.afs.collection<IUser>('users').doc(this.userID).valueChanges();
   }
 
-  getUserImage() {
-    return this.storage.ref('users/' + this.userID + '/profile.jpg').getDownloadURL().toPromise();
+  getUserImage(path: string) {
+    return this.storage.ref(path).getDownloadURL().toPromise();
   }
 
   updateDocument(lastName: string, firstName: string, userName: string, address: string, phoneNumber: string) {
@@ -136,6 +136,30 @@ export class AuthService {
         }
       });
     });
+  }
+
+  /**
+   * Next functions are use for comment section in car-detail.component
+   */
+
+  getName(id: string) {
+    return this.afs.collection<IUser>('users').doc(id).get().toPromise();
+  }
+
+  getAvatar(id: string) {
+
+    var docRef = this.afs.collection("users").doc(id);
+
+    return docRef.get().toPromise().then((doc) => {
+      if (doc.get("imageProfile") != "default/default.jpg") {
+        return this.storage.ref('users/' + id + '/profile.jpg').getDownloadURL().toPromise();
+      } else {
+        return this.storage.ref('default/default.jpg').getDownloadURL().toPromise()
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+    });
+
   }
 
 }

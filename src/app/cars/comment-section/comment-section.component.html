@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row" style="margin-top: 50px;">
+
+        <div class="commentBox">
+            <div class="avatar">
+                <img src={{avatar}}>
+            </div>
+            <div class="txt">
+                <textarea class="form-control" placeholder="Add Public Comment"></textarea>
+                <button class="sendBtn" (click)="sendComment()">
+                    <span class="material-icons-outlined">
+                        send
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <h2>{{count}} commentaires</h2>
+
+                <div *ngFor="let comment of comments">
+                    <div class="userComment">
+                        <img src={{comment.avatar}}>
+                        <div class="details">
+                            <div class="user">{{comment.userName}}<span class="time">2020-09-13</span></div>
+                            <div class="comment">{{comment.text}}</div>
+                        </div>
+                    </div>
+
+                    <div class="replies">
+                        <div *ngFor="let replie of replies">
+                            <div class="userComment" *ngIf="replie.prev == comment.id">
+
+                                <img src={{replie.avatar}}>
+                                <div class="details">
+                                    <div class="user">{{replie.userName}}<span class="time">2020-09-13</span></div>
+                                    <div class="comment">{{replie.text}}</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <button class="replyBtn" (click)="toggleShow()">
+                            <span>Répondre</span>
+                            <span class="material-icons-outlined">
+                                reply
+                            </span>
+                        </button>
+
+                        <div *ngIf="isShown">
+                            <div class="replyBox">
+                                <div class="txt">
+                                    <textarea class="form-control" placeholder="Add Public Comment"></textarea>
+                                    <button class="sendBtn">
+                                        <span class="material-icons-outlined">
+                                            send
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

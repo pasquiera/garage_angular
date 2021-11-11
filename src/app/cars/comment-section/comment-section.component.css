@@ -1,0 +1,114 @@
+*{
+    font-size: 16px;
+}
+
+.container {
+    background: #fff;
+    width: 100%;
+    max-width: 800px;
+    padding: 25px 40px 10px 40px;
+}
+
+h2 {
+    color: #030303;
+    margin-bottom: 20px;
+}
+
+.details .user {
+    font-weight: bold;
+    font-size: 13px;
+    color: black;
+}
+
+.details .user .time {
+    margin-left: 3px;
+    font-weight: normal;
+    font-size: 12px;
+    color: gray;
+}
+
+.userComment {
+    display: flex;
+    margin-top: 20px;
+}
+
+.userComment .details {
+    margin-left: 15px;
+}
+
+.replies {
+    margin-left: 60px;
+
+}
+
+.container .commentBox {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.commentBox .avatar {
+    margin-right: 10px;
+}
+
+img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.txt {
+    width: 100%;
+}
+
+textarea {
+    height: 20px;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    border-color: rgb(224, 224, 224);
+    background-color: transparent;
+    margin-bottom: 10px;
+    resize: none;
+    outline: none;
+    max-height: 100px;
+}
+
+textarea:focus {
+    border-color: teal;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+
+}
+
+textarea::-webkit-scrollbar {
+    width: 0px;
+}
+
+.sendBtn {
+    float: right;
+    border: none;
+    background: none;
+}
+
+.sendBtn:hover {
+    color: gray;
+}
+
+.replies .replyBtn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background: none;
+    color: rgb(29, 100, 212);
+    font-weight: bold;
+}
+
+.replies .replyBtn:hover {
+    color: rgb(100, 153, 234);
+}
+
+.replyBtn .material-icons-outlined {
+    float: right;
+    margin-left: 3px;
+    padding-top: 3px;
+}

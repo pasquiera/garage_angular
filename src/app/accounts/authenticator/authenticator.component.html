@@ -2,11 +2,29 @@
     <div class="form-container sign-up-container">
         <form action="#">
             <h1>Inscription</h1>
-            <input #registerName type="text" placeholder="Nom d'utilisateur" />
-            <input #registerEmail type="email" placeholder="Email" />
-            <input #registerPassword type="password" placeholder="Mot de passe" />
-            <input #registerConfirmPassword type="password" placeholder="Confirmer mot de passe" />
-            <button (click)="onRegisterClick(
+
+            <div class="form_div">
+                <input #registerName type="text" id="userName" class="form_input" autocomplete="off" required />
+                <label for="userName" class="form_label">Nom d'utilisateur</label>
+            </div>
+
+            <div class="form_div">
+                <input #registerEmail type="email" id="email" class="form_input" autocomplete="off" required />
+                <label for="email" class="form_label">Email</label>
+            </div>
+
+            <div class="form_div">
+                <input #registerPassword type="password" id="password" class="form_input" autocomplete="off" required />
+                <label for="password" class="form_label">Mot de passe</label>
+            </div>
+
+            <div class="form_div">
+                <input #registerConfirmPassword type="password" id="passwordConfirm" class="form_input"
+                    autocomplete="off" required />
+                <label for="passwordConfirm" class="form_label">Confirmer mot de passe</label>
+            </div>
+
+            <button class="confirmBtn" (click)="onRegisterClick(
                 registerName,
                 registerEmail,
                 registerPassword,
@@ -15,14 +33,21 @@
         </form>
     </div>
 
-    <div  *ngIf="isLoginState()">
+    <div *ngIf="isLoginState()">
         <div class="form-container sign-in-container">
             <form action="#">
                 <h1>Connexion</h1>
-                <input #loginEmail type="email" placeholder="Email" />
-                <input #loginPassword type="password" placeholder="Mot de passe" />
+                <div class="form_div">
+                    <input #loginEmail type="email" id="email" class="form_input" autocomplete="off" required />
+                    <label for="email" class="form_label">Email</label>
+                </div>
+                <div class="form_div">
+                    <input #loginPassword type="password" id="password" class="form_input" autocomplete="off"
+                        required />
+                    <label for="password" class="form_label">Mot de passe</label>
+                </div>
                 <span (click)="onForgotPasswordClick()">Mot de passe oublié?</span>
-                <button (click)="onLogin(loginEmail, loginPassword)">Connexion</button>
+                <button class="confirmBtn" (click)="onLogin(loginEmail, loginPassword)">Connexion</button>
             </form>
         </div>
     </div>
@@ -31,9 +56,12 @@
         <div class="form-container forgot-password-container">
             <form action="#">
                 <h1>Réinitialiser</h1>
-                <input #resetEmail placeholder="Email">
+                <div class="form_div">
+                    <input #resetEmail id="email" class="form_input" autocomplete="off" required />
+                    <label for="email" class="form_label">Email</label>
+                </div>
                 <span (click)="onLoginClick()">Connexion</span>
-                <button (click)="onResetClick(resetEmail)">Réinitialiser</button>
+                <button class="confirmBtn" (click)="onResetClick(resetEmail)">Réinitialiser</button>
             </form>
         </div>
     </div>

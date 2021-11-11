@@ -1,13 +1,18 @@
-<div class="">
-    <label for="file" class="label-file">Choisir une image</label>
-    <input id="file" class="input-file" type="file" multiple (change)="selectFiles($event)" accept="image/png, image/jpeg">
-</div>
+<div class="container" (drop)="onDrop($event)" (dragover)="onDragOver($event)" cdkDropList
+    (cdkDropListDropped)="drop($event)">
 
-<div class="">
-    <button type="button" (click)="show()">Console</button>
-</div>
 
-<div class="container" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div class="placeholder" id="placeholder">
+        <span class="material-icons-outlined icon">
+            cloud_upload
+        </span>
+        <span class="header"> Glissez-déposez vos fichiers </span>
+        <span class="header">ou </span>
+        <label for="file" class="label-file">cliquez pour choisir une image</label>
+        <input id="file" class="input-file" type="file" multiple (change)="selectFiles($event)"
+            accept="image/png, image/jpeg">
+        <span class="format">Formats: JPEG, JPG, PNG</span>
+    </div>
 
     <div class="file_upload_list" cdkDrag *ngFor="let image of imageName; let i = index">
         <ul>
@@ -31,6 +36,15 @@
                 </div>
             </li>
         </ul>
+    </div>
+
+</div>
+
+<div class="selectFileBtn">
+    <div class="icon"><span class="material-icons-outlined">add</span></div>
+    <div><label for="file" class="label-file2">Choisir une image</label>
+        <input id="file" class="input-file" type="file" multiple (change)="selectFiles($event)"
+            accept="image/png, image/jpeg">
     </div>
 
 </div>

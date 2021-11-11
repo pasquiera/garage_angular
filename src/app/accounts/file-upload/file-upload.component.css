@@ -1,3 +1,9 @@
+.uploadBtn{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
 .label-file {
     cursor: pointer;
     color: #00b1ca;

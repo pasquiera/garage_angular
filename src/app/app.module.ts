@@ -32,6 +32,8 @@ import { CarEditComponent } from './cars/car-edit/car-edit.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CarouselDialogComponent } from './cars/upload-box/carousel-dialog/carousel-dialog.component';
 import { UploadBoxComponent } from './cars/upload-box/upload-box/upload-box.component';
+import { CommentSectionComponent } from './cars/comment-section/comment-section.component';
+import { ImageCropperComponent } from './accounts/image-cropper/image-cropper.component';
 
 
 
@@ -50,6 +52,8 @@ registerLocaleData(localeFr, 'fr');
     FileUploadComponent,
     CarouselDialogComponent,
     UploadBoxComponent,
+    CommentSectionComponent,
+    ImageCropperComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur

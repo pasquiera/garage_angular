@@ -10,28 +10,29 @@ export class CarService {
 
   constructor(public afs: AngularFirestore, public storage: AngularFireStorage, public auth: AuthService) { }
 
-  createCar(type: string, name: string, image: File[], imageUrls: string[]) {
+  createCar(type: string, brand: string, consumption: string, description: string, engine: string, fuel: string, gearbox: string, hp: string, mileage: string, model: string, price: string, year: string, image: File[], imageUrls: string[]) {
 
     const carRef: AngularFirestoreCollection<any> = this.afs.collection(`cars`).doc(this.auth.userID).collection(`user-cars`);
 
     carRef.add({
 
-      owner: null,
+      owner: this.auth.userID,
       id: null,
       type: type,
-      brand: name,
-      model: null,
-      year: 1998,
-      mileage: null,
-      fuel: null,
-      gearbox: null,
-      engine: null,
-      hp: null,
-      consumption: null,
-      price: null,
-      description: "new car test",
+      brand: brand,
+      model: model,
+      year: year,
+      mileage: mileage,
+      fuel: fuel,
+      gearbox: gearbox,
+      engine: engine,
+      hp: hp,
+      consumption: consumption,
+      price: price,
+      description: description,
       imageUrls: imageUrls,
       endDate: 1633907525000,
+      bid: null,
 
     }).then(docRef => {
 

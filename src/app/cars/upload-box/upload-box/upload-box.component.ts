@@ -28,12 +28,40 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
 
   constructor(private dialog: MatDialog) { }
 
-  async selectFiles(event) {
+  onDrop(event) {
+    //upload for drag and drop
+    event.preventDefault();
+
+    document.getElementById('placeholder').style.display = 'none';
 
     let files: any[] = [];
 
-    Array.from(event.target.files).forEach(file => { files.push(file) });
+    Array.from(event.dataTransfer.files).forEach(file => { files.push(file) });
+    this.loadFile(files);
 
+    event.target.value = '';
+
+  }
+
+  onDragOver(event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  selectFiles(event) {
+    //upload for button click
+    let files: any[] = [];
+
+    document.getElementById('placeholder').style.display = 'none';
+    
+    Array.from(event.target.files).forEach(file => { files.push(file) });
+    this.loadFile(files);
+
+    event.target.value = '';
+
+  }
+
+  async loadFile(files: any) {
     for (let i = 0; i < files.length; i++) {
       await this.readFile(files[i]).then(value => {
         this.imageURL.push(value);
@@ -44,9 +72,6 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
 
     this.onChange(this.selectedFiles);
     this.emitFileName();
-
-    event.target.value = '';
-
   }
 
   writeValue(obj: any): void {
@@ -86,17 +111,16 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
 
   }
 
-  show(): void {
-    for (let i = 0; i < this.imageURL.length; i++) {
-      console.log(this.imageName[i]);
-    }
-  }
-
   removeImage(index: number) {
     this.selectedFiles.splice(index, 1);
     this.imageName.splice(index, 1);
     this.imageURL.splice(index, 1);
     this.emitFileName();
+
+    if (this.selectedFiles.length == 0) {
+      document.getElementById('placeholder').style.display = 'flex';
+    }
+
   }
 
   drop(event: CdkDragDrop<string[]>) {

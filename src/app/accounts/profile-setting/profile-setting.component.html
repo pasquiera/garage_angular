@@ -2,57 +2,61 @@
 
     <form novalidate (ngSubmit)="updateUserName()" [formGroup]="profileForm">
 
-        <img [src]="imgURL">
+        <img class="avatar" [src]="imgURL">
 
-        <div class="">
-            <app-file-upload (imageEvent)="receiveURL($event)" formControlName="profileImage"></app-file-upload>
-        </div>
+        <app-file-upload (imageEvent)="receiveURL($event)" formControlName="profileImage"></app-file-upload>
 
         <div class="user-details">
 
             <div class="input-data">
-                <input id="profileUserNameId" type="text" class="" formControlName="profileUserName" autocomplete="off" placeholder=' ' required>
+                <input id="profileUserNameId" type="text" class="" formControlName="profileUserName" autocomplete="off"
+                    placeholder=' ' required>
                 <div class="underline"></div>
                 <label for="profileUserNameId" class="details"> Nom d'utilisateur </label>
             </div>
 
             <div class="input-data">
-                <input id="profileLastNameId" type="text" class="" formControlName="profileLastName" autocomplete="off" placeholder=' '>
+                <input id="profileLastNameId" type="text" class="" formControlName="profileLastName" autocomplete="off"
+                    placeholder=' '>
                 <div class="underline"></div>
                 <label for="profileLastNameId" class="details"> Nom </label>
             </div>
 
             <div class="input-data">
-                <input id="profileFirstNameId" type="text" class="" formControlName="profileFirstName" autocomplete="off" placeholder=' '>
+                <input id="profileFirstNameId" type="text" class="" formControlName="profileFirstName"
+                    autocomplete="off" placeholder=' '>
                 <div class="underline"></div>
                 <label for="profileFirstNameId" class="details"> Prénom </label>
             </div>
 
             <div class="input-data">
-                <input id="profileEmail" type="text" class="" formControlName="profileEmail" autocomplete="off" placeholder=' '>
+                <input id="profileEmail" type="text" class="" formControlName="profileEmail" autocomplete="off"
+                    placeholder=' '>
                 <div class="underline"></div>
                 <label for="profileEmail" class="details"> Email </label>
             </div>
 
             <div class="input-data">
-                <input id="profileAddress" type="text" class="" formControlName="profileAddress" autocomplete="off" placeholder=' '>
+                <input id="profileAddress" type="text" class="" formControlName="profileAddress" autocomplete="off"
+                    placeholder=' '>
                 <div class="underline"></div>
                 <label for="profileAddress" class="details"> Adresse </label>
             </div>
 
             <div class="input-data">
-                <input id="profilePhoneNumberId" type="number" class="" formControlName="profilePhoneNumber" autocomplete="off" placeholder=' '>
+                <input id="profilePhoneNumberId" type="number" class="" formControlName="profilePhoneNumber"
+                    autocomplete="off" placeholder=' '>
                 <div class="underline"></div>
                 <label for="profilePhoneNumberId" class="details"> Numéro de téléphone </label>
             </div>
 
-                <button class="btn" type="submit">
-                    Enregistrer les paramètres
-                </button>
+            <button class="btn" type="submit">
+                Enregistrer les paramètres
+            </button>
 
 
         </div>
-        
+
     </form>
 
 </div>

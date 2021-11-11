@@ -31,10 +31,16 @@ export class AppComponent {
 
     this.auth.initialize().subscribe(val => {
       if (val) {
-        this.displayUserName();
-        this.auth.getUserImage().then(val => {
-          this.utility.updateData(val);
+
+        this.subscription = this.auth.getUserData().subscribe(user => {
+          this.userName = user.userName;
+
+          this.auth.getUserImage(user.imageProfile).then(val => {
+            this.utility.updateData(val);
+          })
+
         })
+
       } else {
         this.utility.updateData("assets/img/the-interior.jpg");
       }
@@ -42,12 +48,6 @@ export class AppComponent {
 
   }
 
-  displayUserName() {
-    this.subscription = this.auth.getUserData().subscribe(user => {
-      this.userName = user.userName;
-    })
-
-  }
 
   onLoginClick() {
     this.dialog.open(AuthenticatorComponent, {

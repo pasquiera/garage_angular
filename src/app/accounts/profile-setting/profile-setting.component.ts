@@ -32,7 +32,6 @@ export class ProfileSettingComponent implements OnInit {
     });
 
     this.getUserInfo();
-    this.getUserImage();
 
   }
 
@@ -44,7 +43,7 @@ export class ProfileSettingComponent implements OnInit {
       let userName = this.profileForm.get('profileUserName').value;
       let address = this.profileForm.get('profileAddress').value;
       let phoneNumber = this.profileForm.get('profilePhoneNumber').value;
-      
+
       this.auth.updateDocument(lastName, firstName, userName, address, phoneNumber);
 
       if (image != null) {
@@ -69,11 +68,13 @@ export class ProfileSettingComponent implements OnInit {
         profilePhoneNumber: val.phoneNumber
       })
 
+      this.getUserImage(val.imageProfile);
+
     })
   }
 
-  getUserImage(): void {
-    this.auth.getUserImage().then(val => {
+  getUserImage(path: string): void {
+    this.auth.getUserImage(path).then(val => {
       this.imgURL = val;
     })
   }

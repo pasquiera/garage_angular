@@ -1,9 +1,73 @@
 .container{
     max-width: 700px;
-    width: 100%;
+    position: relative;
+}
+
+form .page{
+    margin-top: 50px;
     background: #fff;
-    padding: 25px 30px;
+    padding: 25px 25px;
     border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 700px;
+}
+
+.fieldBtn {
+    position: absolute;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.fieldBtn2 {
+    position: absolute;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-bottom: 130px;
+}
+
+.navBtn {
+    width: 120px;
+    height: 45px;
+    margin: 0 10px;
+    background-color: #ff5c33;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.navBtn:hover {
+    background-color: #ff8566;
+}
+
+#page1{
+    z-index: 3;
+}
+
+#page2{
+    z-index: 2;
+}
+
+#page3{
+    z-index: 1;
+}
+
+.input-box #words{
+    color: rgb(158, 158, 158);
+    float: right;
 }
 
 .title{
@@ -45,6 +109,19 @@
     transition: all 0.3s ease;
 }
 
+.input-box textarea {
+    min-height: 200px;
+    height: auto;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    resize: none;
+}
+
 .input-box input:focus,
 .input-box input:valid {
     border-color: #9b59b6;
@@ -83,6 +160,7 @@ input[type="radio"] {
     cursor: pointer;
     font-weight: bold;
     padding-right: 32px;
+
 }
 
 .radio-container label::before {
@@ -94,14 +172,15 @@ input[type="radio"] {
     margin: -8px 20px;
     margin-left: 0;
     border-radius: 50%;
+
 }
 
 .radio-container label::after {
     content: "";
     display: inline-block;
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 20.5px;
+    height: 21px;
     background: rgba(34, 34, 34, 0);
     left: 5px;
     top: 8px;
@@ -115,6 +194,74 @@ input[type="radio"]:checked + label::after {
     background: rgba(34, 34, 34, 1);
  }
 
+.stepProgressBar{
+    display: flex;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    justify-content: space-around;
+    align-items: flex-end;
+ }
+
+ .stepProgressBar .step{
+     position: relative;
+ }
+
+ .stepProgressBar .step .bullet{
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 3px;
+    padding-left: 8px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    display: inline-block;
+    position: relative;
+    transition: background-color 500ms;
+    line-height: 20px;
+ }
+
+ .bullet.uncompleted{
+    color: #000;
+    background-color: #fff;
+    z-index: 1; 
+ }
+
+ .bullet.uncompleted::after{
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 54px;
+    background-color: #000;
+    right: -63px;
+    bottom: 12px;
+ }
+
+.stepProgressBar .step:last-child .bullet.uncompleted::after{
+   display: none;
+}
+
+.stepProgressBar .step .bullet.uncompleted::after{
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 0.3s linear forwards;
+}
+
+.stepProgressBar .step .icon{
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    color: #000;
+ }
+
+@keyframes animate {
+    100%{
+        transform: scaleX(1);
+    }
+}
+
 @media (max-width: 584px){
     .container{
         max-width: 100%;
@@ -123,6 +270,14 @@ input[type="radio"]:checked + label::after {
     .container .car-details .input-box {
         margin-bottom: 15px;
         width: 100%;
+    }
+
+    .fieldBtn {
+        margin-bottom: -410px;
+    }
+
+    .radio-container label{
+        margin-bottom: 10px;
     }
 
 }

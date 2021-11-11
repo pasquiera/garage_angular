@@ -22,6 +22,7 @@ export class AuthenticatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
   onLogin(
     loginEmail: HTMLInputElement,
     loginPassword: HTMLInputElement
@@ -33,16 +34,7 @@ export class AuthenticatorComponent implements OnInit {
 
       this.auth.signIn(email, password).then(res => { //make a callback function isEmailVerified
 
-        if (this.auth.isLoggedIn) {
-          this.dialogRef.close();
-          this.auth.getCurrentUser().then(res => {
-            if (res.emailVerified == true) {
-              //this.router.navigate(["auctions"]);
-            } else {
-              this.router.navigate(["emailVerification"]);
-            }
-          })
-        }
+        this.checkVerif();
 
       });
 
@@ -69,7 +61,23 @@ export class AuthenticatorComponent implements OnInit {
     ) {
 
       this.auth.SignUp(name, email, password).then(res => {
-        this.dialogRef.close();
+
+        this.checkVerif();
+
+      })
+    }
+  }
+
+
+  checkVerif(): void {
+    if (this.auth.isLoggedIn) {
+      this.dialogRef.close();
+      this.auth.getCurrentUser().then(res => {
+        if (res.emailVerified == true) {
+          //this.router.navigate(["auctions"]);
+        } else {
+          this.router.navigate(["emailVerification"]);
+        }
       })
     }
   }

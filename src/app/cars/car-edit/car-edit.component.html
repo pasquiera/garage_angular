@@ -1,42 +1,206 @@
-<form novalidate (ngSubmit)="createCar()" [formGroup]="carForm">
+<div class="container">
 
-    <div class="container">
-        <div class="title">Détails du vehicule</div>
-        <div class="car-details">
+    <div class="stepProgressBar">
 
-            <div class="radio-container">
-                <input type="radio" formControlName="carType" id="carTypeAuto" value="auto" checked>
-                <label class="form-check-label" for="carTypeAuto">Auto</label>
-                <input type="radio" formControlName="carType" id="carTypeMoto" value="moto">
-                <label class="form-check-label" for="carTypeMoto">Moto</label>
-            </div>
-
-            <div class="input-box">
-                <label for="carBrandId" class="label-name">
-                    <span class="details">
-                        Marque
-                    </span>
-                </label>
-                <input id="carBrandId" type="text" autocomplete="off" class="" formControlName="carBrand" required>
-            </div>
-
+        <div class="step">
+            <div class="bullet uncompleted" id="uncompleted">1</div>
+            <span class="material-icons-outlined icon" id="icon">
+                done
+            </span>
         </div>
 
-        <app-upload-box class="upload-box" formControlName="carImage" (imageEvent)="receiveName($event)">
-        </app-upload-box>
+        <div class="step">
+            <div class="bullet uncompleted" id="uncompleted2">2</div>
+            <span class="material-icons-outlined icon" id="icon2">
+                done
+            </span>
+        </div>
 
-
-        <div class="text-center">
-            <button class="btn" type="submit">
-                Enregistrer les paramètres
-            </button>
+        <div class="step">
+            <div class="bullet uncompleted" id="uncompleted3">3</div>
+            <span class="material-icons-outlined icon" id="icon3">
+                done
+            </span>
         </div>
 
     </div>
 
-</form>
+    <form novalidate (ngSubmit)="createCar()" [formGroup]="carForm">
+
+        <div class="page" id="page1">
+
+            <div class="title">Détails du vehicule</div>
+
+            <div class="car-details">
+
+                <div class="radio-container">
+                    <input type="radio" formControlName="carType" id="carTypeAuto" value="auto" checked>
+                    <label class="form-check-label" for="carTypeAuto">Auto</label>
+                    <input type="radio" formControlName="carType" id="carTypeMoto" value="moto">
+                    <label class="form-check-label" for="carTypeMoto">Moto</label>
+                </div>
+
+                <div class="input-box">
+                    <label for="brandId" class="label-name">
+                        <span class="details">
+                            Marque
+                        </span>
+                    </label>
+                    <input id="brandId" type="text" autocomplete="off" class="" formControlName="brand"
+                        placeholder="Marque du véhicule" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="modelId" class="label-name">
+                        <span class="details">
+                            Modèle
+                        </span>
+                    </label>
+                    <input id="modelId" type="text" autocomplete="off" class="" formControlName="model"
+                        placeholder="Modèle du véhicule" required>
+                </div>
 
 
+                <div class="input-box">
+                    <label for="yearId" class="label-name">
+                        <span class="details">
+                            Année
+                        </span>
+                    </label>
+                    <input id="yearId" type="number" autocomplete="off" class="" formControlName="year"
+                        placeholder="Année" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="mileageId" class="label-name">
+                        <span class="details">
+                            Kilométrage
+                        </span>
+                    </label>
+                    <input id="mileageId" type="number" autocomplete="off" class="" formControlName="mileage"
+                        placeholder="Kilométrage (km)" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="engineId" class="label-name">
+                        <span class="details">
+                            Moteur
+                        </span>
+                    </label>
+                    <input id="engineId" type="text" autocomplete="off" class="" formControlName="engine"
+                        placeholder="Ex. 4 cylindres" required>
+                </div>
+
+                <div class="input-box">
+                    <label for="hpId" class="label-name">
+                        <span class="details">
+                            Puissance
+                        </span>
+                    </label>
+                    <input id="hpId" type="number" autocomplete="off" class="" formControlName="hp"
+                        placeholder="Puissance du moteur (ch)" required>
+                </div>
+
+                <span style="width: 100%;">
+                    Energie
+                </span>
+
+                <div class="radio-container" style="margin-top: 15px; margin-bottom: 20px;">
+                    <input type="radio" formControlName="fuel" id="gasType" value="gas" checked>
+                    <label class="form-check-label" for="gasType">Essence</label>
+                    <input type="radio" formControlName="fuel" id="dieselType" value="diesel">
+                    <label class="form-check-label" for="dieselType">Diesel</label>
+                    <input type="radio" formControlName="fuel" id="eletric" value="eletric">
+                    <label class="form-check-label" for="eletric">Electrique</label>
+                </div>
+
+                <div class="input-box">
+                    <label for="consumptionId" class="label-name">
+                        <span class="details">
+                            Consommation
+                        </span>
+                    </label>
+                    <input id="consumptionId" type="text" autocomplete="off" class="" formControlName="consumption"
+                        placeholder="Consommation (l/100km)" required>
+                </div>
+
+                <div class="input-box"></div>
+
+                <span style="width: 100%;">
+                    Boite de vitesse
+                </span>
+
+                <div class="radio-container" style="margin-top: 15px; margin-bottom: 20px;">
+                    <input type="radio" formControlName="gearbox" id="automaticType" value="automatic" checked>
+                    <label class="form-check-label" for="automaticType">Automatique</label>
+                    <input type="radio" formControlName="gearbox" id="manualType" value="manual">
+                    <label class="form-check-label" for="manualType">Manuelle</label>
+                </div>
+
+            </div>
+
+            <div class="fieldBtn">
+                <button type="button" class="navBtn" (click)="next1Click()">Suivant</button>
+            </div>
+
+        </div>
+
+        <div class="page" id="page2">
+
+            <div class="title">Informations additionnelles</div>
+
+            <div class="car-details">
+
+                <div class="input-box">
+                    <label for="priceId" class="label-name">
+                        <span class="details">
+                            Prix de réserve
+                        </span>
+                    </label>
+                    <input id="priceId" type="number" autocomplete="off" class="" formControlName="price"
+                        placeholder="Prix de réserve (€)" required>
+                </div>
+
+
+
+                <div class="input-box" style="width: 100%;">
+                    <label for="descriptionId" class="label-name">
+                        <span class="details">
+                            Description
+                        </span>
+                    </label>
+                    <textarea (keyup)="onKey($event)" id="descriptionId" type="text" autocomplete="off" class=""
+                        formControlName="description" required></textarea>
+                    <span id="words">{{words}} mots</span>
+                </div>
+
+            </div>
+
+            <div class="fieldBtn2">
+                <button type="button" class="navBtn" id="back1" (click)="back1Click()">Précédent</button>
+                <button type="button" class="navBtn" id="next2" (click)="next2Click()">Suivant</button>
+            </div>
+
+        </div>
+
+
+        <div class="page" id="page3">
+
+            <div class="title">Photos du véhicule</div>
+
+            <app-upload-box class="upload-box" formControlName="carImage" (imageEvent)="receiveName($event)">
+            </app-upload-box>
+
+            <div class="fieldBtn2">
+                <button type="button" class="navBtn" id="back2" (click)="back2Click()">Précédent</button>
+                <button class="navBtn submit" type="submit">Enregistrer</button>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
 
 
 

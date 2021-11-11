@@ -26,6 +26,8 @@ span {
     cursor: pointer;
 }
 
+
+
 .form-container form {
     background: #fff;
     display: flex;
@@ -37,13 +39,45 @@ span {
     text-align: center;
 }
 
-.form-container input {
-    background: #eee;
-    border: none;
-    padding: 12px 15px;
-    margin: 8px 0;
-    width: 100%
+.form_div{
+    position: relative;
+    margin-bottom: 15px;
 }
+
+.form_input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: 2px solid #505050;
+    background-color: transparent;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.form_input:focus {
+    border: 2px solid #4285f4;
+}
+
+.form_label {
+    position: absolute;
+    left: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 2px;
+    color: #000;
+    pointer-events: none;
+    background: #fff;
+}
+
+.form_input:focus ~ .form_label,
+.form_input:valid ~ .form_label{
+    margin-top: -12px;
+    font-size: 15px;
+    transition: .3s;
+    color: #4285f4;
+}
+
 
 button {
     border-radius: 20px;
@@ -66,8 +100,17 @@ button:focus {
     outline: none;
 }
 
+.confirmBtn:hover {
+    background: #ff6a50;
+}
+
 button.ghost {
     background: transparent;
+    border-color: #fff;
+}
+
+button.ghost:hover {
+    background: rgba(255, 255, 255, 0.3);
     border-color: #fff;
 }
 
@@ -109,7 +152,7 @@ button.ghost {
     overflow: hidden;
     transition: transform 0.6s ease-in-out;
     z-index: 100;
-    background-image: url("/assets/img/orange.png");
+
 }
 
 .overlay {
@@ -120,6 +163,9 @@ button.ghost {
     width: 200%;
     transform: translateX(0);
     transition: transform 0.6s ease-in-out;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("/assets/img/911_turbo_s.png");
+    background-size: contain;
 }
 
 .overlay-panel {
@@ -164,9 +210,14 @@ button.ghost {
 }
 
 .container.right-panel-active .overlay {
-    background-image: url("/assets/img/vert.png");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("/assets/img/488_pista.png");
 }
 
+.container.left-panel-active .overlay {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("/assets/img/911_turbo_s.png");
+}
 
 /* Move overlay back to right */
 .container.right-panel-active .overlay {
