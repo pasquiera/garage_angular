@@ -1,4 +1,13 @@
 <div>
-    <img #image [src]="imageSource" crossorigin="">
-</div>
-<img [src]="imageDestination">
+    <image-cropper 
+    style="width: 512px; height: 512px;"
+    [imageChangedEvent]="data.imageChangedEvent"
+    (imageCropped)="imageCropped($event)"
+    [resizeToWidth]="138"
+    [roundCropper]=true>
+  
+    </image-cropper>
+    <img [src]="croppedImage">
+  </div>
+  
+  <button type="button" (click)="upload()">Test</button>

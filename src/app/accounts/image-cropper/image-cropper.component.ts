@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
-import Cropper from 'cropperjs';
+import { Component, OnInit, Inject } from '@angular/core';
+import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-image-cropper',
@@ -8,15 +9,21 @@ import Cropper from 'cropperjs';
 })
 export class ImageCropperComponent implements OnInit {
 
-  @ViewChild('image', {static: false})
-  public imageSource: string;
+  croppedImage: any = '';
 
-  public imageDestination: string;
-  private cropper: Cropper;
-
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef:
+    MatDialogRef<ImageCropperComponent>) { }
 
   ngOnInit(): void {
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    // Preview
+    this.croppedImage = event.base64;
+  }
+
+  upload() {
+    this.dialogRef.close(this.croppedImage)
   }
 
 }

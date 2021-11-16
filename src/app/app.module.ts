@@ -33,6 +33,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CarouselDialogComponent } from './cars/upload-box/carousel-dialog/carousel-dialog.component';
 import { UploadBoxComponent } from './cars/upload-box/upload-box/upload-box.component';
 import { CommentSectionComponent } from './cars/comment-section/comment-section.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperComponent } from './accounts/image-cropper/image-cropper.component';
 
 
@@ -79,6 +80,7 @@ registerLocaleData(localeFr, 'fr');
     AngularFirestoreModule,
     AngularFireStorageModule,
     DragDropModule,
+    ImageCropperModule,
     AngularFireModule.initializeApp(environment.firebase), // link firebase to the project
   ],
   providers: [],

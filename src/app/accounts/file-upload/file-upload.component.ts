@@ -1,5 +1,9 @@
 import { Component, ElementRef, HostListener, Output, EventEmitter, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
+import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
 
 @Component({
   selector: 'app-file-upload',
@@ -18,27 +22,34 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
 
   onChange: Function;
   imageURL: string;
+  fileToUpload: File;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
   @Output() imageEvent = new EventEmitter<string>();
 
-  @HostListener('change', ['$event.target.files']) emitFiles(event: FileList) {
-    const file = event.item(0);
-    this.onChange(file);
+  @HostListener('change', ['$event']) emitFiles(event: FileList) {
 
-    // image preview
-    const reader = new FileReader();
+    this.imageChangedEvent = event;
 
-    // triggered each time the reading operation is successfully completed.
-    reader.onload = () => {
-      this.imageURL = reader.result as string;
-      this.imageEvent.emit(this.imageURL);
-    }
+    const dialogRef = this.dialog.open(ImageCropperComponent,
+      {
+        // NoopScrollStrategy: does nothing
+        scrollStrategy: new NoopScrollStrategy(),
+        data: {
+          imageChangedEvent: this.imageChangedEvent
+        }
+      });
 
-    // starts reading the contents of the specified Blob
-    reader.readAsDataURL(file);
+    dialogRef.afterClosed().subscribe(async result => {
+      let file = base64ToFile(result);
+      this.onChange(file);
+
+      this.imageEvent.emit(result);
+    });
 
   }
 
-  constructor(private host: ElementRef<HTMLInputElement>) { }
+  constructor(private host: ElementRef<HTMLInputElement>, private dialog: MatDialog) { }
 
   writeValue(value: null): void {
     // called when the formControl is instantiated

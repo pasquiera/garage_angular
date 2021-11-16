@@ -16,3 +16,9 @@
 .input-file {
     display: none;
 }
+
+img {
+    width: 138px;
+    height: 138px;
+    border-radius: 50%;
+}
