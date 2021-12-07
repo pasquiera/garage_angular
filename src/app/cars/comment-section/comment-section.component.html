@@ -6,7 +6,7 @@
                 <img src={{avatar}}>
             </div>
             <div class="txt">
-                <textarea class="form-control" placeholder="Add Public Comment"></textarea>
+                <textarea id="commentArea" class="form-control" placeholder="Add Public Comment"></textarea>
                 <button class="sendBtn" (click)="sendComment()">
                     <span class="material-icons-outlined">
                         send
@@ -20,7 +20,7 @@
 
                 <h2>{{count}} commentaires</h2>
 
-                <div *ngFor="let comment of comments">
+                <div *ngFor="let comment of comments; let index = index;">
                     <div class="userComment">
                         <img src={{comment.avatar}}>
                         <div class="details">
@@ -30,30 +30,31 @@
                     </div>
 
                     <div class="replies">
-                        <div *ngFor="let replie of replies">
-                            <div class="userComment" *ngIf="replie.prev == comment.id">
+                        <div *ngFor="let reply of replies">
+                            <div class="userComment" *ngIf="reply.prev == comment.id">
 
-                                <img src={{replie.avatar}}>
+                                <img src={{reply.avatar}}>
                                 <div class="details">
-                                    <div class="user">{{replie.userName}}<span class="time">2020-09-13</span></div>
-                                    <div class="comment">{{replie.text}}</div>
+                                    <div class="user">{{reply.userName}}<span class="time">2020-09-13</span></div>
+                                    <div class="comment">{{reply.text}}</div>
                                 </div>
 
                             </div>
                         </div>
 
-                        <button class="replyBtn" (click)="toggleShow()">
+                        <button class="replyBtn" (click)="toggleShow(index)">
                             <span>Répondre</span>
                             <span class="material-icons-outlined">
                                 reply
                             </span>
                         </button>
 
-                        <div *ngIf="isShown">
+                        <div *ngIf="isShown && checkIndex(index)">
                             <div class="replyBox">
                                 <div class="txt">
-                                    <textarea class="form-control" placeholder="Add Public Comment"></textarea>
-                                    <button class="sendBtn">
+                                    <textarea [id]="'replyArea' + index" class="form-control"
+                                        placeholder="Add Public Comment"></textarea>
+                                    <button class="sendBtn" (click)="sendReply(comment.id,index)">
                                         <span class="material-icons-outlined">
                                             send
                                         </span>

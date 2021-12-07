@@ -30,22 +30,31 @@ export class CarService {
       consumption: consumption,
       price: price,
       description: description,
-      imageUrls: imageUrls,
+      imageUrls: null,
       endDate: 1633907525000,
       bid: null,
 
     }).then(docRef => {
 
+      // Update storage path of each file
+      for (let i = 0; i < imageUrls.length; i++) {
+        imageUrls[i] = 'cars/' + `${docRef.id}/` + imageUrls[i];
+      }
+
+      // Store file path in the car document
+      this.afs.doc(`cars/${this.auth.userID}/user-cars/${docRef.id}`).update({ imageUrls: imageUrls });
+
       this.afs.doc(`cars/${this.auth.userID}/user-cars/${docRef.id}`).update({ id: docRef.id });
-      this.uploadImage(image, imageUrls, docRef.id);
+
+      this.uploadImage(image, imageUrls);
 
     });
   }
 
-  uploadImage(image: File[], imgName: string[], docRef: string) {
-
+  uploadImage(image: File[], imageUrls: string[]) {
+    // Upload each file on storage with the right url
     image.forEach((element, index) =>
-      this.storage.ref('cars/' + `${docRef}/` + imgName[index]).put(element).then(() => {
+      this.storage.ref(imageUrls[index]).put(element).then(() => {
         console.log('all images uploaded successfully');
       }).catch(err => {
         console.log(err);
@@ -53,8 +62,14 @@ export class CarService {
 
   }
 
-   getAllCar() {
-     return this.afs.collectionGroup("user-cars").get();
-   }
+  getAllCar(latestDoc: string) {
+    // Will look for documents in all collections named user-cars
+    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('id').startAfter(latestDoc || 0).limit(2)).get();
+  }
+
+  getImage(path: string) {
+    return this.storage.ref(path).getDownloadURL().toPromise();
+  }
+
 
 }

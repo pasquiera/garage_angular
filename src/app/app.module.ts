@@ -35,6 +35,9 @@ import { UploadBoxComponent } from './cars/upload-box/upload-box/upload-box.comp
 import { CommentSectionComponent } from './cars/comment-section/comment-section.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperComponent } from './accounts/image-cropper/image-cropper.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BarLoadingComponent } from './shared/bar-loading/bar-loading.component';
+import { CircleLoadingComponent } from './shared/circle-loading/circle-loading.component';
 
 
 
@@ -55,6 +58,8 @@ registerLocaleData(localeFr, 'fr');
     UploadBoxComponent,
     CommentSectionComponent,
     ImageCropperComponent,
+    BarLoadingComponent,
+    CircleLoadingComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur
@@ -82,6 +87,7 @@ registerLocaleData(localeFr, 'fr');
     DragDropModule,
     ImageCropperModule,
     AngularFireModule.initializeApp(environment.firebase), // link firebase to the project
+    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

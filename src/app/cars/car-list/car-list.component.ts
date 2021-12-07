@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Container } from '@angular/compiler/src/i18n/i18n_ast';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CarService } from 'src/app/services/car.service';
-import { ICar } from '../shared/models/car';
+import { Car, ICar } from '../shared/models/car';
 import { CarListService } from '../shared/services/car-list.service';
 
 
@@ -17,30 +18,93 @@ export class CarListComponent implements OnInit {
     private _carFilter = ''; // _ => private
     public filteredCars: ICar[] = [];
     public errMsg: string = '';
-    public cars: ICar[] = [];
+    public cars: any[] = [];
 
+    // Store latest document
+    public latestDoc = null;
+
+    // Infinit scroll
+    public scroll = true;
 
     constructor(private carListService: CarListService, public car: CarService) { }
 
     ngOnInit(): void {
+        this.load();
+    }
 
-        this.car.getAllCar().subscribe(querySnapshot => {
-            // QuerySnapshot contains the results of a query
+    load(): void {
+
+        this.car.getAllCar(this.latestDoc).subscribe(querySnapshot => {
+
             querySnapshot.docs.forEach(doc => {
-                //console.log(doc.data());
-                console.log(doc.get("brand"));
-          });
+
+                const car = {
+                    owner: doc.get("owner"),
+                    id: doc.get("id"),
+                    type: doc.get("type"),
+                    brand: doc.get("brand"),
+                    model: doc.get("model"),
+                    year: doc.get("year"),
+                    mileage: doc.get("mileage"),
+                    fuel: doc.get("fuel"),
+                    gearbox: doc.get("gearbox"),
+                    engine: doc.get("engine"),
+                    hp: doc.get("hp"),
+                    consumption: doc.get("consumption"),
+                    price: doc.get("price"),
+                    description: doc.get("description"),
+                    imagePath: doc.get("imageUrls"), // Contain only image path
+                    imageUrls: [],
+                    endDate: doc.get("endDate"),
+                    bid: doc.get("bid"),
+                }
+
+                for (let i = 0; i < car.imagePath.length; i++) {
+                    // Download and store each image url on car.imagePath
+                    this.car.getImage(car.imagePath[i]).then(result => {
+                        console.log(result);
+                        if (i == 0) {
+                            console.log("now");
+                        } // hide loading component when i == 0 is loaded
+                        car.imageUrls[i] = result;
+                    })
+                };
+
+                this.cars.push(car);
+
+            });
+
+
+            // Update lastestDoc
+            this.latestDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+            // Unattach event listener if no more docs
+            if (querySnapshot.empty) {
+                console.log("empty");
+                this.scroll = false;
+                //window.removeEventListener('scroll', this.onScrollEvent.bind(this));
+            }
+
+            this.filteredCars = this.cars;
+
         });
-          
-        this.carListService.getCars().subscribe({
+
+
+
+        /* this.carListService.getCars().subscribe({
             next: cars => {
                 this.cars = cars; // asynchrone, on reçoit d'abord toutes les valeurs
                 this.filteredCars = this.cars;
             },
             error: err => this.errMsg = err
-        });
+        }); */
 
 
+
+    }
+
+    loadMore() {
+        this.load();
     }
 
 
@@ -122,6 +186,13 @@ export class CarListComponent implements OnInit {
 
         return this.cars;
 
+    }
+
+    // Load more docs scroll
+    onScrollEvent() {
+        if (this.scroll == true) {
+            this.loadMore();
+        }
     }
 
 }

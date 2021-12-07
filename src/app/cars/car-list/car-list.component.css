@@ -1,6 +1,11 @@
 .container {
     font-family: "PT Sans Narrow",sans-serif;
     color: #000;
+
+    /* Scroll */
+    max-height: 80%;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
 
@@ -39,6 +44,20 @@ h6 {
 .carousel-item {
     transition-duration: 0.3s;
   }
+  
+
+img {
+    animation: fadeIn 2s linear;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+}
 
 
 

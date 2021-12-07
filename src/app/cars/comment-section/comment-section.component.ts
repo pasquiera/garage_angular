@@ -6,6 +6,7 @@ import { AuthenticatorComponent } from 'src/app/accounts/authenticator/authentic
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { UtilityService } from 'src/app/services/utility.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-comment-section',
@@ -19,20 +20,25 @@ export class CommentSectionComponent implements OnInit {
   avatar: string;
   subscription;
 
+  carID: string;
+
   comments = new Array();
   replies = new Array();
   count: number = 0;
 
-  constructor(private dialog: MatDialog, public auth: AuthService, private utility: UtilityService, public comment: CommentService) { }
+  index: number;
+
+  constructor(private dialog: MatDialog, public auth: AuthService, private utility: UtilityService, public comment: CommentService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log("initialised");
+    this.carID = this.route.snapshot.paramMap.get('id');
+
     this.subscription = this.utility.getData().subscribe((data) => {
       console.log(data);
       this.avatar = data;
     });
 
-    this.comment.getComments().pipe(first()).subscribe(querySnapshot => {
+    this.comment.getComments(this.carID).pipe(first()).subscribe(querySnapshot => {
       //first() end the subscription after the first event.
       querySnapshot.docs.forEach(doc => {
         let id = doc.get("uid");
@@ -43,7 +49,7 @@ export class CommentSectionComponent implements OnInit {
       });
     });
 
-    this.comment.getReplies().pipe(first()).subscribe(querySnapshot => {
+    this.comment.getReplies(this.carID).pipe(first()).subscribe(querySnapshot => {
       querySnapshot.docs.forEach(doc => {
         let id = doc.get("uid");
         Promise.all([this.auth.getName(id), this.auth.getAvatar(id)]).then(data => {
@@ -54,22 +60,46 @@ export class CommentSectionComponent implements OnInit {
     });
   }
 
-  toggleShow(): void {
-    this.isShown = !this.isShown;
+  toggleShow(index: number): void {
+    // show/hide the reply input (only one display at a time)
+    if (this.index != index) {
+      this.isShown = true;
+      this.index = index;
+    } else {
+      this.isShown = !this.isShown;
+    }
+  }
+
+  checkIndex(index: number): boolean {
+    // check which comment need to display the reply input
+    return index == this.index;
   }
 
   sendComment(): void {
-
     if (this.auth.isLoggedIn == false) {
-      this.dialog.open(AuthenticatorComponent, {
-        // NoopScrollStrategy: does nothing
-        scrollStrategy: new NoopScrollStrategy(),
-        panelClass: 'custom-modalbox'
-      });
+      this.login();
     } else {
-      console.log("Comment posted");
+      const textarea = (<HTMLInputElement>document.getElementById("commentArea")).value;
+      this.comment.sendComment(this.carID, textarea);
     }
+  }
 
+  sendReply(commentID: string, index: number): void {
+    if (this.auth.isLoggedIn == false) {
+      this.login();
+    } else {
+      const textarea = (<HTMLInputElement>document.getElementById("replyArea" + index)).value;
+      console.log(commentID);
+      this.comment.sendReply(this.carID, commentID, textarea);
+    }
+  }
+
+  login(): void {
+    this.dialog.open(AuthenticatorComponent, {
+      // NoopScrollStrategy: does nothing
+      scrollStrategy: new NoopScrollStrategy(),
+      panelClass: 'custom-modalbox'
+    });
   }
 
   ngOnDestroy(): void {
@@ -81,6 +111,7 @@ export class CommentSectionComponent implements OnInit {
   }
 
   /*  ngAfterViewInit() {
+     
      const textarea = document.querySelector("textarea");
      textarea.addEventListener("keyup", e => {
        textarea.style.height = "20px";
