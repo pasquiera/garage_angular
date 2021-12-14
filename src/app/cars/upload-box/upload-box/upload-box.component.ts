@@ -29,7 +29,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   constructor(private dialog: MatDialog) { }
 
   onDrop(event) {
-    //upload for drag and drop
+    // upload function for drag and drop
     event.preventDefault();
 
     document.getElementById('placeholder').style.display = 'none';
@@ -49,11 +49,11 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   }
 
   selectFiles(event) {
-    //upload for button click
+    // upload function for button click
     let files: any[] = [];
 
     document.getElementById('placeholder').style.display = 'none';
-    
+
     Array.from(event.target.files).forEach(file => { files.push(file) });
     this.loadFile(files);
 
@@ -62,6 +62,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   }
 
   async loadFile(files: any) {
+    // push all the files into array (selectedFiles) and send it to parent form
     for (let i = 0; i < files.length; i++) {
       await this.readFile(files[i]).then(value => {
         this.imageURL.push(value);
@@ -86,6 +87,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   }
 
   emitFileName(): void {
+    // send files names to parent component
     this.imageEvent.emit(this.imageName);
     console.log(this.imageName);
   }
@@ -95,7 +97,6 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void { }
 
   readFile(file: File) {
-
     return new Promise((resolve, reject) => {
 
       const reader = new FileReader();
@@ -108,10 +109,10 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
       // starts reading the contents of the specified Blob
       reader.readAsDataURL(file);
     });
-
   }
 
   removeImage(index: number) {
+    // remove image data from arrays when button click
     this.selectedFiles.splice(index, 1);
     this.imageName.splice(index, 1);
     this.imageURL.splice(index, 1);
@@ -124,6 +125,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    // drag and drop to change file position in arrays
     moveItemInArray(this.selectedFiles, event.previousIndex, event.currentIndex);
     moveItemInArray(this.imageName, event.previousIndex, event.currentIndex);
     moveItemInArray(this.imageURL, event.previousIndex, event.currentIndex);
@@ -131,6 +133,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   }
 
   openDialog(index: number) {
+    // open CarouselDialogComponent to show an image
     this.dialog.open(CarouselDialogComponent,
       {
         // NoopScrollStrategy: does nothing

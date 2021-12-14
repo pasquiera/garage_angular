@@ -1,8 +1,4 @@
 .loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
     width: 70px;
     display: flex;
 }
@@ -10,7 +6,7 @@
 .loader span {
     width: 10px;
     height: 60px;
-    background: black;
+    background: rgb(180, 180, 180);
     margin: 0px 1px;
     animation: loading 800ms ease-in-out infinite;
 }

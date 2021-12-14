@@ -31,10 +31,10 @@ export class CommentSectionComponent implements OnInit {
   constructor(private dialog: MatDialog, public auth: AuthService, private utility: UtilityService, public comment: CommentService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // retrieve all comments and replies from firebase associated with the car ID
     this.carID = this.route.snapshot.paramMap.get('id');
 
     this.subscription = this.utility.getData().subscribe((data) => {
-      console.log(data);
       this.avatar = data;
     });
 
@@ -61,7 +61,7 @@ export class CommentSectionComponent implements OnInit {
   }
 
   toggleShow(index: number): void {
-    // show/hide the reply input (only one display at a time)
+    // show/hide the reply input (only one is displayed at a time)
     if (this.index != index) {
       this.isShown = true;
       this.index = index;
@@ -71,30 +71,44 @@ export class CommentSectionComponent implements OnInit {
   }
 
   checkIndex(index: number): boolean {
-    // check which comment need to display the reply input
+    // check which comment needs to display the reply input
     return index == this.index;
   }
 
-  sendComment(): void {
+  async sendComment() {
+    // send comment to firebase
     if (this.auth.isLoggedIn == false) {
       this.login();
     } else {
       const textarea = (<HTMLInputElement>document.getElementById("commentArea")).value;
-      this.comment.sendComment(this.carID, textarea);
+      await this.comment.sendComment(this.carID, textarea).then(res => {
+        // update comments array with the new comment
+        Promise.all([this.auth.getName(this.auth.userID), this.auth.getAvatar(this.auth.userID)]).then(data => {
+          this.comments.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, id: res });
+          this.count++;
+        });
+      });
     }
   }
 
   sendReply(commentID: string, index: number): void {
+    // send reply to firebase
     if (this.auth.isLoggedIn == false) {
       this.login();
     } else {
       const textarea = (<HTMLInputElement>document.getElementById("replyArea" + index)).value;
-      console.log(commentID);
       this.comment.sendReply(this.carID, commentID, textarea);
+
+      // update replies array with the new reply
+      Promise.all([this.auth.getName(this.auth.userID), this.auth.getAvatar(this.auth.userID)]).then(data => {
+        this.replies.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, prev: commentID });
+        this.count++;
+      });
     }
   }
 
   login(): void {
+    // open AuthenticatorComponent if the user is not connected
     this.dialog.open(AuthenticatorComponent, {
       // NoopScrollStrategy: does nothing
       scrollStrategy: new NoopScrollStrategy(),
@@ -105,19 +119,6 @@ export class CommentSectionComponent implements OnInit {
   ngOnDestroy(): void {
     console.log("destroyed");
     this.subscription.unsubscribe();
-    /* this.comments = [];
-    this.replies = [];
-    this.count = 0; */
   }
-
-  /*  ngAfterViewInit() {
-     
-     const textarea = document.querySelector("textarea");
-     textarea.addEventListener("keyup", e => {
-       textarea.style.height = "20px";
-       let scHeight = (e.target as HTMLInputElement).scrollHeight;
-       textarea.style.height = `${scHeight}px`;
-     });
-   } */
 
 }

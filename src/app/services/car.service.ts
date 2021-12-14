@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Car } from '../cars/shared/models/car';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -67,8 +68,18 @@ export class CarService {
     return this.afs.collectionGroup('user-cars', ref => ref.orderBy('id').startAfter(latestDoc || 0).limit(2)).get();
   }
 
+  getCar(doc: string) {
+    return this.afs.collection<Car>('cars/rAsOJFBpQCdIY3lBHmfI9bTHYxl2/user-cars').doc(doc).valueChanges();
+  }
+
   getImage(path: string) {
     return this.storage.ref(path).getDownloadURL().toPromise();
+  }
+
+  updateCar(doc: string, brand: string) {
+    this.afs.collection<Car>('cars/rAsOJFBpQCdIY3lBHmfI9bTHYxl2/user-cars').doc(doc).update({
+      brand: brand,
+    })
   }
 
 

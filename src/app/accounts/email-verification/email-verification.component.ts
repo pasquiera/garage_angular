@@ -14,7 +14,7 @@ export class EmailVerificationComponent implements OnInit {
   constructor(private router: Router, public auth: AuthService) { }
 
   ngOnInit(): void {
-
+    // wait for click on verification email and route automatically 
       this.checkForVerifiedInterval = setInterval(() => {
         console.log(this.checkForVerifiedInterval);
 
@@ -33,6 +33,7 @@ export class EmailVerificationComponent implements OnInit {
   }
 
   onResendClick() {
+    // send another verification email
     this.auth.sendEmailVerif();
   }
 

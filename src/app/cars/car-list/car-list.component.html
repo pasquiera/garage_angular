@@ -44,32 +44,42 @@
             </div>
           </div>
 
-          <div *ngIf="car.imageUrls[0]==null">
-            <app-bar-loading></app-bar-loading>
+
+          <div class="car-image">
+
+            <div class="loading-bar" *ngIf="car.imageUrls[0]==null">
+              <app-bar-loading></app-bar-loading>
+            </div>
+
+            <div class="loading-animation">
+
+            <div id="carousel{{car.id}}" class="carousel slide" data-bs-interval="false">
+              <div class="carousel-inner">
+                <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
+                  [ngClass]="{'active': i == 0 }">
+                  <a [routerLink]="['/car', car.id]">
+                    
+                    <img [src]="image ||''" [title]="car.brand | uppercase" class="card-img-top" [alt]="car.brand" />
+
+                  </a>
+                </div>
+
+                <a class="carousel-control-prev" [attr.data-bs-target]="'#carousel' + car.id" type="button"
+                  data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" [attr.data-bs-target]="'#carousel' + car.id" type="button"
+                  data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </a>
+
+              </div>
+            </div>
+            
           </div>
 
-          <div id="carousel{{car.id}}" class="carousel slide" data-bs-interval="false">
-            <div class="carousel-inner">
-              <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
-                [ngClass]="{'active': i == 0 }">
-                <a [routerLink]="['/car', car.id]">
-
-                  <img [src]="image ||''" [title]="car.brand | uppercase" class="card-img-top" [alt]="car.brand" />
-                </a>
-              </div>
-
-              <a class="carousel-control-prev" [attr.data-bs-target]="'#carousel' + car.id" type="button"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </a>
-              <a class="carousel-control-next" [attr.data-bs-target]="'#carousel' + car.id" type="button"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </a>
-
-            </div>
           </div>
         </div>
       </div>

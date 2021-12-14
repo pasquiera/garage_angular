@@ -100,7 +100,6 @@ textarea::-webkit-scrollbar {
     border: none;
     background: none;
     color: rgb(29, 100, 212);
-    font-weight: bold;
 }
 
 .replies .replyBtn:hover {

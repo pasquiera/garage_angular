@@ -21,6 +21,7 @@ export class ProfileSettingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // initialize reactive form
     this.profileForm = this.fb.group({
       profileImage: [null],
       profileLastName: [''],
@@ -36,6 +37,7 @@ export class ProfileSettingComponent implements OnInit {
   }
 
   updateUserName(): void {
+    // update firebase user data with form control values
     if (this.profileForm.valid) {
       let image = this.profileForm.get('profileImage').value;
       let lastName = this.profileForm.get('profileLastName').value;
@@ -57,7 +59,7 @@ export class ProfileSettingComponent implements OnInit {
   }
 
   getUserInfo(): void {
-
+    // retrieve user data from firebase when component is intialized
     this.subscription = this.auth.getUserData().subscribe(val => {
 
       this.profileForm.patchValue({
@@ -74,6 +76,7 @@ export class ProfileSettingComponent implements OnInit {
   }
 
   getUserImage(path: string): void {
+    // retrive user profile picture from firebase storage
     this.auth.getUserImage(path).then(val => {
       this.imgURL = val;
     })
@@ -81,6 +84,7 @@ export class ProfileSettingComponent implements OnInit {
 
 
   receiveURL($event) {
+    // get profile picture url from FileUploadComponent
     this.imgURL = $event;
   }
 

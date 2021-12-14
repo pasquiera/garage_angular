@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs";
 import { CarService } from "src/app/services/car.service";
 
 @Component({
@@ -9,14 +11,21 @@ import { CarService } from "src/app/services/car.service";
 })
 export class CarEditComponent implements OnInit {
 
+  private subscription: Subscription[];
   public carForm: FormGroup;
   imgName: string[];
   words = 0;
+  carID: string;
+  state = CarEditCompState.CREATE;
 
-  constructor(private fb: FormBuilder, public car: CarService) { }
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, public car: CarService) { }
 
 
   ngOnInit(): void {
+
+    this.subscription = [];
+
+    // initialize reactive form
     this.carForm = this.fb.group({
       carType: [null],
       brand: [''],
@@ -32,13 +41,53 @@ export class CarEditComponent implements OnInit {
       year: [null],
       carImage: [null],
     });
+
+
+    this.subscription[0] = this.route.params.subscribe(params => {
+      if (params['id'] != null) {
+        this.carID = params['id'];
+        this.getCarInfo();
+        this.state = CarEditCompState.EDIT;
+      }
+    });
+
   }
 
   receiveName($event) {
+    // get car pictures url from UploadBoxComponent 
     this.imgName = $event;
   }
 
+  getCarInfo(): void {
+    //this.subscription[1]
+    this.car.getCar(this.carID).subscribe(res => {
+      this.carForm.patchValue({
+        carType: res.type,
+        brand: res.brand,
+        consumption: res.consumption,
+        description: res.description,
+        engine: res.engine,
+        fuel: res.fuel,
+        gearbox: res.gearbox,
+        hp: res.hp,
+        mileage: res.mileage,
+        model: res.model,
+        price: res.price,
+        year: res.year,
+        carImage: res.imageUrls,
+      })
+    })
+  }
+
+  editCar() {
+    if (this.carForm.valid) {
+      let brand = this.carForm.get('brand').value;
+      this.car.updateCar(this.carID, brand);
+    }
+  }
+
   createCar() {
+    // create firebase car data with form control values
     if (this.carForm.valid) {
       let type = this.carForm.get('carType').value;
       let brand = this.carForm.get('brand').value;
@@ -57,15 +106,14 @@ export class CarEditComponent implements OnInit {
     }
   }
 
-  onKey(event: any) { 
+  onKey(event: any) {
+    // word counter
     var spaces = event.target.value.match(/\S+/g);
     this.words = spaces ? spaces.length : 0;
     console.log(this.words);
   }
 
-  /*
-    Progress bar functions
-  */
+  /* Progress bar functions */
 
   next1Click() {
     document.getElementById('page1').style.display = 'none';
@@ -73,7 +121,7 @@ export class CarEditComponent implements OnInit {
     document.getElementById('uncompleted').style.backgroundColor = '#000';
     document.getElementById('uncompleted').style.zIndex = '0';
 
-    document.getElementById('icon').style.color='#fff';
+    document.getElementById('icon').style.color = '#fff';
 
   }
 
@@ -83,7 +131,7 @@ export class CarEditComponent implements OnInit {
     document.getElementById('uncompleted').style.backgroundColor = '#fff';
     document.getElementById('uncompleted').style.zIndex = '1';
 
-    document.getElementById('icon').style.color='#fff';
+    document.getElementById('icon').style.color = '#fff';
   }
 
   next2Click() {
@@ -92,7 +140,7 @@ export class CarEditComponent implements OnInit {
     document.getElementById('uncompleted2').style.backgroundColor = '#000';
     document.getElementById('uncompleted2').style.zIndex = '0';
 
-    document.getElementById('icon2').style.color='#fff';
+    document.getElementById('icon2').style.color = '#fff';
   }
 
   back2Click() {
@@ -101,8 +149,27 @@ export class CarEditComponent implements OnInit {
     document.getElementById('uncompleted2').style.backgroundColor = '#fff';
     document.getElementById('uncompleted2').style.zIndex = '1';
 
-    document.getElementById('icon2').style.color='#fff';
+    document.getElementById('icon2').style.color = '#fff';
   }
 
+  ngOnDestroy() {
+
+  }
+
+  /* check current state */
+
+  isCreateState() {
+    return this.state == CarEditCompState.CREATE;
+  }
+
+  isEditState() {
+    return this.state == CarEditCompState.EDIT;
+  }
 
 }
+
+export enum CarEditCompState {
+  CREATE,
+  EDIT,
+}
+

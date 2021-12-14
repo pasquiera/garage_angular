@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { first } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -15,17 +14,21 @@ export class CommentService {
   constructor(public afs: AngularFirestore, public storage: AngularFireStorage, public auth: AuthService) {
   }
 
-  sendComment(carID: string, comment: string): void {
+  async sendComment(carID: string, comment: string): Promise<string> {
     const commentRef: AngularFirestoreCollection<any> = this.afs.collection(`comments`).doc(carID).collection(`main-comments`);
+    let docID: string;
 
-    commentRef.add({
+    await commentRef.add({
       carID: carID,
       id: null,
       text: comment,
       uid: this.auth.userID
     }).then(docRef => {
       this.afs.doc(`comments/${carID}/main-comments/${docRef.id}`).update({ id: docRef.id });
+      docID = docRef.id;
     });
+
+    return docID;
   }
 
   sendReply(carID: string, commentID: string, reply: string): void {

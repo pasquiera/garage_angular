@@ -28,7 +28,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   @Output() imageEvent = new EventEmitter<string>();
 
   @HostListener('change', ['$event']) emitFiles(event: FileList) {
-
+    // listen for file upload and open ImageCropperComponent
     this.imageChangedEvent = event;
 
     const dialogRef = this.dialog.open(ImageCropperComponent,
@@ -41,9 +41,11 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
       });
 
     dialogRef.afterClosed().subscribe(async result => {
+      // get image from ImageCropperComponent and send it to parent form
       let file = base64ToFile(result);
       this.onChange(file);
 
+      // send image url to display new profile picture in parent component
       this.imageEvent.emit(result);
     });
 

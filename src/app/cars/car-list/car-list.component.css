@@ -8,7 +8,6 @@
     overflow: auto;
 }
 
-
 .title {
     text-align: center;
     margin-top: 1em;
@@ -41,18 +40,45 @@ h6 {
     margin-top: 1em;
 }
 
+.loading-bar {
+    position: absolute;
+    padding-top: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.loading-animation {
+    animation: fadeIn 2s linear;
+}
+
+.car-image {
+    height: 400px;
+    background-color: rgb(238, 238, 238);
+}
+
 .carousel-item {
     transition-duration: 0.3s;
   }
   
-
 img {
-    animation: fadeIn 2s linear;
-  }
+    height: 400px;
+    object-fit: cover;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.300);
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon{
+    background-color: black;
+}
 
   @keyframes fadeIn {
     0% {
-      opacity: 0.5;
+      opacity: 0;
     }
     100% {
       opacity: 1;

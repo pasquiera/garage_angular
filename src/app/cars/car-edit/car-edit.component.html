@@ -193,7 +193,8 @@
 
             <div class="fieldBtn2">
                 <button type="button" class="navBtn" id="back2" (click)="back2Click()">Précédent</button>
-                <button class="navBtn submit" type="submit">Enregistrer</button>
+                <button *ngIf="isCreateState()" class="navBtn submit" type="submit">Enregistrer</button>
+                <button *ngIf="isEditState()" class="navBtn submit" type="button" (click)="editCar()">Enregistrer</button>
             </div>
 
         </div>

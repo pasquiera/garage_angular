@@ -24,6 +24,7 @@ export class AuthenticatorComponent implements OnInit {
 
 
   onLogin(
+    // sign in function
     loginEmail: HTMLInputElement,
     loginPassword: HTMLInputElement
   ) {
@@ -42,6 +43,7 @@ export class AuthenticatorComponent implements OnInit {
   }
 
   onRegisterClick(
+    // sign up function
     registerName: HTMLInputElement,
     registerEmail: HTMLInputElement,
     registerPassword: HTMLInputElement,
@@ -70,6 +72,7 @@ export class AuthenticatorComponent implements OnInit {
 
 
   checkVerif(): void {
+    // check if the email is verified
     if (this.auth.isLoggedIn) {
       this.dialogRef.close();
       this.auth.getCurrentUser().then(res => {
@@ -83,6 +86,7 @@ export class AuthenticatorComponent implements OnInit {
   }
 
   onResetClick(resetEmail: HTMLInputElement) {
+    // reset password function
     let email = resetEmail.value;
     if (this.isNotEmpty(email)) {
       this.auth.forgotPassword(email);
@@ -90,35 +94,44 @@ export class AuthenticatorComponent implements OnInit {
   }
 
   isNotEmpty(text: string) {
+    // check if the input is not empty
     return text != null && text.length > 0;
   }
 
   isAMatch(text: string, comparedWith: string) {
+    // check if passwords are identical
     return text == comparedWith;
   }
 
   signUpClick() {
+    // switch to sign up layer
     document.getElementById('container').classList.add('right-panel-active');
     document.getElementById('container').classList.remove('left-panel-active');
   }
 
   signInClick() {
+    // switch to sign in layer
     document.getElementById('container').classList.remove('right-panel-active');
     document.getElementById('container').classList.add('left-panel-active');
     this.onLoginClick();
   }
 
   onForgotPasswordClick() {
+    // switch to forgot password state when button clicked
     this.state = AuthenticatorCompState.FORGOT_PASSWORD;
   }
 
   onCreateAccountClick() {
+    // switch to register state
     this.state = AuthenticatorCompState.REGISTER;
   }
 
   onLoginClick() {
+    // switch to login state
     this.state = AuthenticatorCompState.LOGIN;
   }
+
+  /* check current state to display the right form */
 
   isLoginState() {
     return this.state == AuthenticatorCompState.LOGIN;
