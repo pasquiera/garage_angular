@@ -11,7 +11,11 @@ export class CarService {
 
   constructor(public afs: AngularFirestore, public storage: AngularFireStorage, public auth: AuthService) { }
 
-  createCar(type: string, brand: string, consumption: string, description: string, engine: string, fuel: string, gearbox: string, hp: string, mileage: string, model: string, price: string, year: string, image: File[], imageUrls: string[]) {
+  createCar(type: string, brand: string, consumption: string,
+    description: string, engine: string, fuel: string,
+    gearbox: string, hp: string, mileage: string,
+    model: string, price: string, year: string,
+    image: File[], imagePath: string[]) {
 
     const carRef: AngularFirestoreCollection<any> = this.afs.collection(`cars`).doc(this.auth.userID).collection(`user-cars`);
 
@@ -38,28 +42,32 @@ export class CarService {
     }).then(docRef => {
 
       // Update storage path of each file
-      for (let i = 0; i < imageUrls.length; i++) {
-        imageUrls[i] = 'cars/' + `${docRef.id}/` + imageUrls[i];
+      for (let i = 0; i < imagePath.length; i++) {
+        imagePath[i] = 'cars/' + `${docRef.id}/` + imagePath[i];
       }
 
       // Store file path in the car document
-      this.afs.doc(`cars/${this.auth.userID}/user-cars/${docRef.id}`).update({ imageUrls: imageUrls });
+      this.afs.doc(`cars/${this.auth.userID}/user-cars/${docRef.id}`).update({ imageUrls: imagePath });
 
       this.afs.doc(`cars/${this.auth.userID}/user-cars/${docRef.id}`).update({ id: docRef.id });
 
-      this.uploadImage(image, imageUrls);
+      this.uploadImage(image, imagePath);
 
     });
   }
 
-  uploadImage(image: File[], imageUrls: string[]) {
+  uploadImage(image: File[], imagePaths: string[]) {
     // Upload each file on storage with the right url
-    image.forEach((element, index) =>
-      this.storage.ref(imageUrls[index]).put(element).then(() => {
-        console.log('all images uploaded successfully');
-      }).catch(err => {
-        console.log(err);
-      }));
+    image.forEach((element, index) => {
+      if (element != null) {
+        this.storage.ref(imagePaths[index]).put(element).then(() => {
+          console.log('all images uploaded successfully');
+        }).catch(err => {
+          console.log(err);
+        })
+      }
+    }
+    );
 
   }
 
@@ -76,9 +84,32 @@ export class CarService {
     return this.storage.ref(path).getDownloadURL().toPromise();
   }
 
-  updateCar(doc: string, brand: string) {
+  updateCar(doc: string, type: string, brand: string,
+    consumption: number, description: string, engine: string,
+    fuel: string, gearbox: string, hp: number,
+    mileage: number, model: string, year: number,
+    image: File[], imagePath: string[]) {
+
+    // Update storage path of each file
+    for (let i = 0; i < imagePath.length; i++) {
+      imagePath[i] = 'cars/' + `${doc}/` + imagePath[i];
+    }
+
+    this.uploadImage(image, imagePath);
+
     this.afs.collection<Car>('cars/rAsOJFBpQCdIY3lBHmfI9bTHYxl2/user-cars').doc(doc).update({
+      type: type,
       brand: brand,
+      model: model,
+      year: year,
+      mileage: mileage,
+      fuel: fuel,
+      gearbox: gearbox,
+      engine: engine,
+      hp: hp,
+      consumption: consumption,
+      description: description,
+      imageUrls: imagePath
     })
   }
 

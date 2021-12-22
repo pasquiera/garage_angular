@@ -8,7 +8,7 @@
             <div class="txt">
                 <textarea id="commentArea" class="form-control" placeholder="Add Public Comment"></textarea>
                 <button class="sendBtn" (click)="sendComment()">
-                    <span class="material-icons-outlined">
+                    <span class="material-icons-outlined send_icon">
                         send
                     </span>
                 </button>
@@ -55,7 +55,7 @@
                                     <textarea [id]="'replyArea' + index" class="form-control"
                                         placeholder="Add Public Comment"></textarea>
                                     <button class="sendBtn" (click)="sendReply(comment.id,index)">
-                                        <span class="material-icons-outlined">
+                                        <span class="material-icons-outlined send_icon">
                                             send
                                         </span>
                                     </button>

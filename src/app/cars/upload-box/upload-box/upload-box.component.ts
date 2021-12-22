@@ -20,9 +20,9 @@ import { CarouselDialogComponent } from '../carousel-dialog/carousel-dialog.comp
 export class UploadBoxComponent implements OnInit, ControlValueAccessor {
 
   onChange: Function;
-  selectedFiles: any[] = [];
-  imageURL: any[] = [];
-  imageName: string[] = [];
+  selectedFiles: any[] = []; // contains files for parent form
+  imageURL: any[] = []; // contains only urls for display purposes
+  imageName: string[] = []; // contains only files names
 
   @Output() imageEvent = new EventEmitter<string[]>();
 
@@ -31,8 +31,6 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   onDrop(event) {
     // upload function for drag and drop
     event.preventDefault();
-
-    document.getElementById('placeholder').style.display = 'none';
 
     let files: any[] = [];
 
@@ -52,8 +50,6 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
     // upload function for button click
     let files: any[] = [];
 
-    document.getElementById('placeholder').style.display = 'none';
-
     Array.from(event.target.files).forEach(file => { files.push(file) });
     this.loadFile(files);
 
@@ -70,14 +66,21 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
         this.selectedFiles.push(files[i]);
       })
     }
-
-    this.onChange(this.selectedFiles);
-    this.emitFileName();
+    this.emitFile();
   }
 
   writeValue(obj: any): void {
     // called when the formControl is instantiated
     // when the formControl value changes (patch)
+    // writeValue only use for edit a car
+    if (obj != null) {
+      for (let i = 0; i < obj.length; i++) {
+        // contains all files already in firebase
+        this.imageName[i] = obj[i][0];
+        this.imageURL[i] = obj[i][1];
+        this.selectedFiles[i] = null;
+      }
+    }
   }
 
   registerOnChange(onChange: any): void {
@@ -86,10 +89,11 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
     this.onChange = onChange;
   }
 
-  emitFileName(): void {
+  emitFile(): void {
     // send files names to parent component
     this.imageEvent.emit(this.imageName);
-    console.log(this.imageName);
+    this.onChange(this.selectedFiles);
+    console.log(this.selectedFiles);
   }
 
   registerOnTouched(fn: any): void { }
@@ -116,12 +120,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
     this.selectedFiles.splice(index, 1);
     this.imageName.splice(index, 1);
     this.imageURL.splice(index, 1);
-    this.emitFileName();
-
-    if (this.selectedFiles.length == 0) {
-      document.getElementById('placeholder').style.display = 'flex';
-    }
-
+    this.emitFile();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -129,7 +128,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
     moveItemInArray(this.selectedFiles, event.previousIndex, event.currentIndex);
     moveItemInArray(this.imageName, event.previousIndex, event.currentIndex);
     moveItemInArray(this.imageURL, event.previousIndex, event.currentIndex);
-    this.emitFileName();
+    this.emitFile();
   }
 
   openDialog(index: number) {
@@ -143,6 +142,10 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
           index: index
         }
       });
+  }
+
+  isEmpty(): boolean {
+    return this.selectedFiles.length == 0;
   }
 
   ngOnInit(): void {

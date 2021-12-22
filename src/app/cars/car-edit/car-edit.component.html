@@ -50,6 +50,7 @@
                         placeholder="Marque du véhicule" required>
                 </div>
 
+
                 <div class="input-box">
                     <label for="modelId" class="label-name">
                         <span class="details">
@@ -157,8 +158,10 @@
                             Prix de réserve
                         </span>
                     </label>
-                    <input id="priceId" type="number" autocomplete="off" class="" formControlName="price"
-                        placeholder="Prix de réserve (€)" required>
+                    <input *ngIf="isCreateState()" id="priceId" type="number" autocomplete="off" class=""
+                        formControlName="price" placeholder="Prix de réserve (€)" required>
+                    <input *ngIf="isEditState()" type="text" class="disable-input" formControlName="price"
+                        placeholder="Prix de réserve (€)">
                 </div>
 
 
@@ -188,13 +191,14 @@
 
             <div class="title">Photos du véhicule</div>
 
-            <app-upload-box class="upload-box" formControlName="carImage" (imageEvent)="receiveName($event)">
+            <app-upload-box class="upload-box" formControlName="carImage" (imageEvent)="receiveName($event)" required>
             </app-upload-box>
 
             <div class="fieldBtn2">
                 <button type="button" class="navBtn" id="back2" (click)="back2Click()">Précédent</button>
                 <button *ngIf="isCreateState()" class="navBtn submit" type="submit">Enregistrer</button>
-                <button *ngIf="isEditState()" class="navBtn submit" type="button" (click)="editCar()">Enregistrer</button>
+                <button *ngIf="isEditState()" class="navBtn submit" type="button"
+                    (click)="editCar()">Enregistrer</button>
             </div>
 
         </div>
@@ -203,9 +207,24 @@
 
 </div>
 
+<div class="alert_wrapper" id="alert" hidden>
+    <div class="alert_inner">
+        <div class="alert_item">
+            <div class="alert_data">
+                <p class="alert_title">
+                    <span class="material-icons-outlined info_icon">info</span>        
+                    <span> Erreur:</span> Champs non remplis
+                </p>
+                <div *ngFor="let error of error">
+                    <li>{{error}}</li>
+                </div>
+            </div>
+            <div class="alert_icon close">
+                <span class="material-icons-outlined" (click)="closeError()">
+                    close
+                </span>
+            </div>
+        </div>
+    </div>
 
-
-
-<pre>
-    {{ carForm.value | json }}
-</pre>
+</div>

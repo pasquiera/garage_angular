@@ -2,7 +2,7 @@
     (cdkDropListDropped)="drop($event)">
 
 
-    <div class="placeholder" id="placeholder">
+    <div *ngIf="isEmpty()" class="placeholder" id="placeholder">
         <span class="material-icons-outlined icon">
             cloud_upload
         </span>

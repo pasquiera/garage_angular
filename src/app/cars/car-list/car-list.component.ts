@@ -62,9 +62,7 @@ export class CarListComponent implements OnInit {
                 for (let i = 0; i < car.imagePath.length; i++) {
                     // Download and store each image url on car.imagePath
                     this.car.getImage(car.imagePath[i]).then(result => {
-                        console.log(result);
                         if (i == 0) {
-                            console.log("now");
                         } // hide loading component when i == 0 is loaded
                         car.imageUrls[i] = result;
                     })
@@ -80,9 +78,10 @@ export class CarListComponent implements OnInit {
 
             // Unattach event listener if no more docs
             if (querySnapshot.empty) {
-                console.log("empty");
+
                 this.scroll = false;
                 //window.removeEventListener('scroll', this.onScrollEvent.bind(this));
+
             }
 
             this.filteredCars = this.cars;
@@ -188,8 +187,13 @@ export class CarListComponent implements OnInit {
 
     }
 
-    // Load more docs scroll
+    delete(event) {
+        // stop routerlink propagation for carousel cursors
+        event.stopPropagation();
+    }
+
     onScrollEvent() {
+        // load more docs scroll
         if (this.scroll == true) {
             this.loadMore();
         }

@@ -15,7 +15,14 @@
 }
 
 .card {
+    cursor: pointer;
     border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .15);
+}
+
+.card:hover {
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .5);
 }
 
 .card-title {

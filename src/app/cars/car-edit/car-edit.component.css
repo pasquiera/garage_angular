@@ -124,7 +124,11 @@ form .page{
 
 .input-box input:focus,
 .input-box input:valid {
-    border-color: #9b59b6;
+    border-color: #1683ff;
+}
+
+.input-box input.ng-touched.ng-invalid {
+    border-color: red;
 }
 
 .btn {
@@ -256,9 +260,104 @@ input[type="radio"]:checked + label::after {
     color: #000;
  }
 
+ .disable-input {
+    pointer-events:none;
+    color: #AAA;
+    background: #ccc;
+ }
+
+ /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+/* Alert box */
+.alert_wrapper{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.alert_wrapper .alert_item {
+    z-index: 3;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    background: #fdbeb8;
+    color: #b32f2d;
+    padding: 15px 50px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    align-items: center;
+    /* animation: show_slide 1s ease forwards */
+}
+
+.info_icon {
+    position: relative;
+    top: 5px;
+}
+
+.alert_wrapper .alert_item .alert_data {
+    margin: 0 50px;
+}
+
+.alert_wrapper .alert_item .alert_data .alert_title {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.alert_wrapper .alert_item .alert_data span {
+    font-weight: 700;
+}
+
+.alert_wrapper .alert_item .alert_data sub {
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.alert_wrapper .alert_item .alert_icon {
+    font-size: 32px;
+}
+
+.alert_wrapper .alert_item .close {
+    cursor: pointer;
+}
+
+.alert_wrapper .alert_item .close:hover {
+    color: #d39291;
+}
+
+/* ------------------ */
+ 
 @keyframes animate {
     100%{
         transform: scaleX(1);
+    }
+}
+
+@keyframes show_slide {
+    0%{
+        transform: translateX(100%);
+    }
+    40%{
+        transform: translateX(-10%);
+    }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10px);
     }
 }
 

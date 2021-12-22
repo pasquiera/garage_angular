@@ -16,15 +16,18 @@
   </div>
 
   <div class="row gy-4">
+
     <div class="col-md-6" *ngFor="let car of filteredCars">
 
-      <div class="card" id="card">
+      <div class="card" id="card" [routerLink]="['/car', car.id]">
+
         <div class="card-body">
 
           <span class="badge alert-success badge-pill badge-info" style="margin-right: 10px" *ngIf="car.year > 1998">
             Nouveau </span>
+
           <h5 class="card-title" style="display: inline-block">
-            <a [routerLink]="['/car', car.id]"> {{ car.brand }} </a>
+            <a> {{ car.brand }} </a>
           </h5>
 
           <div class="row" style="padding-bottom: 15px;">
@@ -53,38 +56,42 @@
 
             <div class="loading-animation">
 
-            <div id="carousel{{car.id}}" class="carousel slide" data-bs-interval="false">
-              <div class="carousel-inner">
-                <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
-                  [ngClass]="{'active': i == 0 }">
-                  <a [routerLink]="['/car', car.id]">
-                    
-                    <img [src]="image ||''" [title]="car.brand | uppercase" class="card-img-top" [alt]="car.brand" />
+              <div id="carousel{{car.id}}" class="carousel slide" data-bs-interval="false">
 
+                <div class="carousel-inner">
+
+                  <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
+                    [ngClass]="{'active': i == 0 }">
+                    <a [routerLink]="['/car', car.id]">
+                      <img [src]="image ||''" [title]="car.brand | uppercase" class="card-img-top" [alt]="car.brand" />
+                    </a>
+                  </div>
+
+                  <a (click)="delete($event)" class="carousel-control-prev" [attr.data-bs-target]="'#carousel' + car.id" type="button"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
                   </a>
+                  <a (click)="delete($event)" class="carousel-control-next" [attr.data-bs-target]="'#carousel' + car.id" type="button"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </a>
+
                 </div>
 
-                <a class="carousel-control-prev" [attr.data-bs-target]="'#carousel' + car.id" type="button"
-                  data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </a>
-                <a class="carousel-control-next" [attr.data-bs-target]="'#carousel' + car.id" type="button"
-                  data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </a>
-
               </div>
+
             </div>
-            
-          </div>
 
           </div>
+
         </div>
+
       </div>
 
     </div>
+
   </div>
 
   <div class="load">
