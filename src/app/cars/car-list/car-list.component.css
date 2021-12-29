@@ -10,19 +10,20 @@
 
 .title {
     text-align: center;
-    margin-top: 1em;
+    margin-top: 3em;
     margin-bottom: 1em;
 }
 
 .card {
     cursor: pointer;
-    border: none;
+    border-color: rgb(229, 232, 235);
     border-radius: 10px;
-    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .15);
+    
 }
 
 .card:hover {
-    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .2);
+    top: -3px;
 }
 
 .card-title {

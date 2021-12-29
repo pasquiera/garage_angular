@@ -1,43 +1,94 @@
-<nav class="navbar navbar-expand-lg">
+<!-- <nav class="navbar navbar-expand-lg">
+
   <div class="container-fluid">
+
     <a class="navbar-brand" [routerLink]="['/auctions']">Navbar</a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
+
       <ul class="navbar-nav">
+
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/auctions']">ENCHERÈS</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/vendre']">VENDRE</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/faq']">FAQ</a>
+        </li>
+
       </ul>
 
       <ul class="nav navbar-nav navbar-right ms-auto">
 
         <div class="dropdown" *ngIf="loggedIn()">
+
           <button *ngIf="loggedIn()" class="dropdown-toggle" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
             {{userName}}
           </button>
+
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" [routerLink]="['/settings']"> <span
-                  class="material-icons-outlined">settings</span> Paramètres</a></li>
-            <li><span class="dropdown-item" (click)="onLogoutClick()"> <span
-                  class="material-icons-outlined">power_settings_new</span> Déconnexion</span></li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/settings']"> <span
+                  class="material-icons-outlined">settings</span> Paramètres</a>
+            </li>
+
+            <li>
+              <span class="dropdown-item" (click)="onLogoutClick()"> <span
+                  class="material-icons-outlined">power_settings_new</span> Déconnexion</span>
+            </li>
           </ul>
+
         </div>
 
         <div class="btn-nav">
+
           <button *ngIf="!loggedIn()" (click)="onLoginClick()"><span
               class="material-icons-outlined">account_circle</span> Connexion</button>
+
         </div>
+
       </ul>
 
     </div>
+
   </div>
+
+</nav> -->
+
+<header>
+  <nav>
+    <div class="container">
+      <h1>Navbar</h1>
+
+      <div class="menu">
+        <a class="is-active" [routerLink]="['/auctions']">Enchères</a>
+        <a [routerLink]="['/create']">Vendre</a>
+        <a [routerLink]="['/faq']">FAQ</a>
+      </div>
+
+      <button type="button" (click)="setActive()" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<nav class="mobile-nav">
+  <a class="is-active" [routerLink]="['/auctions']">Enchères</a>
+  <a [routerLink]="['/create']">Vendre</a>
+  <a [routerLink]="['/faq']">FAQ</a>
 </nav>
 
 <div [@routeAnimations]="prepareRoute(outlet)" class="content">

@@ -123,7 +123,7 @@ export class CarEditComponent implements OnInit {
   }
 
   closeError() {
-    document.getElementById('alert').hidden = true;;
+    document.getElementById('alert').hidden = true;
   }
 
   async getCarInfo() {
