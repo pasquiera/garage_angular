@@ -80,5 +80,23 @@ export class AppComponent {
     mobile_menu.classList.toggle('is-active');
   }
 
+  activeLink(id: string) {
+    document.querySelector('.is-active').classList.toggle('is-active');
+
+    const link = document.getElementById(id);
+    link.classList.toggle('is-active');
+  }
+
+  mobileLink(id: string) {
+    document.getElementById('auction_m').classList.remove('is-active');
+    document.getElementById('sell_m').classList.remove('is-active');
+    document.getElementById('faq_m').classList.remove('is-active');
+
+    const link = document.getElementById(id);
+    link.classList.toggle('is-active');
+
+    this.setActive();
+  }
+
 
 }

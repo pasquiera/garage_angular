@@ -31,6 +31,8 @@
 
         <div class="dropdown" *ngIf="loggedIn()">
 
+          <button onclick="myFunction()"><img src="your image path here.png"></button>
+
           <button *ngIf="loggedIn()" class="dropdown-toggle" type="button" id="dropdownMenuButton1"
             data-bs-toggle="dropdown" aria-expanded="false">
             {{userName}}
@@ -68,12 +70,32 @@
 <header>
   <nav>
     <div class="container">
-      <h1>Navbar</h1>
+      <h1>NAVBAR</h1>
 
       <div class="menu">
-        <a class="is-active" [routerLink]="['/auctions']">Enchères</a>
-        <a [routerLink]="['/create']">Vendre</a>
-        <a [routerLink]="['/faq']">FAQ</a>
+        <a class="is-active" id="auction" (click)="activeLink('auction')" [routerLink]="['/auctions']">Enchères</a>
+        <a id="sell" (click)="activeLink('sell')" [routerLink]="['/create']">Vendre</a>
+        <a id="faq" (click)="activeLink('faq')" [routerLink]="['/faq']">FAQ</a>
+
+        <span *ngIf="!loggedIn()" (click)="onLoginClick()" class="icon material-icons-outlined">account_circle</span>
+
+        <!-- <button *ngIf="loggedIn()" class="dropdown-toggle" type="button" id="dropdownMenuButton1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          {{userName}}
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a class="dropdown-item" [routerLink]="['/settings']"> <span class="material-icons-outlined">settings</span>
+              Paramètres</a>
+          </li>
+
+          <li>
+            <span class="dropdown-item" (click)="onLogoutClick()"> <span
+                class="material-icons-outlined">power_settings_new</span> Déconnexion</span>
+          </li>
+        </ul> -->
+
       </div>
 
       <button type="button" (click)="setActive()" class="hamburger">
@@ -86,9 +108,12 @@
 </header>
 
 <nav class="mobile-nav">
-  <a class="is-active" [routerLink]="['/auctions']">Enchères</a>
-  <a [routerLink]="['/create']">Vendre</a>
-  <a [routerLink]="['/faq']">FAQ</a>
+  <a class="is-active" id="auction_m" (click)="mobileLink('auction_m')" [routerLink]="['/auctions']">Enchères</a>
+  <a id="sell_m" (click)="mobileLink('sell_m')" [routerLink]="['/create']">Vendre</a>
+  <a id="faq_m" (click)="mobileLink('faq_m')" [routerLink]="['/faq']">FAQ</a>
+
+  <a style="cursor: pointer;" *ngIf="!loggedIn()" (click)="onLoginClick()">Connexion</a>
+
 </nav>
 
 <div [@routeAnimations]="prepareRoute(outlet)" class="content">
