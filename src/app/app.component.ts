@@ -91,6 +91,7 @@ export class AppComponent {
     document.getElementById('auction_m').classList.remove('is-active');
     document.getElementById('sell_m').classList.remove('is-active');
     document.getElementById('faq_m').classList.remove('is-active');
+    document.getElementById('settings_m').classList.remove('is-active');
 
     const link = document.getElementById(id);
     link.classList.toggle('is-active');
