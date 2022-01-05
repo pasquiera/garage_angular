@@ -75,11 +75,11 @@ export class AuthService {
   }
 
   forgotPassword(passwordResetEmail: string) {
-    this.firebaseAuth.sendPasswordResetEmail(passwordResetEmail)
+    return this.firebaseAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        alert('un e-mail de récupération à été envoyé');
+        return true;
       }).catch((error) => {
-        alert(error);
+        return false;
       })
   }
 

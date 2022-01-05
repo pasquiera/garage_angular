@@ -12,7 +12,7 @@
         <span *ngIf="!loggedIn()" (click)="onLoginClick()" class="icon material-icons-outlined">account_circle</span>
 
         <div class="dropdown" *ngIf="loggedIn()">
-          <a class="click">Click Me</a>
+          <img class="avatar" [src]="userImg">
           <div class="list">
             <div class="links" [routerLink]="['/settings']">Paramètres</div>
             <div class="links" (click)="onLogoutClick()">Déconnexion</div>
@@ -36,14 +36,14 @@
 </header>
 
 <nav class="mobile-nav">
-  <a class="is-active" id="auction_m" (click)="mobileLink('auction_m')" [routerLink]="['/auctions']">Enchères</a>
-  <a id="sell_m" (click)="mobileLink('sell_m')" [routerLink]="['/create']">Vendre</a>
-  <a id="faq_m" (click)="mobileLink('faq_m')" [routerLink]="['/faq']">FAQ</a>
+  <a class="is-active" id="auction_m" (click)="activeLink('auction_m')" [routerLink]="['/auctions']">Enchères</a>
+  <a id="sell_m" (click)="activeLink('sell_m')" [routerLink]="['/create']">Vendre</a>
+  <a id="faq_m" (click)="activeLink('faq_m')" [routerLink]="['/faq']">FAQ</a>
 
   <hr>
-
   <a *ngIf="!loggedIn()" (click)="onLoginClick()">Connexion</a>
-  <a *ngIf="loggedIn()" id="settings_m" (click)="mobileLink('settings_m')" [routerLink]="['/settings']">Paramètres</a>
+  <img *ngIf="loggedIn()" class="mobile-avatar" [src]="userImg">
+  <a *ngIf="loggedIn()" id="settings_m" (click)="activeLink('settings_m')" [routerLink]="['/settings']">Paramètres</a>
   <a *ngIf="loggedIn()" (click)="onLogoutClick()">Déconnexion</a>
 
 </nav>

@@ -17,7 +17,7 @@ export class CarEditComponent implements OnInit {
   words = 0;
   carID: string;
   state = CarEditCompState.CREATE;
-  error: string[];
+  error: boolean;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, public car: CarService) { }
 
@@ -55,75 +55,20 @@ export class CarEditComponent implements OnInit {
 
   }
 
-  isValid(): boolean {
-
-    this.error = [];
-
-    if (document.querySelector('input[formControlName = "carType"]:checked') == null) {
-      this.error.push("Type du véhicule");
-    }
-
-    if (this.carForm.get('brand').invalid) {
-      this.error.push("Marque");
-    }
-
-    if (this.carForm.get('model').invalid) {
-      this.error.push("Modèle");
-    }
-
-    if (this.carForm.get('year').invalid) {
-      this.error.push("Année");
-    }
-
-    if (this.carForm.get('mileage').invalid) {
-      this.error.push("Kilométrage");
-    }
-
-    if (this.carForm.get('engine').invalid) {
-      this.error.push("Moteur");
-    }
-
-    if (this.carForm.get('hp').invalid) {
-      this.error.push("Puissance");
-    }
-
-    if (document.querySelector('input[formControlName = "fuel"]:checked') == null) {
-      this.error.push("Energie");
-    }
-
-    if (this.carForm.get('consumption').invalid) {
-      this.error.push("Consommation");
-    }
-
-    if (document.querySelector('input[formControlName = "gearbox"]:checked') == null) {
-      this.error.push("Boite de vitesse");
-    }
-
-    if (this.carForm.get('price').invalid) {
-      this.error.push("Prix de réserve");
-    }
-
-    if (this.carForm.get('description').invalid) {
-      this.error.push("Description");
-    }
-
-    if (this.carForm.get('carImage').invalid) {
-      this.error.push("Photos du véhicule");
-    }
-
-
-    if (this.error.length != 0) {
-      console.log(this.error);
-      document.getElementById('alert').hidden = false;;
-      return false;
-    }
-
-    return true;
-
+  showError() {
+    const alert = document.getElementById('alert');
+    alert.hidden = false;
+    alert.classList.remove('hide');
+    alert.classList.add('show');
+    setTimeout(() => {
+      this.closeError();
+    }, 2000);
   }
 
   closeError() {
-    document.getElementById('alert').hidden = true;
+    const alert = document.getElementById('alert');
+    alert.classList.remove('show');
+    alert.classList.add('hide');
   }
 
   async getCarInfo() {
@@ -189,7 +134,7 @@ export class CarEditComponent implements OnInit {
         image, this.imgName);
 
     } else {
-      this.isValid();
+      this.showError();
     }
   }
 
@@ -216,6 +161,8 @@ export class CarEditComponent implements OnInit {
         model, price, year,
         image, this.imgName);
 
+    } else {
+      this.showError();
     }
   }
 

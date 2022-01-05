@@ -279,66 +279,76 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-
-/* Alert box */
-.alert_wrapper{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-}
-
-.alert_wrapper .alert_item {
-    z-index: 3;
+.alert {
+    z-index: 99;
+    background: #ffdb9b;
+    padding: 20px 40px;
+    min-width: 420px;
     position: fixed;
+    right: 0;
+    top: 80px;
+    overflow: hidden;
+    border-radius: 4px;
+    border-left: 8px solid #ffa502;
+}
+
+.alert .exclamation-icon {
+    position: absolute;
+    left: 20px;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: flex;
-    background: #fdbeb8;
-    color: #b32f2d;
-    padding: 15px 50px;
-    border-radius: 3px;
-    transition: all 0.2s ease;
-    align-items: center;
-    /* animation: show_slide 1s ease forwards */
+    transform: translateY(-50%);
+    color: #ce8500;
+    font-size: 30px;
 }
 
-.info_icon {
-    position: relative;
-    top: 5px;
-}
-
-.alert_wrapper .alert_item .alert_data {
-    margin: 0 50px;
-}
-
-.alert_wrapper .alert_item .alert_data .alert_title {
+.alert .msg {
+    padding: 0 20px;
     font-size: 18px;
-    margin-bottom: 5px;
+    color: #ce8500;
 }
 
-.alert_wrapper .alert_item .alert_data span {
-    font-weight: 700;
-}
-
-.alert_wrapper .alert_item .alert_data sub {
-    font-size: 14px;
-    font-weight: 100;
-}
-
-.alert_wrapper .alert_item .alert_icon {
-    font-size: 32px;
-}
-
-.alert_wrapper .alert_item .close {
+.alert .close-btn {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffd080;
+    padding: 18px 18px;
     cursor: pointer;
 }
 
-.alert_wrapper .alert_item .close:hover {
-    color: #d39291;
+.alert .close-btn:hover {
+    background: #ffc766;
 }
 
+.close-btn .close-icon {
+    color: #ce8500;
+    font-size: 22px;
+    line-height: 40px;
+}
+
+.alert.show {
+    animation: show_slide 0.8s ease forwards;
+}
+
+.alert.hide {
+    animation: hide_slide 0.8s ease forwards;
+}
+
+@keyframes show_slide {
+    0% {
+        transform: translateX(100%);
+    }
+ }
+
+ @keyframes hide_slide {
+    0% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+ }
 /* ------------------ */
  
 @keyframes animate {

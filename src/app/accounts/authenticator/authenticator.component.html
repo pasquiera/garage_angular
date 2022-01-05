@@ -1,86 +1,109 @@
 <div class="container" id="container">
-    <div class="form-container sign-up-container">
-        <form action="#">
-            <h1>Inscription</h1>
-
-            <div class="form_div">
-                <input #registerName type="text" id="userName" class="form_input" autocomplete="off" required />
-                <label for="userName" class="form_label">Nom d'utilisateur</label>
+    <input type="checkbox" id="flip">
+    <div class="cover">
+        <div class="right">
+            <img src="/assets/img/911_turbo_s.png" alt="">
+            <div class="text">
+                <span class="text-1">Every new friend <br> is a new adventure</span>
+                <span class="text-2">Let's get connected</span>
             </div>
-
-            <div class="form_div">
-                <input #registerEmail type="email" id="email" class="form_input" autocomplete="off" required />
-                <label for="email" class="form_label">Email</label>
+        </div>
+        <div class="left">
+            <img src="/assets/img/488_pista.png" alt="">
+            <div class="text">
+                <span class="text-1">zzzzzzzzzz <br> zzzzzzzzz</span>
+                <span class="text-2">Let's get connected</span>
             </div>
-
-            <div class="form_div">
-                <input #registerPassword type="password" id="password" class="form_input" autocomplete="off" required />
-                <label for="password" class="form_label">Mot de passe</label>
-            </div>
-
-            <div class="form_div">
-                <input #registerConfirmPassword type="password" id="passwordConfirm" class="form_input"
-                    autocomplete="off" required />
-                <label for="passwordConfirm" class="form_label">Confirmer mot de passe</label>
-            </div>
-
-            <button class="confirmBtn" (click)="onRegisterClick(
-                registerName,
-                registerEmail,
-                registerPassword,
-                registerConfirmPassword
-            )">Créer</button>
-        </form>
-    </div>
-
-    <div *ngIf="isLoginState()">
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>Connexion</h1>
-                <div class="form_div">
-                    <input #loginEmail type="email" id="email" class="form_input" autocomplete="off" required />
-                    <label for="email" class="form_label">Email</label>
-                </div>
-                <div class="form_div">
-                    <input #loginPassword type="password" id="password" class="form_input" autocomplete="off"
-                        required />
-                    <label for="password" class="form_label">Mot de passe</label>
-                </div>
-                <span (click)="onForgotPasswordClick()">Mot de passe oublié?</span>
-                <button class="confirmBtn" (click)="onLogin(loginEmail, loginPassword)">Connexion</button>
-            </form>
         </div>
     </div>
 
-    <div *ngIf="isForgotPasswordState()">
-        <div class="form-container forgot-password-container">
-            <form action="#">
-                <h1>Réinitialiser</h1>
-                <div class="form_div">
-                    <input #resetEmail id="email" class="form_input" autocomplete="off" required />
-                    <label for="email" class="form_label">Email</label>
+    <form action="#">
+        <div class="form-content">
+
+            <div class="auth-form login-form" *ngIf="isLoginState()">
+                <div class="title">Connexion</div>
+                <div class="input-boxes">
+                    <div class="input-box">
+                        <input #loginEmail type="email" id="email" class="form_input" autocomplete="off" required>
+                        <label for="email" class="form_label">Email</label>
+                    </div>
+                    <div class="input-box">
+                        <input #loginPassword type="password" id="password" class="form_input" autocomplete="off"
+                            required>
+                        <label for="password" class="form_label">Mot de passe</label>
+                    </div>
+                    <div class="text"><span (click)="onForgotPasswordClick()">Mot de passe oublié?</span></div>
+                    <div class="button input-box">
+                        <input type="submit" value="Connexion" (click)="onLogin(loginEmail, loginPassword)">
+                    </div>
+                    <div class="text">Pas encore inscrit? <label for="flip" (click)="setTouched()">Créer un compte</label></div>
                 </div>
-                <span (click)="onLoginClick()">Connexion</span>
-                <button class="confirmBtn" (click)="onResetClick(resetEmail)">Réinitialiser</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="overlay-container">
-        <div class="overlay">
-
-            <div class="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>To keep connected with us please login with your personal info</p>
-                <button class="ghost" id="signIn" (click)="signInClick()">Connexion</button>
             </div>
 
-            <div class="overlay-panel overlay-right">
-                <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button class="ghost" id="signUp" (click)="signUpClick()">Créer un compte</button>
+            <div class="auth-form reset-form" *ngIf="isForgotPasswordState()">
+                <div class="title">Réinitialiser le mot de passe</div>
+                <div class="input-boxes">
+                    <div class="input-box">
+                        <input #resetEmail id="email" class="form_input" autocomplete="off" required />
+                        <label for="email" class="form_label">Email</label>
+                    </div>
+                    <div class="button input-box">
+                        <input type="submit" value="Réinitialiser" (click)="onResetClick(resetEmail)">
+                    </div>
+                    <div class="text"><label (click)="onLoginClick()">Connexion</label> | <label for="flip">Créer un
+                            compte</label></div>
+                </div>
+            </div>
+
+            <div class="auth-form" *ngIf="isOkResetState()">
+                <div class="validation-box">
+                    <div class="icon">
+                        <span class="icon material-icons-outlined">
+                            check_circle
+                        </span>
+                    </div>
+                    <div class="text">Un mail de récupération a été envoyé</div>
+
+                </div>
+                <div class="input-boxes">
+                    <div class="text"><label (click)="onLoginClick()">Connexion</label></div>
+                </div>
+            </div>
+
+            <div class="auth-form signup-form">
+                <div class="title">Inscription</div>
+                <div class="input-boxes">
+                    <div class="input-box">
+                        <input #registerName type="text" id="userName" class="form_input" autocomplete="off" required>
+                        <label for="userName" class="form_label">Nom d'utilisateur</label>
+                    </div>
+                    <div class="input-box">
+                        <input #registerEmail type="email" id="email" class="form_input" autocomplete="off" required>
+                        <label for="email" class="form_label">Email</label>
+                    </div>
+                    <div class="input-box">
+                        <input #registerPassword type="password" id="password" class="form_input" autocomplete="off"
+                            required />
+                        <label for="password" class="form_label">Mot de passe</label>
+                    </div>
+                    <div class="input-box">
+                        <input #registerConfirmPassword type="password" id="passwordConfirm" class="form_input"
+                            autocomplete="off" required />
+                        <label for="passwordConfirm" class="form_label">Confirmer mot de passe</label>
+                    </div>
+                    <div class="button input-box">
+                        <input type="submit" value="Inscription" (click)="onRegisterClick(
+                            registerName,
+                            registerEmail,
+                            registerPassword,
+                            registerConfirmPassword
+                        )">
+                    </div>
+                    <div class="text">Vous possédez un compte? <label for="flip" (click)="onLoginClick()">Se
+                            connecter</label></div>
+                </div>
             </div>
 
         </div>
-    </div>
+    </form>
 </div>

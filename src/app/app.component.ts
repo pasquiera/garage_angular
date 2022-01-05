@@ -20,8 +20,9 @@ import { TestBed } from '@angular/core/testing';
 export class AppComponent {
   title: string = "Garage Automobile";
   userHasProfile = true;
-  userName: string;
+  userImg: string;
   subscription: any;
+  mobileActiveLink = 'auction_m';
 
   constructor(private dialog: MatDialog,
     private router: Router,
@@ -33,9 +34,9 @@ export class AppComponent {
       if (val) {
 
         this.subscription = this.auth.getUserData().subscribe(user => {
-          this.userName = user.userName;
 
           this.auth.getUserImage(user.imageProfile).then(val => {
+            this.userImg = val;
             this.utility.updateData(val);
           })
 
@@ -53,6 +54,7 @@ export class AppComponent {
     this.dialog.open(AuthenticatorComponent, {
       // NoopScrollStrategy: does nothing
       scrollStrategy: new NoopScrollStrategy(),
+      width: '850px',
       panelClass: 'custom-modalbox'
     })
   }
@@ -61,7 +63,6 @@ export class AppComponent {
     /* this.router.navigate(["auctions"]); */
     this.auth.signOut();
     this.subscription.unsubscribe();
-    this.userName = '';
   }
 
   loggedIn() {
@@ -81,23 +82,18 @@ export class AppComponent {
   }
 
   activeLink(id: string) {
-    document.querySelector('.is-active').classList.toggle('is-active');
-
     const link = document.getElementById(id);
-    link.classList.toggle('is-active');
+    const sub = id.slice(-2);
+    if (sub.localeCompare('_m') != 0) {
+      document.querySelector('.is-active').classList.toggle('is-active');
+      link.classList.toggle('is-active');
+    } else {
+      document.getElementById(this.mobileActiveLink).classList.remove('is-active');
+      this.mobileActiveLink = id;
+      link.classList.toggle('is-active');
+      this.setActive();
+    }
+
   }
-
-  mobileLink(id: string) {
-    document.getElementById('auction_m').classList.remove('is-active');
-    document.getElementById('sell_m').classList.remove('is-active');
-    document.getElementById('faq_m').classList.remove('is-active');
-    document.getElementById('settings_m').classList.remove('is-active');
-
-    const link = document.getElementById(id);
-    link.classList.toggle('is-active');
-
-    this.setActive();
-  }
-
 
 }

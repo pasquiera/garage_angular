@@ -1,7 +1,7 @@
-* {
+/* * {
     box-sizing: border-box;
-}
-
+} */
+/* 
 .container{
     padding: 0px !important;
 }
@@ -200,12 +200,12 @@ button.ghost:hover {
     width: 768px;
     max-width: 100%;
     min-height: 480px;
-}
+} */
 
 /* Animation */
 
 /* Move overlay to left */
-.container.right-panel-active .overlay-container {
+/* .container.right-panel-active .overlay-container {
     transform: translateX(-100%);
 }
 
@@ -217,10 +217,10 @@ button.ghost:hover {
 .container.left-panel-active .overlay {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url("/assets/img/911_turbo_s.png");
-}
+} */
 
 /* Move overlay back to right */
-.container.right-panel-active .overlay {
+/* .container.right-panel-active .overlay {
     transform: translateX(50%);
 }
 
@@ -231,5 +231,298 @@ button.ghost:hover {
 
 .container.right-panel-active .overlay-right {
     transform: translateX(20%);
+
+}
+ */
+
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ .container {
+     position: relative;
+    max-width: 850px;
+    width: 100%;
+    background: #fff;
+    padding: 40px 30px;
+ }
+
+ .container .cover {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 50%;
+    z-index: 98;
+    transition: all 1s ease;
+ }
+
+ .container .cover img{
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     object-fit: cover;
+     z-index: 12;
+ }
+
+ .container .cover::before {
+     content: '';
+     position: absolute;
+     height: 100%;
+     width: 100%;
+     background: royalblue;
+     opacity: 0.5;
+ }
+
+ .container #flip:checked ~ .cover {
+    transform: translateX(-100%);
+ }
+
+ .container .cover .text{
+     position: absolute;
+     z-index: 111;
+     height: 100%;
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .cover .text .text-1,
+ .cover .text .text-2{
+     font-size: 26px;
+     font-weight: 600;
+     color: #fff;
+     text-align: center;
+ }
+
+ .container .form {
+    height: 100%;
+    width: 100%;
+    background: #fff;
+ }
+
+ .container .form-content{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+ }
+
+ .form-content .auth-form{
+     width: calc(100% / 2 - 25px);
+ }
+
+ form .form-content .title {
+     position: relative;
+     font-size: 24px;
+     font-weight: 500;
+     color: #333;
+ }
+
+ form .form-content .title:before{
+     content: '';
+     position: absolute;
+     left: 0;
+     bottom: 0;
+     height: 3px;
+     width: 25px;
+     background: #000;
+ } 
+
+ form .form-content .input-boxes {
+     margin-top: 30px;
+ }
+
+ form .form-content .input-box{
+     display: flex;
+     height: 50px;
+     width: 100%;
+     margin: 10px 0;
+     position: relative;
+ }
+
+ .form-content .input-box input:not(.form_input){
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 0 30px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    border-color: royalblue;
+ }
+
+ .form_input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: 1px solid rgb(218, 220, 224);
+    background-color: transparent;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.form_input:focus {
+    border: 2px solid #4285f4;
+}
+
+.form_label {
+    position: absolute;
+    left: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 2px;
+    color: rgb(65, 75, 103);
+    pointer-events: none;
+    background: #fff;
+}
+
+.form_input:focus ~ .form_label,
+.form_input:valid ~ .form_label{
+    margin-top: -12px;
+    font-size: 15px;
+    transition: .3s;
+    color: #4285f4;
+}
+
+ form .form-content .text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+ }
+
+ form .form-content .text span{
+     color: rgb(13, 110, 253);
+     cursor: pointer;
+ }
+
+ form .form-content .text span:hover{
+    color: rgb(10, 88, 202);
+    text-decoration: underline;
+}
+
+ form .form-content .button {
+     color: #FFF;
+     margin-top: 40px;
+ }
+
+ form .form-content .button input{
+     color: #FFF;
+     background: royalblue;
+     border-radius: 6px;
+     padding: 0;
+     cursor: pointer;
+     transition: all 0.4 ease;
+ }
+
+ form .form-content .button input:hover {
+    background: rgb(39, 69, 158);
+ }
+
+ form .form-content label {
+     color: rgb(39, 69, 158);
+     cursor: pointer;
+ }
+
+ form .form-content label:hover {
+     text-decoration: underline;
+ }
+
+ form .form-content .validation-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  
+    align-items: center;      
+ }
+
+ form .form-content .validation-box .text{
+    margin-bottom: 40px;
+ }
+
+ form .form-content .validation-box .icon{
+    margin-top: -50px;
+    font-size: 100px;
+    color: rgb(24, 194, 161);
+}
+
+.container .cover .left{
+    opacity: 0;
+}
+
+.container.touched #flip:checked ~ .cover .right{
+    animation: fadeOut 2s linear;
+    opacity: 0;
+}
+
+.container #flip:checked ~ .cover .left{
+    animation: fadeIn 2s linear;
+    opacity: 1;
+}
+
+.container.touched #flip ~ .cover .right{
+    animation: fadeIn 2s linear;
+    opacity: 1;
+}
+
+.container #flip ~ .cover .left{
+    animation: fadeOut 2s linear;
+    opacity: 0;
+}
+
+.container #flip {
+    display: none;
+}
+
+@keyframes fadeIn {
+    0% { 
+        opacity: 0; 
+    }
+    100% { 
+        opacity: 1; 
+    }
+}
+
+@keyframes fadeOut {
+    0% { 
+        opacity: 1; 
+    }
+    100% { 
+        opacity: 0; 
+    }
+}
+
+@media (max-width: 768px) {
+    .container .cover {
+        display: none;
+    }
+
+    .form-content .auth-form {
+        width: 100%;
+    }
+
+    .form-content .signup-form {
+        display: none;
+    }
+
+    .container #flip:checked ~ form .signup-form {
+        display: block;
+    }  
+    
+    .container #flip:checked ~ form .login-form {
+        display: none;
+    } 
+
+    .container #flip:checked ~ form .reset-form {
+        display: none;
+    } 
+
+    form .form-content .validation-box .icon{
+        margin-top: 0px;
+    }
 
 }

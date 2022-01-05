@@ -207,7 +207,7 @@
 
 </div>
 
-<div class="alert_wrapper" id="alert" hidden>
+<!-- <div class="alert_wrapper" id="alert" hidden>
     <div class="alert_inner">
         <div class="alert_item">
             <div class="alert_data">
@@ -226,5 +226,12 @@
             </div>
         </div>
     </div>
+</div> -->
 
+<div class="alert hide" id="alert" hidden>
+    <span class="material-icons-outlined exclamation-icon">error</span>
+    <span class="msg">Warning: this is a warning alert!</span>
+    <span class="close-btn">
+        <span class="material-icons-outlined close-icon" (click)="closeError()">close</span>
+    </span>
 </div>

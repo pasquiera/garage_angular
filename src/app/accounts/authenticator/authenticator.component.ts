@@ -12,6 +12,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 export class AuthenticatorComponent implements OnInit {
 
   state = AuthenticatorCompState.LOGIN;
+  touched = false;
 
   constructor(private router: Router,
     private dialogRef: MatDialogRef<AuthenticatorComponent>,
@@ -89,7 +90,14 @@ export class AuthenticatorComponent implements OnInit {
     // reset password function
     let email = resetEmail.value;
     if (this.isNotEmpty(email)) {
-      this.auth.forgotPassword(email);
+      this.auth.forgotPassword(email).then(res => {
+        if (res) {
+          this.state = AuthenticatorCompState.OK_RESET;
+        } else {
+          alert("Email invalide")
+        }
+      });
+
     }
   }
 
@@ -101,19 +109,6 @@ export class AuthenticatorComponent implements OnInit {
   isAMatch(text: string, comparedWith: string) {
     // check if passwords are identical
     return text == comparedWith;
-  }
-
-  signUpClick() {
-    // switch to sign up layer
-    document.getElementById('container').classList.add('right-panel-active');
-    document.getElementById('container').classList.remove('left-panel-active');
-  }
-
-  signInClick() {
-    // switch to sign in layer
-    document.getElementById('container').classList.remove('right-panel-active');
-    document.getElementById('container').classList.add('left-panel-active');
-    this.onLoginClick();
   }
 
   onForgotPasswordClick() {
@@ -131,6 +126,13 @@ export class AuthenticatorComponent implements OnInit {
     this.state = AuthenticatorCompState.LOGIN;
   }
 
+  setTouched() {
+    if (!this.touched) {
+      this.touched = true;
+      document.getElementById('container').classList.add('touched');
+    }
+  }
+
   /* check current state to display the right form */
 
   isLoginState() {
@@ -145,10 +147,15 @@ export class AuthenticatorComponent implements OnInit {
     return this.state == AuthenticatorCompState.FORGOT_PASSWORD;
   }
 
+  isOkResetState() {
+    return this.state == AuthenticatorCompState.OK_RESET;
+  }
+
 }
 
 export enum AuthenticatorCompState {
   LOGIN,
   REGISTER,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  OK_RESET,
 }

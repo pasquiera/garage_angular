@@ -41,7 +41,6 @@ import { CircleLoadingComponent } from './shared/circle-loading/circle-loading.c
 import { FaqComponent } from './faq/faq.component';
 
 
-
 registerLocaleData(localeFr, 'fr');
 
 @NgModule({
