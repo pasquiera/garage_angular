@@ -38,12 +38,15 @@ h2 {
 
 .replies {
     margin-left: 60px;
-
 }
 
 .container .commentBox {
     display: flex;
     margin-bottom: 10px;
+}
+
+.comment{
+    max-width: 800px;
 }
 
 .commentBox .avatar {
@@ -57,6 +60,7 @@ img {
 }
 
 .txt {
+    margin-top: 20px;
     width: 100%;
 }
 
@@ -100,7 +104,8 @@ textarea::-webkit-scrollbar {
     color: gray;
 }
 
-.replies .replyBtn {
+.replyBtn {
+    position: relative; right: 0;
     margin-top: 10px;
     margin-bottom: 10px;
     border: none;
@@ -108,7 +113,7 @@ textarea::-webkit-scrollbar {
     color: rgb(29, 100, 212);
 }
 
-.replies .replyBtn:hover {
+.replyBtn:hover {
     color: rgb(100, 153, 234);
 }
 

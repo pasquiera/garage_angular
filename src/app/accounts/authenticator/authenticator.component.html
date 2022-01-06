@@ -24,19 +24,21 @@
                 <div class="title">Connexion</div>
                 <div class="input-boxes">
                     <div class="input-box">
-                        <input #loginEmail type="email" id="email" class="form_input" autocomplete="off" required>
+                        <input #loginEmail type="text" id="email" class="form_input" (click)="resetError('email')"
+                            autocomplete="off" required>
                         <label for="email" class="form_label">Email</label>
                     </div>
                     <div class="input-box">
-                        <input #loginPassword type="password" id="password" class="form_input" autocomplete="off"
-                            required>
+                        <input #loginPassword type="password" id="password" class="form_input"
+                            (click)="resetError('password')" autocomplete="off" required>
                         <label for="password" class="form_label">Mot de passe</label>
                     </div>
                     <div class="text"><span (click)="onForgotPasswordClick()">Mot de passe oublié?</span></div>
                     <div class="button input-box">
                         <input type="submit" value="Connexion" (click)="onLogin(loginEmail, loginPassword)">
                     </div>
-                    <div class="text">Pas encore inscrit? <label for="flip" (click)="setTouched()">Créer un compte</label></div>
+                    <div class="text">Pas encore inscrit? <label for="flip" (click)="setTouched()">Créer un
+                            compte</label></div>
                 </div>
             </div>
 
@@ -44,8 +46,9 @@
                 <div class="title">Réinitialiser le mot de passe</div>
                 <div class="input-boxes">
                     <div class="input-box">
-                        <input #resetEmail id="email" class="form_input" autocomplete="off" required />
-                        <label for="email" class="form_label">Email</label>
+                        <input #resetEmail id="email2" class="form_input" (click)="resetError('email2')"
+                            autocomplete="off" required />
+                        <label for="email2" class="form_label">Email</label>
                     </div>
                     <div class="button input-box">
                         <input type="submit" value="Réinitialiser" (click)="onResetClick(resetEmail)">
@@ -74,21 +77,23 @@
                 <div class="title">Inscription</div>
                 <div class="input-boxes">
                     <div class="input-box">
-                        <input #registerName type="text" id="userName" class="form_input" autocomplete="off" required>
+                        <input #registerName type="text" id="userName" class="form_input"
+                            (click)="resetError('userName')" autocomplete="off" required>
                         <label for="userName" class="form_label">Nom d'utilisateur</label>
                     </div>
                     <div class="input-box">
-                        <input #registerEmail type="email" id="email" class="form_input" autocomplete="off" required>
-                        <label for="email" class="form_label">Email</label>
+                        <input #registerEmail type="text" id="email3" class="form_input" (click)="resetError('email3')"
+                            autocomplete="off" required>
+                        <label for="email3" class="form_label">Email</label>
                     </div>
                     <div class="input-box">
-                        <input #registerPassword type="password" id="password" class="form_input" autocomplete="off"
-                            required />
-                        <label for="password" class="form_label">Mot de passe</label>
+                        <input #registerPassword type="password" id="password3" (click)="resetError('password3')"
+                            class="form_input" autocomplete="off" required />
+                        <label for="password3" class="form_label">Mot de passe</label>
                     </div>
                     <div class="input-box">
-                        <input #registerConfirmPassword type="password" id="passwordConfirm" class="form_input"
-                            autocomplete="off" required />
+                        <input #registerConfirmPassword type="password" id="passwordConfirm"
+                            (click)="resetError('passwordConfirm')" class="form_input" autocomplete="off" required />
                         <label for="passwordConfirm" class="form_label">Confirmer mot de passe</label>
                     </div>
                     <div class="button input-box">

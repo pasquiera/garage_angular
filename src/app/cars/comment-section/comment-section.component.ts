@@ -103,6 +103,7 @@ export class CommentSectionComponent implements OnInit {
       Promise.all([this.auth.getName(this.auth.userID), this.auth.getAvatar(this.auth.userID)]).then(data => {
         this.replies.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, prev: commentID });
         this.count++;
+        this.toggleShow(index);
       });
     }
   }

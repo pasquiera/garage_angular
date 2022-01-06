@@ -38,8 +38,18 @@ export class AuthenticatorComponent implements OnInit {
 
         this.checkVerif();
 
+      }).catch(error => {
+        if (error.code == 'auth/invalid-email') { document.getElementById('email').classList.add('invalid'); }
+        if (error.code == 'auth/wrong-password') { document.getElementById('password').classList.add('invalid'); }
       });
 
+    }
+  }
+
+  resetError(id: string) {
+    const element = document.getElementById(id);
+    if (element.classList.contains('invalid')) {
+      element.classList.remove('invalid');
     }
   }
 
@@ -67,7 +77,21 @@ export class AuthenticatorComponent implements OnInit {
 
         this.checkVerif();
 
-      })
+      }).catch(error => {
+        console.log(error.code)
+        if (error.code == 'auth/invalid-email') { document.getElementById('email3').classList.add('invalid'); }
+        if (error.code == 'auth/weak-password') {
+          alert('Le mot de passe doit contenir au moins 6 caractères');
+          document.getElementById('password3').classList.add('invalid');
+          document.getElementById('passwordConfirm').classList.add('invalid');
+        }
+      });
+    } else {
+      if (!this.isNotEmpty(name)) { document.getElementById('userName').classList.add('invalid'); }
+      if (!this.isAMatch(password, confirmPassword)) {
+        document.getElementById('password3').classList.add('invalid');
+        document.getElementById('passwordConfirm').classList.add('invalid');
+      }
     }
   }
 
@@ -94,19 +118,19 @@ export class AuthenticatorComponent implements OnInit {
         if (res) {
           this.state = AuthenticatorCompState.OK_RESET;
         } else {
-          alert("Email invalide")
+          document.getElementById('email2').classList.add('invalid');
         }
       });
 
     }
   }
 
-  isNotEmpty(text: string) {
+  isNotEmpty(text: string): boolean {
     // check if the input is not empty
     return text != null && text.length > 0;
   }
 
-  isAMatch(text: string, comparedWith: string) {
+  isAMatch(text: string, comparedWith: string): boolean {
     // check if passwords are identical
     return text == comparedWith;
   }

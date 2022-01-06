@@ -49,12 +49,18 @@ export class ProfileSettingComponent implements OnInit {
       this.auth.updateDocument(lastName, firstName, userName, address, phoneNumber);
 
       if (image != null) {
-        this.auth.uploadImage(image);
+        this.auth.uploadImage(image).then(res => {
+          this.showSucces();
+        });
+      } else {
+        this.showSucces();
       }
 
       // avoid image reupload for each submit
       this.profileForm.reset();
 
+    } else {
+      this.showInfo();
     }
   }
 
@@ -91,6 +97,33 @@ export class ProfileSettingComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
     console.log("done");
+  }
+
+  showInfo() {
+    const info = document.getElementById('info');
+    info.hidden = false;
+  }
+
+  hideInfo() {
+    const info = document.getElementById('info');
+    info.hidden = true;
+  }
+
+  showSucces() {
+    this.hideInfo();
+    const alert = document.getElementById('alert');
+    alert.hidden = false;
+    alert.classList.remove('hide');
+    alert.classList.add('show');
+    setTimeout(() => {
+      this.closeSuccess();
+    }, 3000);
+  }
+
+  closeSuccess() {
+    const alert = document.getElementById('alert');
+    alert.classList.remove('show');
+    alert.classList.add('hide');
   }
 
 }

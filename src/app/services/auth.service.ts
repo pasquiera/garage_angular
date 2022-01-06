@@ -26,7 +26,7 @@ export class AuthService {
         //console.log(this.userID);
 
       }).catch(err => {
-        alert(err.message);
+        throw err;
       })
   }
 
@@ -50,7 +50,7 @@ export class AuthService {
         this.setLoginState(true);
 
       }).catch((error) => {
-        alert(error.message);
+        throw error;
       })
   }
 

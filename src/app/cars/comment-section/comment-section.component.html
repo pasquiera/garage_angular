@@ -24,7 +24,16 @@
                     <div class="userComment">
                         <img src={{comment.avatar}}>
                         <div class="details">
-                            <div class="user">{{comment.userName}}<span class="time">2020-09-13</span></div>
+                            <div class="user">{{comment.userName}}<span class="time">2020-09-13</span>
+
+                                <button class="replyBtn" (click)="toggleShow(index)">
+                                    <span>Répondre</span>
+                                    <span class="material-icons-outlined">
+                                        reply
+                                    </span>
+                                </button>
+
+                            </div>
                             <div class="comment">{{comment.text}}</div>
                         </div>
                     </div>
@@ -41,13 +50,6 @@
 
                             </div>
                         </div>
-
-                        <button class="replyBtn" (click)="toggleShow(index)">
-                            <span>Répondre</span>
-                            <span class="material-icons-outlined">
-                                reply
-                            </span>
-                        </button>
 
                         <div *ngIf="isShown && checkIndex(index)">
                             <div class="replyBox">

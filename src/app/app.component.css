@@ -1,3 +1,7 @@
+nav {
+    height: 58px;
+}
+
 .container {
     font-family: 'Source Sans Pro', sans-serif;
     max-width: 1280px;
@@ -18,7 +22,7 @@
 .list {
     display: none;
     position: absolute;
-    margin-top: 16px;
+    margin-top: 15px;
     width: 200px;
     background-color: #FFF;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .2);

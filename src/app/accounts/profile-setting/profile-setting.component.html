@@ -50,6 +50,12 @@
                 <label for="profilePhoneNumberId" class="details"> Numéro de téléphone </label>
             </div>
 
+            <div class="info" id="info" hidden>
+                <div>
+                    <span class="material-icons-outlined exclamation-icon">error</span>
+                </div>
+                Erreur: Champs invalides
+            </div>
             <button class="btn" type="submit">
                 Enregistrer les paramètres
             </button>
@@ -61,6 +67,14 @@
 
 </div>
 
-<pre>
+<div class="alert hide" id="alert" hidden>
+    <span class="material-icons valid-icon">check_circle</span>
+    <span class="msg">Succès: Paramètres enregistrés!</span>
+    <span class="close-btn">
+        <span class="material-icons-outlined close-icon" (click)="closeSuccess()">close</span>
+    </span>
+</div>
+
+<!-- <pre>
     {{ profileForm.value | json }}
-</pre>
+</pre> -->

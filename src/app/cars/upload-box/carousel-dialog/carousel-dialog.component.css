@@ -1,14 +1,8 @@
-.carousel {
-    height: 500px;
-    width: 900px;
+img {
+    object-fit: scale-down;
 }
 
-.carousel-inner {
-    width: 100%;
-    height: 100%;
-  }
-
- .mat-dialog-content{
+.mat-dialog-content{
     overflow-y: hidden; /* Hide vertical scrollbar */
     overflow-x: hidden; /* Hide horizontal scrollbar */
  }

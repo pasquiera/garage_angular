@@ -139,7 +139,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
         scrollStrategy: new NoopScrollStrategy(),
         data: {
           imageURL: this.imageURL,
-          index: index
+          index: index,
         }
       });
   }
