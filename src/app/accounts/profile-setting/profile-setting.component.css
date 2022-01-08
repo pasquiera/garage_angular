@@ -37,12 +37,21 @@ form .user-details .input-data{
 }
 
 form .user-details button {
-    position: absolute;
-    top: 87%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    background: red;
+    position: relative;
+    top: 20px;
+    margin: 0 auto;
+    display: block;
+    height: 50px;
+    width: 100%;
+    max-width: 300px;
+    color: #FFF;
+    background: royalblue;
+    border-radius: 6px;
+    padding: 0;
+}
+
+form .user-details button:hover {
+    background: rgb(39, 69, 158);
 }
 
 .user-details .input-data input {
@@ -111,14 +120,22 @@ form .user-details button {
 }
 
 .info {
+    position: relative;
     display: flex;
-    margin-left: auto;
+    flex-direction:row-reverse;
+    height: 30px;
+    width: 100%;
     color: rgb(221, 8, 8);
 }
 
 .exclamation-icon {
     margin-right: 5px;
     color: rgb(221, 8, 8);
+}
+
+.blank {
+    width: 100%;
+    height: 30px;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -159,10 +176,6 @@ input[type=number] {
         margin: 35px 0!important;
     }
 
-    form .user-details button {
-        top: 105%;
-     }
-
 }
 
 .alert {
@@ -171,10 +184,7 @@ input[type=number] {
     padding: 20px 40px;
     min-width: 420px;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    right: 0;
     top: 80px;
     overflow: hidden;
     border-radius: 4px;
@@ -217,28 +227,34 @@ input[type=number] {
 }
 
 .alert.show {
-    animation: show_fade 2s ease forwards;
+    animation: show_slide 0.8s ease forwards;
 }
 
 .alert.hide {
-    animation: hide_fade 2s ease forwards;
+    animation: hide_slide 0.8s ease forwards;
 }
 
-@keyframes show_fade {
-    0% {
-        opacity: 0;
+@keyframes show_slide {
+    0%{
+        transform: translateX(100%);
     }
-    100% {
-        opacity: 1;
+    40%{
+        transform: translateX(-10%);
     }
- }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+}
 
- @keyframes hide_fade {
+@keyframes hide_slide {
     0% {
-        opacity: 1;
+        transform: translateX(-10px);
     }
     100% {
-        opacity: 0;
+        transform: translateX(100%);
     }
- }
+}
 

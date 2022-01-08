@@ -335,20 +335,6 @@ input[type=number] {
     animation: hide_slide 0.8s ease forwards;
 }
 
-@keyframes show_slide {
-    0% {
-        transform: translateX(100%);
-    }
- }
-
- @keyframes hide_slide {
-    0% {
-        transform: translateX(-10px);
-    }
-    100% {
-        transform: translateX(100%);
-    }
- }
 /* ------------------ */
  
 @keyframes animate {
@@ -369,6 +355,15 @@ input[type=number] {
     }
     100%{
         transform: translateX(-10px);
+    }
+}
+
+@keyframes hide_slide {
+    0% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(100%);
     }
 }
 

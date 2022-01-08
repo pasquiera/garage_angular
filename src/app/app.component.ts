@@ -20,7 +20,7 @@ import { TestBed } from '@angular/core/testing';
 export class AppComponent {
   title: string = "Garage Automobile";
   userHasProfile = true;
-  userImg: string;
+  userImg = "assets/img/default.jpg";
   subscription: any;
   mobileActiveLink = 'auction_m';
 
@@ -43,7 +43,7 @@ export class AppComponent {
         })
 
       } else {
-        this.utility.updateData("assets/img/the-interior.jpg");
+        this.utility.updateData("assets/img/default.jpg");
       }
     })
 

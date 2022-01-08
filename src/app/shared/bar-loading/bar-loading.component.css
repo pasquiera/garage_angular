@@ -6,7 +6,7 @@
 .loader span {
     width: 10px;
     height: 60px;
-    background: rgb(180, 180, 180);
+    background: rgb(212, 212, 212);
     margin: 0px 1px;
     animation: loading 800ms ease-in-out infinite;
 }

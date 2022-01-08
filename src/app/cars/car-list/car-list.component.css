@@ -8,6 +8,11 @@
     overflow: auto;
 }
 
+a {
+    color: #000;
+    text-decoration: none; 
+}
+
 .title {
     text-align: center;
     margin-top: 3em;
@@ -26,18 +31,63 @@
     top: -3px;
 }
 
+.card-title, .sub-title {
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:100%;
+    display: inline-block;
+    cursor: pointer;
+}
+
 .card-title {
     font-size: 24px;
     font-weight: 700;
 }
 
-a {
-    color: #000;
-    text-decoration: none; 
+.sub-title {
+    font-size: 18px;
+    color: rgb(124, 124, 124);
+}
+
+.main-box {
+    display: flex;
+    padding-bottom: 15px;
+}
+
+.main-box .main-info {
+    max-width: 512px;
+    min-width: 182px;
+    width: 100%;
+}
+
+.info, .info-box {
+    padding-top: 5px;
+    display: flex;
+}
+
+.info {
+    justify-content: space-around;
+}
+
+.info-box .value{
+    position: relative;
+    font-size: .8571428571rem;
+    text-transform: uppercase;
+    font-weight: 550;
+    color: rgb(77, 77, 77);
+    margin-top: 12px;
+    padding-left: 5px;
+}
+
+.info span {
+    position: relative;
+    margin-top: 12px;
 }
 
 h5 {
-    margin-bottom: 2px;
+    margin-bottom: -10px;
 }
 
 h6 {
@@ -48,9 +98,16 @@ h6 {
     margin-top: 1em;
 }
 
+.badge {
+    position: absolute;
+    z-index: 99;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
 .loading-bar {
     position: absolute;
-    padding-top: 100px;
+    padding-top: 30px;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -62,7 +119,7 @@ h6 {
 
 .car-image {
     height: 400px;
-    background-color: rgb(238, 238, 238);
+    background-color: rgb(247, 247, 247);;
 }
 
 .carousel-item {
@@ -93,5 +150,15 @@ img {
     }
 }
 
+@media (max-width: 470px) {
+    .info-box .name {
+        display: none;
+    }
+}
 
+@media (max-width: 340px) {
+    .main-box {
+        display: block;
+    }
+}
 

@@ -14,6 +14,7 @@ export class CarEditComponent implements OnInit {
   private subscription: Subscription[];
   public carForm: FormGroup;
   imgName: string[];
+  imgNameInit: string[];
   words = 0;
   carID: string;
   state = CarEditCompState.CREATE;
@@ -95,19 +96,20 @@ export class CarEditComponent implements OnInit {
   }
 
   async getCarImages(imagePath: string[]) {
+    // 
     var files = new Array(imagePath.length);
     for (let i = 0; i < files.length; i++) {
       await this.car.getImage(imagePath[i]).then(url => {
         var pos1 = imagePath[i].indexOf("/");
         var pos2 = imagePath[i].indexOf("/", pos1 + 1);
         var strOut = imagePath[i].substr(pos2 + 1);
-        files[i] = [strOut, url];
-        this.imgName[i] = strOut;
+        files[i] = [strOut, url]; // ["name","firebase url"]
+        this.imgName[i] = strOut; // names
       });
     }
-
+    this.imgNameInit = this.imgName;
     this.carForm.patchValue({
-      carImage: files
+      carImage: files // send files array to ControlValueAccessor (upload-box.component)
     })
 
   }
@@ -126,6 +128,13 @@ export class CarEditComponent implements OnInit {
       let image = this.carForm.get('carImage').value;
       let model = this.carForm.get('model').value;
       let year = this.carForm.get('year').value;
+
+      if(this.imgNameInit == this.imgName) {
+        // compare new and old array of image names after submit
+        // if same array, no new images had been added or image position has been changed
+        // image array that contains files set to [] to not push blank file in firebase
+        image = []
+      }
 
       this.car.updateCar(this.carID, type, brand,
         consumption, description, engine,
@@ -167,7 +176,7 @@ export class CarEditComponent implements OnInit {
   }
 
   receiveName($event) {
-    // get car pictures url from UploadBoxComponent 
+    // get car picture names from UploadBoxComponent 
     this.imgName = $event;
   }
 

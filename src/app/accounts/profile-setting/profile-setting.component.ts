@@ -14,7 +14,7 @@ export class ProfileSettingComponent implements OnInit {
   public profileForm: FormGroup;
 
   user: IUser;
-  imgURL: string;
+  imgURL = "assets/img/default.jpg";
   subscription;
 
   constructor(private fb: FormBuilder, public auth: AuthService) {
@@ -100,13 +100,13 @@ export class ProfileSettingComponent implements OnInit {
   }
 
   showInfo() {
-    const info = document.getElementById('info');
-    info.hidden = false;
+    document.getElementById('info').hidden = false;
+    document.getElementById('blank').hidden = true;
   }
 
   hideInfo() {
-    const info = document.getElementById('info');
-    info.hidden = true;
+    document.getElementById('info').hidden = true;
+    document.getElementById('blank').hidden = false;
   }
 
   showSucces() {
@@ -117,7 +117,7 @@ export class ProfileSettingComponent implements OnInit {
     alert.classList.add('show');
     setTimeout(() => {
       this.closeSuccess();
-    }, 3000);
+    }, 2000);
   }
 
   closeSuccess() {

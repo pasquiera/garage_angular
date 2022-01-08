@@ -37,9 +37,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperComponent } from './accounts/image-cropper/image-cropper.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BarLoadingComponent } from './shared/bar-loading/bar-loading.component';
-import { CircleLoadingComponent } from './shared/circle-loading/circle-loading.component';
 import { FaqComponent } from './faq/faq.component';
-
 
 registerLocaleData(localeFr, 'fr');
 
@@ -59,7 +57,6 @@ registerLocaleData(localeFr, 'fr');
     CommentSectionComponent,
     ImageCropperComponent,
     BarLoadingComponent,
-    CircleLoadingComponent,
     FaqComponent,
   ],
   imports: [

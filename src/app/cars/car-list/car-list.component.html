@@ -2,7 +2,7 @@
 <!-- contenu affiché que si la liste cars n'est pas vide -->
 
 <div class="container">
-
+  <!-- 
   <div class="row">
     <div class="col-sm">
       <input class="favorite styled" type="button" value="TOUS" (click)="setType(0)">
@@ -13,32 +13,30 @@
     <div class="col-sm">
       <input class="favorite styled" type="button" value="MOTOS" (click)="setType(2)">
     </div>
-  </div>
+  </div> -->
 
   <div class="row gy-4">
-
-    <div class="col-md-6" *ngFor="let car of filteredCars">
-
+    <div class="col-lg-6" *ngFor="let car of filteredCars">
       <div class="card" id="card" [routerLink]="['/car', car.id]">
-
         <div class="card-body">
 
-          <span class="badge alert-success badge-pill badge-info" style="margin-right: 10px" *ngIf="car.year > 1998">
-            Nouveau </span>
-
-          <h5 class="card-title" style="display: inline-block">
-            <a> {{ car.brand }} </a>
+          <h5 class="card-title">
+            {{ car.brand }} {{ car.model }}
           </h5>
 
-          <div class="row" style="padding-bottom: 15px;">
-            <div class="col-sm">
+          <div class="sub-title">
+            {{ car.engine }} {{ car.hp }} 
+          </div>
+
+          <div class="main-box">
+            <div class="main-info">
               <h6>Meilleure enchère :</h6>
               <p class="card-text">
                 {{ car.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}
                 <!-- registerLocaleData(localeFr, 'fr'); -->
               </p>
             </div>
-            <div class="col-sm">
+            <div class="main-info">
               <h6>Countdown :</h6>
               <p class="card-text">
                 <app-count-down [endDate]="car.endDate"></app-count-down>
@@ -46,7 +44,9 @@
               </p>
             </div>
           </div>
-
+          
+          <span class="badge alert-success badge-pill badge-info" *ngIf="car.year > 1998">
+            Nouveau </span>
 
           <div class="car-image">
 
@@ -55,9 +55,7 @@
             </div>
 
             <div class="loading-animation">
-
               <div id="carousel{{car.id}}" class="carousel slide" data-bs-interval="false">
-
                 <div class="carousel-inner">
 
                   <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
@@ -67,31 +65,63 @@
                     </a>
                   </div>
 
-                  <a (click)="delete($event)" class="carousel-control-prev" [attr.data-bs-target]="'#carousel' + car.id" type="button"
-                    data-bs-slide="prev">
+                  <a (click)="delete($event)" class="carousel-control-prev" [attr.data-bs-target]="'#carousel' + car.id"
+                    type="button" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                   </a>
-                  <a (click)="delete($event)" class="carousel-control-next" [attr.data-bs-target]="'#carousel' + car.id" type="button"
-                    data-bs-slide="next">
+                  <a (click)="delete($event)" class="carousel-control-next" [attr.data-bs-target]="'#carousel' + car.id"
+                    type="button" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                   </a>
 
                 </div>
-
               </div>
-
             </div>
 
           </div>
 
+          <div class="row">
+            <div class="info">
+
+              <div class="info-box">
+                <div class="name">
+                  <h6>Année :</h6>
+                </div>
+                <div class="value">
+                  {{ car.year }}
+                </div>
+              </div>
+
+              <span id="span1">|</span>
+
+              <div class="info-box">
+                <div class="name">
+                  <h6>Km. :</h6>
+                </div>
+                <div class="value">
+                  {{ car.mileage }}
+                </div>
+              </div>
+
+              <span id="span2">|</span>
+
+              <div class="info-box">
+                <div class="name">
+                  <h6>Energie :</h6>
+                </div>
+                <div class="value">
+                  {{ car.fuel }}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-
       </div>
-
     </div>
-
   </div>
 
   <div class="load">

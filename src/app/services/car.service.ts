@@ -58,6 +58,8 @@ export class CarService {
 
   uploadImage(image: File[], imagePaths: string[]) {
     // Upload each file on storage with the right url
+    console.log(image);
+    console.log(imagePaths);
     image.forEach((element, index) => {
       if (element != null) {
         this.storage.ref(imagePaths[index]).put(element).then(() => {
