@@ -33,6 +33,16 @@
                             (click)="resetError('password')" autocomplete="off" required>
                         <label for="password" class="form_label">Mot de passe</label>
                     </div>
+
+                    <div class="info info-login" id="info info-login" hidden>
+                        <div>
+                            <span class="material-icons-outlined exclamation-icon">error</span>
+                        </div>
+                        <div class="info-text">
+                            {{err_login}}
+                        </div>
+                    </div>
+
                     <div class="text"><span (click)="onForgotPasswordClick()">Mot de passe oublié?</span></div>
                     <div class="button input-box">
                         <input type="submit" value="Connexion" (click)="onLogin(loginEmail, loginPassword)">
@@ -50,6 +60,16 @@
                             autocomplete="off" required />
                         <label for="email2" class="form_label">Email</label>
                     </div>
+
+                    <div class="info info-reset" id="info info-reset" hidden>
+                        <div>
+                            <span class="material-icons-outlined exclamation-icon">error</span>
+                        </div>
+                        <div class="info-text">
+                            {{err_reset}}
+                        </div>
+                    </div>
+
                     <div class="button input-box">
                         <input type="submit" value="Réinitialiser" (click)="onResetClick(resetEmail)">
                     </div>
@@ -96,6 +116,16 @@
                             (click)="resetError('passwordConfirm')" class="form_input" autocomplete="off" required />
                         <label for="passwordConfirm" class="form_label">Confirmer mot de passe</label>
                     </div>
+
+                    <div class="info info-register" id="info info-register" hidden>
+                        <div>
+                            <span class="material-icons-outlined exclamation-icon">error</span>
+                        </div>
+                        <div class="info-text">
+                            {{err_register}}
+                        </div>
+                    </div>
+
                     <div class="button input-box">
                         <input type="submit" value="Inscription" (click)="onRegisterClick(
                             registerName,

@@ -24,7 +24,7 @@
                     <div class="userComment">
                         <img src={{comment.avatar}}>
                         <div class="details">
-                            <div class="user">{{comment.userName}}<span class="time">2020-09-13</span>
+                            <div class="user">{{comment.userName}}<span class="time">{{comment.date}}</span>
 
                                 <button class="replyBtn" (click)="toggleShow(index)">
                                     <span>Répondre</span>
@@ -44,7 +44,7 @@
 
                                 <img src={{reply.avatar}}>
                                 <div class="details">
-                                    <div class="user">{{reply.userName}}<span class="time">2020-09-13</span></div>
+                                    <div class="user">{{reply.userName}}<span class="time">{{reply.date}}</span></div>
                                     <div class="comment">{{reply.text}}</div>
                                 </div>
 

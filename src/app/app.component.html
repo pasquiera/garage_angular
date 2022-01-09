@@ -15,6 +15,7 @@
           <img class="avatar" [src]="userImg">
           <div class="list">
             <div class="links" id="settings" (click)="activeLink('settings')" [routerLink]="['/settings']">Paramètres</div>
+            <div class="links" id="bid" (click)="activeLink('bid')" [routerLink]="['/bid']">Mes enchères</div>
             <div class="links" (click)="onLogoutClick()">Déconnexion</div>
           </div>
         </div>
@@ -39,6 +40,7 @@
   <a *ngIf="!loggedIn()" (click)="onLoginClick()">Connexion</a>
   <img *ngIf="loggedIn()" class="mobile-avatar" [src]="userImg">
   <a *ngIf="loggedIn()" id="settings_m" (click)="activeLink('settings_m')" [routerLink]="['/settings']">Paramètres</a>
+  <a *ngIf="loggedIn()" id="bid_m" (click)="activeLink('bid_m')" [routerLink]="['/bid']">Mes enchères</a>
   <a *ngIf="loggedIn()" (click)="onLogoutClick()">Déconnexion</a>
 
 </nav>

@@ -13,6 +13,9 @@ export class AuthenticatorComponent implements OnInit {
 
   state = AuthenticatorCompState.LOGIN;
   touched = false;
+  err_login = ""
+  err_register = "";
+  err_reset = ""
 
   constructor(private router: Router,
     private dialogRef: MatDialogRef<AuthenticatorComponent>,
@@ -39,17 +42,26 @@ export class AuthenticatorComponent implements OnInit {
         this.checkVerif();
 
       }).catch(error => {
-        if (error.code == 'auth/invalid-email') { document.getElementById('email').classList.add('invalid'); }
-        if (error.code == 'auth/wrong-password') { document.getElementById('password').classList.add('invalid'); }
+        if (error.code == 'auth/invalid-email') {
+          document.getElementById('email').classList.add('invalid');
+          this.showInfo("Veuillez saisir une adresse mail valide", "info-login")
+        }
+        else if (error.code == 'auth/wrong-password') {
+          document.getElementById('password').classList.add('invalid');
+          this.showInfo("Mot de passe non valide", "info-login")
+        }
       });
 
-    }
-  }
+    } else {
+      if (!this.isNotEmpty(email)) {
+        document.getElementById('email').classList.add('invalid');
+        this.showInfo("Veuillez saisir une adresse mail", "info-login")
+      }
+      else if (!this.isNotEmpty(password)) {
+        document.getElementById('password').classList.add('invalid');
+        this.showInfo("Veuillez saisir un mot de passe", "info-login")
+      }
 
-  resetError(id: string) {
-    const element = document.getElementById(id);
-    if (element.classList.contains('invalid')) {
-      element.classList.remove('invalid');
     }
   }
 
@@ -79,22 +91,52 @@ export class AuthenticatorComponent implements OnInit {
 
       }).catch(error => {
         console.log(error.code)
-        if (error.code == 'auth/invalid-email') { document.getElementById('email3').classList.add('invalid'); }
-        if (error.code == 'auth/weak-password') {
-          alert('Le mot de passe doit contenir au moins 6 caractères');
+        if (error.code == 'auth/invalid-email') {
+          document.getElementById('email3').classList.add('invalid');
+          this.showInfo("Veuillez saisir une adresse mail valide", "info-register")
+        }
+        else if (error.code == 'auth/weak-password') {
           document.getElementById('password3').classList.add('invalid');
           document.getElementById('passwordConfirm').classList.add('invalid');
+          this.showInfo("Le mot de passe doit contenir au moins 6 caractères", "info-register")
         }
       });
     } else {
-      if (!this.isNotEmpty(name)) { document.getElementById('userName').classList.add('invalid'); }
-      if (!this.isAMatch(password, confirmPassword)) {
+      if (!this.isNotEmpty(name)) {
+        document.getElementById('userName').classList.add('invalid');
+        this.showInfo("Veuillez saisir un nom d'utilisateur", "info-register")
+      }
+      else if (!this.isNotEmpty(email)) {
+        document.getElementById('email3').classList.add('invalid');
+        this.showInfo("Veuillez saisir une adresse mail", "info-register")
+      }
+      else if (!this.isNotEmpty(password)) {
+        document.getElementById('password3').classList.add('invalid');
+        this.showInfo("Veuillez saisir un mot de passe", "info-register")
+      }
+      else if (!this.isAMatch(password, confirmPassword)) {
         document.getElementById('password3').classList.add('invalid');
         document.getElementById('passwordConfirm').classList.add('invalid');
+        this.showInfo("Les mots de passe ne correspondent pas", "info-register")
       }
     }
   }
 
+  onResetClick(resetEmail: HTMLInputElement) {
+    // reset password function
+    let email = resetEmail.value;
+    if (this.isNotEmpty(email)) {
+      this.auth.forgotPassword(email).then(res => {
+        if (res) {
+          this.state = AuthenticatorCompState.OK_RESET;
+        } else {
+          document.getElementById('email2').classList.add('invalid');
+          this.showInfo("Veuillez saisir une adresse mail valide", "info-reset")
+        }
+      });
+
+    }
+  }
 
   checkVerif(): void {
     // check if the email is verified
@@ -110,18 +152,21 @@ export class AuthenticatorComponent implements OnInit {
     }
   }
 
-  onResetClick(resetEmail: HTMLInputElement) {
-    // reset password function
-    let email = resetEmail.value;
-    if (this.isNotEmpty(email)) {
-      this.auth.forgotPassword(email).then(res => {
-        if (res) {
-          this.state = AuthenticatorCompState.OK_RESET;
-        } else {
-          document.getElementById('email2').classList.add('invalid');
-        }
-      });
+  showInfo(error: string, id: string) {
+    if (id == "info-login") {
+      this.err_login = error;
+    } else if (id == "info-register") {
+      this.err_register = error;
+    } else {
+      this.err_reset = error;
+    }
+    document.getElementById("info " + id).hidden = false;
+  }
 
+  resetError(id: string) {
+    const element = document.getElementById(id);
+    if (element.classList.contains('invalid')) {
+      element.classList.remove('invalid');
     }
   }
 
@@ -156,6 +201,7 @@ export class AuthenticatorComponent implements OnInit {
       document.getElementById('container').classList.add('touched');
     }
   }
+
 
   /* check current state to display the right form */
 

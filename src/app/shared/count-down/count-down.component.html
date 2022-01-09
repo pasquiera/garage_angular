@@ -1,3 +1,4 @@
 <div class="timer">
-    <span>{{days}}:{{hours}}:{{minutes}}:{{seconds}}</span>
+    <span *ngIf="days>0">{{days}} jours</span>
+    <span *ngIf="!(days>0)">{{hours}}:{{minutes}}:{{seconds}}</span>
 </div>

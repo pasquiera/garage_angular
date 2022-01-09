@@ -22,7 +22,8 @@ export class CommentService {
       carID: carID,
       id: null,
       text: comment,
-      uid: this.auth.userID
+      uid: this.auth.userID,
+      date: Date.now()
     }).then(docRef => {
       this.afs.doc(`comments/${carID}/main-comments/${docRef.id}`).update({ id: docRef.id });
       docID = docRef.id;
@@ -38,7 +39,8 @@ export class CommentService {
       carID: carID,
       prev: commentID,
       text: reply,
-      uid: this.auth.userID
+      uid: this.auth.userID,
+      date: Date.now()
     })
   }
 

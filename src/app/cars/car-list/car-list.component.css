@@ -32,7 +32,6 @@ a {
 }
 
 .card-title, .sub-title {
-
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -100,7 +99,7 @@ h6 {
 
 .badge {
     position: absolute;
-    z-index: 99;
+    z-index: 1;
     margin-top: 5px;
     margin-left: 5px;
 }
@@ -133,7 +132,9 @@ img {
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  background-color: rgba(0, 0, 0, 0.300);
+
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.300);
 }
 
 .carousel-control-prev:hover .carousel-control-prev-icon,

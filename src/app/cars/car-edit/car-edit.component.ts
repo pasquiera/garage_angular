@@ -130,7 +130,7 @@ export class CarEditComponent implements OnInit {
       let year = this.carForm.get('year').value;
 
       if(this.imgNameInit == this.imgName) {
-        // compare new and old array of image names after submit
+        // compare initial and new array of image names after submit
         // if same array, no new images had been added or image position has been changed
         // image array that contains files set to [] to not push blank file in firebase
         image = []

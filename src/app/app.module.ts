@@ -38,6 +38,7 @@ import { ImageCropperComponent } from './accounts/image-cropper/image-cropper.co
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BarLoadingComponent } from './shared/bar-loading/bar-loading.component';
 import { FaqComponent } from './faq/faq.component';
+import { UserBidComponent } from './accounts/user-bid/user-bid.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -58,6 +59,7 @@ registerLocaleData(localeFr, 'fr');
     ImageCropperComponent,
     BarLoadingComponent,
     FaqComponent,
+    UserBidComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur
@@ -69,6 +71,7 @@ registerLocaleData(localeFr, 'fr');
       { path: 'auctions', component: CarListComponent },
       { path: '', redirectTo: 'auctions', pathMatch: 'full' },
       { path: 'settings', component: ProfileSettingComponent},
+      { path: 'bid', component: UserBidComponent},
       { path: 'create', component: CarEditComponent},
       { path: 'edit/:id', component: CarEditComponent},
       { path: "emailVerification", component: EmailVerificationComponent },

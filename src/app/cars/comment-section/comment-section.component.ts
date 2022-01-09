@@ -43,7 +43,7 @@ export class CommentSectionComponent implements OnInit {
       querySnapshot.docs.forEach(doc => {
         let id = doc.get("uid");
         Promise.all([this.auth.getName(id), this.auth.getAvatar(id)]).then(data => {
-          this.comments.push({ userName: data[0].get("userName"), avatar: data[1], text: doc.get("text"), id: doc.get("id") });
+          this.comments.push({ userName: data[0].get("userName"), avatar: data[1], text: doc.get("text"), id: doc.get("id"), date: doc.get("date") });
           this.count++;
         });
       });
@@ -53,7 +53,7 @@ export class CommentSectionComponent implements OnInit {
       querySnapshot.docs.forEach(doc => {
         let id = doc.get("uid");
         Promise.all([this.auth.getName(id), this.auth.getAvatar(id)]).then(data => {
-          this.replies.push({ userName: data[0].get("userName"), avatar: data[1], text: doc.get("text"), prev: doc.get("prev") });
+          this.replies.push({ userName: data[0].get("userName"), avatar: data[1], text: doc.get("text"), prev: doc.get("prev"), date: doc.get("date") });
           this.count++;
         });
       });
@@ -84,9 +84,10 @@ export class CommentSectionComponent implements OnInit {
       await this.comment.sendComment(this.carID, textarea).then(res => {
         // update comments array with the new comment
         Promise.all([this.auth.getName(this.auth.userID), this.auth.getAvatar(this.auth.userID)]).then(data => {
-          this.comments.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, id: res });
+          this.comments.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, id: res, date: Date.now() });
           this.count++;
         });
+        (document.getElementById("commentArea") as HTMLInputElement).value = "";
       });
     }
   }
@@ -101,7 +102,7 @@ export class CommentSectionComponent implements OnInit {
 
       // update replies array with the new reply
       Promise.all([this.auth.getName(this.auth.userID), this.auth.getAvatar(this.auth.userID)]).then(data => {
-        this.replies.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, prev: commentID });
+        this.replies.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, prev: commentID, date: Date.now() });
         this.count++;
         this.toggleShow(index);
       });

@@ -36,7 +36,7 @@ export class CarService {
       price: price,
       description: description,
       imageUrls: null,
-      endDate: 1633907525000,
+      endDate: Date.now() + 604800000,
       bid: null,
 
     }).then(docRef => {

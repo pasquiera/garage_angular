@@ -28,23 +28,26 @@ export class CountDownComponent implements OnInit, OnDestroy {
 
         this.days = Math.floor(time / 86400);
         time -= this.days * 86400;
-        this.days = this.makeMeTwoDigits(this.days);
+        this.days = this.makeMeTwoDigits(this.days, 'days');
 
         this.hours = Math.floor(time / 3600) % 24;
         time -= this.hours * 3600;
-        this.hours = this.makeMeTwoDigits(this.hours);
+        this.hours = this.makeMeTwoDigits(this.hours, 'hours');
 
         this.minutes = Math.floor(time / 60) % 60;
         time -= this.minutes * 60;
-        this.minutes = this.makeMeTwoDigits(this.minutes);
+        this.minutes = this.makeMeTwoDigits(this.minutes, 'minutes');
 
         this.seconds = time % 60;
-        this.seconds = this.makeMeTwoDigits(this.seconds);
+        this.seconds = this.makeMeTwoDigits(this.seconds, 'seconds');
 
     }
 
-    private makeMeTwoDigits(n: number) {
-        return (n < 10 ? "0" : "") + n;
+    private makeMeTwoDigits(n: number, name: string) {
+        if (name != 'days') {
+            return (n < 10 ? "0" : "") + n;
+        }
+        return n;
     }
 
 
