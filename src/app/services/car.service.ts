@@ -24,19 +24,21 @@ export class CarService {
       owner: this.auth.userID,
       id: null,
       type: type,
-      brand: brand,
-      model: model,
+      brand: brand.toLowerCase(),
+      model: model.toLowerCase(),
       year: year,
       mileage: mileage,
       fuel: fuel,
       gearbox: gearbox,
-      engine: engine,
+      engine: engine.toLowerCase(),
       hp: hp,
       consumption: consumption,
       price: price,
       description: description,
       imageUrls: null,
       endDate: Date.now() + 604800000,
+      createDateAsc: Date.now(),
+      createDateDsc: -Date.now(),
       bid: null,
 
     }).then(docRef => {
@@ -75,7 +77,17 @@ export class CarService {
 
   getAllCar(latestDoc: string) {
     // Will look for documents in all collections named user-cars
-    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('id').startAfter(latestDoc || 0).limit(2)).get();
+    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+  }
+
+  getCarOnly(latestDoc: string) {
+    // Will look for documents in all collections named user-cars
+    return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', 'auto').orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+  }
+
+  getBikeOnly(latestDoc: string) {
+    // Will look for documents in all collections named user-cars
+    return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', 'moto').orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
   }
 
   getCar(doc: string) {
@@ -101,13 +113,13 @@ export class CarService {
 
     this.afs.collection<Car>('cars/rAsOJFBpQCdIY3lBHmfI9bTHYxl2/user-cars').doc(doc).update({
       type: type,
-      brand: brand,
-      model: model,
+      brand: brand.toLowerCase(),
+      model: model.toLowerCase(),
       year: year,
       mileage: mileage,
       fuel: fuel,
       gearbox: gearbox,
-      engine: engine,
+      engine: engine.toLowerCase(),
       hp: hp,
       consumption: consumption,
       description: description,

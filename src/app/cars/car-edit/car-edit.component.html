@@ -141,7 +141,7 @@
             </div>
 
             <div class="fieldBtn">
-                <button type="button" class="navBtn" (click)="next1Click()">Suivant</button>
+                <button type="button" class="submit_btn" (click)="next1Click()">Suivant</button>
             </div>
 
         </div>
@@ -180,8 +180,8 @@
             </div>
 
             <div class="fieldBtn2">
-                <button type="button" class="navBtn" id="back1" (click)="back1Click()">Précédent</button>
-                <button type="button" class="navBtn" id="next2" (click)="next2Click()">Suivant</button>
+                <button type="button" class="submit_btn" id="back1" (click)="back1Click()">Précédent</button>
+                <button type="button" class="submit_btn" id="next2" (click)="next2Click()">Suivant</button>
             </div>
 
         </div>
@@ -195,9 +195,9 @@
             </app-upload-box>
 
             <div class="fieldBtn2">
-                <button type="button" class="navBtn" id="back2" (click)="back2Click()">Précédent</button>
-                <button *ngIf="isCreateState()" class="navBtn submit" type="submit">Enregistrer</button>
-                <button *ngIf="isEditState()" class="navBtn submit" type="button"
+                <button type="button" class="submit_btn" id="back2" (click)="back2Click()">Précédent</button>
+                <button *ngIf="isCreateState()" class="submit_btn submit" type="submit">Enregistrer</button>
+                <button *ngIf="isEditState()" class="submit_btn submit" type="button"
                     (click)="editCar()">Enregistrer</button>
             </div>
 

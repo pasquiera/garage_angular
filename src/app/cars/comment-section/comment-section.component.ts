@@ -58,6 +58,7 @@ export class CommentSectionComponent implements OnInit {
         });
       });
     });
+ 
   }
 
   toggleShow(index: number): void {
@@ -84,7 +85,7 @@ export class CommentSectionComponent implements OnInit {
       await this.comment.sendComment(this.carID, textarea).then(res => {
         // update comments array with the new comment
         Promise.all([this.auth.getName(this.auth.userID), this.auth.getAvatar(this.auth.userID)]).then(data => {
-          this.comments.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, id: res, date: Date.now() });
+          this.comments.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, id: res, date: "Il y a un instant" });
           this.count++;
         });
         (document.getElementById("commentArea") as HTMLInputElement).value = "";
@@ -102,7 +103,7 @@ export class CommentSectionComponent implements OnInit {
 
       // update replies array with the new reply
       Promise.all([this.auth.getName(this.auth.userID), this.auth.getAvatar(this.auth.userID)]).then(data => {
-        this.replies.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, prev: commentID, date: Date.now() });
+        this.replies.push({ userName: data[0].get("userName"), avatar: data[1], text: textarea, prev: commentID, date: "Il y a un instant" });
         this.count++;
         this.toggleShow(index);
       });

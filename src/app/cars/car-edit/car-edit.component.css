@@ -38,20 +38,62 @@ form .page{
     margin-bottom: 130px;
 }
 
-.navBtn {
-    width: 120px;
-    height: 45px;
-    margin: 0 10px;
-    background-color: #ff5c33;
-    border-radius: 30px;
-    border: 0;
+button {
+    padding: 0px 50px;
+    margin: 0 15px;
+    width: 250px;
+    height: 48px;
     outline: none;
-    color: #fff;
-    cursor: pointer;
+    border: 0;
+    text-decoration: none;
+    font-size: 1rem;
 }
 
-.navBtn:hover {
-    background-color: #ff8566;
+.submit_btn {
+    border-radius: 0.75em;
+    font-weight: 700;
+    color: #382b22;
+    text-transform: uppercase;
+    background: rgb(244, 44, 4);
+    transform-style: preserve-3d;
+    transition: .05s cubic-bezier(0, 0, .6, 1);
+}
+
+.submit_btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: rgb(194, 35, 5);
+    transform: translate3d(0, .5em, -1em);
+    transition: .05s cubic-bezier(0, 0, .6, 1);
+}
+
+.submit_btn:hover::before {
+    transform: translate3d(0, .25em, -1em);
+}
+
+.submit_btn {
+    color: #FFF;
+}
+
+.submit_btn:hover {
+    background: rgb(252, 123, 98);
+    transform: translate(0, .25em);
+}
+
+.submit_btn:active {
+    background: rgb(252, 123, 98);
+    transform: translate(0, .55em);
+}
+
+.submit_btn:active::before {
+    transform: translate3d(0, 0, -1em);
 }
 
 #page1{
@@ -129,6 +171,10 @@ form .page{
 }
 
 .input-box input.ng-touched.ng-invalid {
+    border-color: red;
+}
+
+.input-box textarea.ng-touched.ng-invalid {
     border-color: red;
 }
 
@@ -378,7 +424,21 @@ input[type=number] {
     }
 
     .fieldBtn {
-        margin-bottom: -410px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: -400px;
+    }
+
+    .fieldBtn2 {
+        display: flex;
+    }
+
+    .fieldBtn .submit_btn {
+        margin: 0px 0px;
+    }
+
+    .submit_btn {
+        padding: 0px 0px;
     }
 
     .radio-container label{

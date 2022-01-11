@@ -31,10 +31,10 @@ export class CarEditComponent implements OnInit {
     // initialize reactive form
     this.carForm = this.fb.group({
       carType: [null],
-      brand: ['', Validators.required],
-      consumption: [''],
-      description: [''],
-      engine: [''],
+      brand: [null],
+      consumption: [null],
+      description: [null],
+      engine: [null],
       fuel: [null],
       gearbox: [null],
       hp: [null],
@@ -129,7 +129,7 @@ export class CarEditComponent implements OnInit {
       let model = this.carForm.get('model').value;
       let year = this.carForm.get('year').value;
 
-      if(this.imgNameInit == this.imgName) {
+      if (this.imgNameInit == this.imgName) {
         // compare initial and new array of image names after submit
         // if same array, no new images had been added or image position has been changed
         // image array that contains files set to [] to not push blank file in firebase
@@ -171,8 +171,22 @@ export class CarEditComponent implements OnInit {
         image, this.imgName);
 
     } else {
+      this.checkEmpty();
       this.showError();
     }
+  }
+
+  checkEmpty() {
+    if ((document.getElementById("brandId") as HTMLInputElement).value == "") { this.carForm.controls['brand'].markAsTouched(); }
+    if ((document.getElementById("modelId") as HTMLInputElement).value == "") { this.carForm.controls['model'].markAsTouched(); }
+    if ((document.getElementById("yearId") as HTMLInputElement).value == "") { this.carForm.controls['year'].markAsTouched(); }
+    if ((document.getElementById("mileageId") as HTMLInputElement).value == "") { this.carForm.controls['mileage'].markAsTouched(); }
+    if ((document.getElementById("engineId") as HTMLInputElement).value == "") { this.carForm.controls['engine'].markAsTouched(); }
+    if ((document.getElementById("hpId") as HTMLInputElement).value == "") { this.carForm.controls['hp'].markAsTouched(); }
+    if ((document.getElementById("consumptionId") as HTMLInputElement).value == "") { this.carForm.controls['consumption'].markAsTouched(); }
+    if ((document.getElementById("priceId") as HTMLInputElement).value == "") { this.carForm.controls['price'].markAsTouched(); }
+    if ((document.getElementById("descriptionId") as HTMLInputElement).value == "") { this.carForm.controls['description'].markAsTouched(); }
+
   }
 
   receiveName($event) {

@@ -1,19 +1,14 @@
-<h2 class="title" *ngIf="cars && cars.length > 0">{{ title }}</h2>
+<h2 class="title">{{ title }}</h2>
 <!-- contenu affiché que si la liste cars n'est pas vide -->
 
+<div class="filter">
+  <button class="filter_btn active" id="all_type" type="button" (click)="onAllClick()">TOUS</button>
+  <button class="filter_btn" id="car_type" type="button" (click)="onCarClick()">AUTOS</button>
+  <button class="filter_btn" id="bike_type" type="button"(click)="onBikeClick()">MOTOS</button>
+</div>
+
+
 <div class="container">
-  <!-- 
-  <div class="row">
-    <div class="col-sm">
-      <input class="favorite styled" type="button" value="TOUS" (click)="setType(0)">
-    </div>
-    <div class="col-sm">
-      <input class="favorite styled" type="button" value="AUTOS" (click)="setType(1)">
-    </div>
-    <div class="col-sm">
-      <input class="favorite styled" type="button" value="MOTOS" (click)="setType(2)">
-    </div>
-  </div> -->
 
   <div class="row gy-4">
     <div class="col-lg-6" *ngFor="let car of filteredCars">
@@ -135,6 +130,3 @@
  -->
 
 </div>
-
-<div class="search-results" infiniteScroll [infiniteScrollDistance]="10" [infiniteScrollThrottle]="1000"
-  (scrolled)="onScrollEvent()"></div>
