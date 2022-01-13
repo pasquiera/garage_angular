@@ -8,6 +8,56 @@
     overflow: auto;
 }
 
+#firstCarousel .carousel-inner {
+    text-transform: capitalize;
+    margin-top: 58px;
+    height: 400px;
+    background-color: rgb(247, 247, 247);
+}
+
+.first-carousel-img {
+    -webkit-animation: thing 20s infinite;
+    -o-animation: thing 20s infinite;
+    animation: thing 20s infinite;
+}
+
+.carousel-caption {
+    height: 200px;
+}
+
+.carousel-caption h5{
+    font-size: 42px;
+    font-weight: 600;
+    left: 5%;
+    text-align: left;
+}
+
+.main-box .car-info{
+    max-width: 182px;
+    width: 100%;
+}
+
+.main-box .car-info p {
+    color: red;
+    left: 5%;
+    text-align: left;
+}
+
+.car-info h6 {
+    font-size: .8571428571rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.753);
+    font-weight: 700;
+    margin-top: 1em;
+    margin-right: 10px;
+    left: 5%;
+    text-align: left;
+}
+
+.car-info .alter-h6{
+    display: none;
+}
+
 .filter {
     display: flex;
     align-items: center;
@@ -99,8 +149,9 @@ a {
 }
 
 .title {
+    font-weight: 600;
     text-align: center;
-    margin-top: 3em;
+    margin-top: 1.5em;
     margin-bottom: 1em;
 }
 
@@ -174,7 +225,7 @@ h5 {
     margin-bottom: -10px;
 }
 
-h6 {
+.main-info h6 {
     font-size: .8571428571rem;
     color: #8b8c93;
     text-transform: uppercase;
@@ -215,16 +266,16 @@ img {
     object-fit: cover;
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.300);
-}
-
-.carousel-control-prev:hover .carousel-control-prev-icon,
-.carousel-control-next:hover .carousel-control-next-icon{
-    background-color: black;
+@keyframes thing {
+    0% {
+        transform: scale(1, 1);
+        }
+        50% {
+        transform: scale(1.2, 1.2);
+        }
+        100% {
+        transform: scale(1, 1);
+        }
 }
 
   @keyframes fadeIn {
@@ -247,6 +298,21 @@ img {
     .info-box .name {
         display: none;
     }
+    
+    .carousel-caption h5 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 415px) {
+    .car-info .main-h6 {
+        display: none;
+    }
+
+    .car-info .alter-h6 {
+        display: block;
+    }
+
 }
 
 @media (max-width: 340px) {
@@ -256,6 +322,18 @@ img {
     .filter button {
         padding: 0px 0px;
         margin: 0px 5px;
+    }
+
+    .carousel-caption {
+        height: 250px;
+    }    
+
+    .car-info .main-h6 {
+        display: block;
+    }
+
+    .car-info .alter-h6 {
+        display: none;
     }
 }
 

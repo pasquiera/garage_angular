@@ -1,14 +1,61 @@
-<h2 class="title">{{ title }}</h2>
-<!-- contenu affiché que si la liste cars n'est pas vide -->
 
-<div class="filter">
-  <button class="filter_btn active" id="all_type" type="button" (click)="onAllClick()">TOUS</button>
-  <button class="filter_btn" id="car_type" type="button" (click)="onCarClick()">AUTOS</button>
-  <button class="filter_btn" id="bike_type" type="button"(click)="onBikeClick()">MOTOS</button>
-</div>
+  <div id="firstCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+    <div class="carousel-inner">
+
+      <div class="carousel-item" *ngFor="let car of carousel let i = index" [ngClass]="{'active': i == 0 }">
+        <a [routerLink]="['/car', car.id]">
+          <img [src]="car.firstImage || 'assets/img/blank.jpg'" [title]="car.brand | uppercase" class="card-img-top first-carousel-img"
+            [alt]="car.brand" />
+        </a>
+
+        <div class="carousel-caption">
+          <h5>{{ car.brand }} {{ car.model }} - {{ car.year }}</h5>
+          <div class="main-box">
+            <div class="car-info info1">
+              <h6>Meilleure enchère</h6>
+              <p class="txt" style="color: #FFF;">
+                {{ car.bid | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}
+                <!-- registerLocaleData(localeFr, 'fr'); -->
+              </p>
+            </div>
+            <div class="car-info">
+              <h6 class="main-h6">Termine dans</h6>
+              <h6 class="alter-h6">Termine<br>dans</h6>
+              <p class="txt">
+                <app-count-down [endDate]="car.endDate"></app-count-down>
+                <!-- [endDate] = même valeur que le input() fichier count-down -->
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <a (click)="delete($event)" class="carousel-control-prev" href="#firstCarousel" type="button"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+      <a (click)="delete($event)" class="carousel-control-next" href="#firstCarousel" type="button"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </a>
+
+    </div>
+  </div>
 
 
 <div class="container">
+
+  <h2 class="title">{{ title }}</h2>
+  <!-- contenu affiché que si la liste cars n'est pas vide -->
+
+  <div class="filter">
+    <button class="filter_btn active" id="all_type" type="button" (click)="onAllClick()">TOUS</button>
+    <button class="filter_btn" id="car_type" type="button" (click)="onCarClick()">AUTOS</button>
+    <button class="filter_btn" id="bike_type" type="button" (click)="onBikeClick()">MOTOS</button>
+  </div>
 
   <div class="row gy-4">
     <div class="col-lg-6" *ngFor="let car of filteredCars">
@@ -20,7 +67,7 @@
           </h5>
 
           <div class="sub-title">
-            {{ car.engine }} {{ car.hp }} 
+            {{ car.engine }} {{ car.hp }}
           </div>
 
           <div class="main-box">
@@ -32,14 +79,14 @@
               </p>
             </div>
             <div class="main-info">
-              <h6>Countdown :</h6>
+              <h6>Termine dans :</h6>
               <p class="card-text">
                 <app-count-down [endDate]="car.endDate"></app-count-down>
                 <!-- [endDate] = même valeur que le input() fichier count-down -->
               </p>
             </div>
           </div>
-          
+
           <span class="badge alert-success badge-pill badge-info" *ngIf="car.year > 1998">
             Nouveau </span>
 
@@ -56,7 +103,7 @@
                   <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
                     [ngClass]="{'active': i == 0 }">
                     <a [routerLink]="['/car', car.id]">
-                      <img [src]="image ||''" [title]="car.brand | uppercase" class="card-img-top" [alt]="car.brand" />
+                      <img [src]="image || 'assets/img/blank.jpg'" [title]="car.brand | uppercase" class="card-img-top" [alt]="car.brand" />
                     </a>
                   </div>
 

@@ -11,7 +11,7 @@ import { ICar } from '../shared/models/car';
 
 export class CarListComponent implements OnInit {
 
-    public title = 'Liste d\'enchères';
+    public title = ' enchères en cours';
     public showBadge: boolean = true;
     public filteredCars: ICar[] = [];
     public errMsg: string = '';
@@ -19,11 +19,21 @@ export class CarListComponent implements OnInit {
     public latestDoc = null; // Store latest document
     state = TypeState.ALL;
     empty = false;
+    carousel: any[] = [];
 
     constructor(public car: CarService) { }
 
     ngOnInit(): void {
         this.load();
+        this.getCount();
+        this.carouselDisplay();
+    }
+
+    getCount() {
+        this.car.getCarCount().subscribe(querySnapshot => {
+            var count = querySnapshot.size;
+            this.title = count + this.title;
+        });
     }
 
     createCar(doc: any): ICar {
@@ -75,6 +85,31 @@ export class CarListComponent implements OnInit {
                 this.empty = true;
             }
             this.filteredCars.push(...cars);
+        });
+    }
+
+    carouselDisplay(): void {
+        let cars: ICar[] = [];
+        this.car.getAllCarAsc(null).subscribe(querySnapshot => {
+            querySnapshot.docs.forEach(doc => {
+                const car = {
+                    id: doc.get("id"),
+                    brand: doc.get("brand"),
+                    model: doc.get("model"),
+                    year: doc.get("year"),
+                    imagePath: doc.get("imageUrls"), // Contain only image path
+                    firstImage: null,
+                    endDate: doc.get("endDate"),
+                    bid: doc.get("bid"),
+                }
+
+                this.car.getImage(car.imagePath[0]).then(result => {
+                    car.firstImage = result;
+                })
+
+                this.carousel.push(car);
+            });
+            console.log(this.carousel)
         });
     }
 

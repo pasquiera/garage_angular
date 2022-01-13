@@ -39,7 +39,8 @@ export class CarService {
       endDate: Date.now() + 604800000,
       createDateAsc: Date.now(),
       createDateDsc: -Date.now(),
-      bid: null,
+      bid: 0,
+      buyer: null,
 
     }).then(docRef => {
 
@@ -76,9 +77,15 @@ export class CarService {
   }
 
   getAllCar(latestDoc: string) {
-    // Will look for documents in all collections named user-cars
+    // Will look for documents in all collections named user-cars in descending order (most recent first)
     return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
   }
+
+  getAllCarAsc(latestDoc: string) {
+    // Will look for documents in all collections named user-cars
+    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(10)).get();
+  }
+
 
   getCarOnly(latestDoc: string) {
     // Will look for documents in all collections named user-cars
@@ -96,6 +103,15 @@ export class CarService {
 
   getImage(path: string) {
     return this.storage.ref(path).getDownloadURL().toPromise();
+  }
+
+  getCarCount() {
+    // not optimal way to get the count
+    return this.afs.collectionGroup('user-cars').get();
+  }
+  
+  getRandomCar(latestDoc: string) {
+    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('id').startAfter(latestDoc).limit(1)).get();
   }
 
   updateCar(doc: string, type: string, brand: string,

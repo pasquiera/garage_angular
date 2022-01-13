@@ -83,7 +83,7 @@ textarea {
 }
 
 textarea:focus {
-    border-color: teal;
+    border-color: rgb(25, 131, 204);;
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
