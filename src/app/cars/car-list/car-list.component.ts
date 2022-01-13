@@ -170,7 +170,7 @@ export class CarListComponent implements OnInit {
         this.filteredCars = [];
         this.latestDoc = null;
         this.empty = false;
-        document.querySelector('.active').classList.toggle('active');
+        document.querySelector('.filter_btn.active').classList.toggle('active');
     }
 
     /* switch to the right state when filter is clicked */
