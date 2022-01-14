@@ -1,18 +1,28 @@
-table {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    border-collapse: collapse;
+.container {
+    margin-top: 8em;
+    min-height: 100px;
     max-width: 1220px;
+}
+
+table {
     width: 100%;
+    text-transform: capitalize;
 }
 
 tr {
-    transition: all .2s ease-in;
-    cursor: pointer;
     height: 85px;
     border-bottom: 1px solid #ddd;
+}
+
+tr:not(#header) {
+    transition: all .2s ease-in;
+    cursor: pointer;
+}
+
+tr:hover:not(#header) {
+    background-color: #f5f5f5;
+    transform: scale(1.02);
+    box-shadow: 2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
 }
 
 th, td {
@@ -20,27 +30,49 @@ th, td {
     text-align: right;
 }
 
+
+.first-th, .first-td {
+    text-align: left;
+    width: 560px;
+
+}
+
 td {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 100px;
-    width:100px;
 }
 
-td:not(.first){
-    width: 205px;
+img {
+    border-radius: 5px;
+    height: 85px;
+    max-width: 120px;
+    width: 100%;
+    margin-right: 10px;
+    object-fit: cover;
 }
 
-.first {
-    text-align: left;
-    width: 400px;
-
+.edit {
+    margin-right: 10px;
 }
 
-tr:hover {
-    background-color: #f5f5f5;
-    transform: scale(1.02);
-    box-shadow: 2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
+.edit:hover {
+    color: royalblue;
+}
+
+.delete {
+    color: red;
+}
+
+.delete:hover {
+    color: rgb(194, 35, 5);
+}
+
+@media (max-width: 500px) {
+    img {
+        height: 50px;
+        max-width: 70px;
+        width: 100%;
+    }
 }
 

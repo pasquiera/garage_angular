@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { AuthenticatorComponent } from './accounts/authenticator/authenticator.component';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router, RouterOutlet } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterOutlet } from '@angular/router';
 import { fader } from './route-animations'
 import { AuthService } from './services/auth.service';
 import { UtilityService } from './services/utility.service';
@@ -44,6 +44,13 @@ export class AppComponent {
 
       } else {
         this.utility.updateData("assets/img/default.jpg");
+        const url = this.router.url;
+        let sub = url.substring(0, 5);
+
+        if (url == '/settings' || url == '/bid' || url == '/create' || sub == '/edit') {
+          this.router.navigate(['/auctions']);
+          this.activeLink('auction');
+        }
       }
     })
 
@@ -82,18 +89,23 @@ export class AppComponent {
   }
 
   activeLink(id: string) {
-    const link = document.getElementById(id);
-    const sub = id.slice(-2);
-    if (sub.localeCompare('_m') != 0) {
-      document.querySelector('.is-active').classList.toggle('is-active');
-      link.classList.toggle('is-active');
-    } else {
-      document.getElementById(this.mobileActiveLink).classList.remove('is-active');
-      this.mobileActiveLink = id;
-      link.classList.toggle('is-active');
-      this.setActive();
-    }
 
+    document.querySelector('.is-active').classList.toggle('is-active');
+    document.getElementById(this.mobileActiveLink).classList.toggle('is-active');
+
+    const sub = id.slice(0, id.lastIndexOf('_m'));
+    const sub2 = id.slice(-2);
+
+    if (sub2.localeCompare('_m') == 0) {
+      this.mobileActiveLink = id;
+      document.getElementById(id).classList.toggle('is-active');
+      document.getElementById(sub).classList.toggle('is-active');
+      this.setActive();
+    } else {
+      this.mobileActiveLink = id + '_m';
+      document.getElementById(this.mobileActiveLink).classList.toggle('is-active');
+      document.getElementById(id).classList.toggle('is-active');
+    }
   }
 
 }

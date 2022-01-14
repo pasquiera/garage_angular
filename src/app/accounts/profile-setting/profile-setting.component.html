@@ -45,7 +45,7 @@
 
             <div class="input-data">
                 <input id="profilePhoneNumberId" type="number" class="" formControlName="profilePhoneNumber"
-                    autocomplete="off" placeholder=' '>
+                    autocomplete="off" placeholder=' ' (keypress)="OnlyNumbersAllowed($event)">
                 <div class="underline"></div>
                 <label for="profilePhoneNumberId" class="details"> Numéro de téléphone </label>
             </div>

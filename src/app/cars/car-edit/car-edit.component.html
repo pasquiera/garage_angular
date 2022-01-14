@@ -69,7 +69,7 @@
                         </span>
                     </label>
                     <input id="yearId" type="number" autocomplete="off" class="" formControlName="year"
-                        placeholder="Année" required>
+                        placeholder="Année" (keypress)="OnlyNumbersAllowed($event)" required>
                 </div>
 
                 <div class="input-box">
@@ -79,7 +79,7 @@
                         </span>
                     </label>
                     <input id="mileageId" type="number" autocomplete="off" class="" formControlName="mileage"
-                        placeholder="Kilométrage (km)" required>
+                        placeholder="Kilométrage (km)" (keypress)="OnlyNumbersAllowed($event)" required>
                 </div>
 
                 <div class="input-box">
@@ -99,7 +99,7 @@
                         </span>
                     </label>
                     <input id="hpId" type="number" autocomplete="off" class="" formControlName="hp"
-                        placeholder="Puissance du moteur (ch)" required>
+                        placeholder="Puissance du moteur (ch)" (keypress)="OnlyNumbersAllowed($event)" required>
                 </div>
 
                 <span style="width: 100%;">
@@ -122,7 +122,7 @@
                         </span>
                     </label>
                     <input id="consumptionId" type="text" autocomplete="off" class="" formControlName="consumption"
-                        placeholder="Consommation (l/100km)" required>
+                        placeholder="Consommation (l/100km)" (keypress)="OnlyNumbersAllowed($event)" required>
                 </div>
 
                 <div class="input-box"></div>
@@ -159,9 +159,9 @@
                         </span>
                     </label>
                     <input *ngIf="isCreateState()" id="priceId" type="number" autocomplete="off" class=""
-                        formControlName="price" placeholder="Prix de réserve (€)" required>
+                        formControlName="price" placeholder="Prix de réserve (€)" (keypress)="OnlyNumbersAllowed($event)"required>
                     <input *ngIf="isEditState()" type="text" class="disable-input" formControlName="price"
-                        placeholder="Prix de réserve (€)">
+                        placeholder="Prix de réserve (€)" (keypress)="OnlyNumbersAllowed($event)">
                 </div>
 
 

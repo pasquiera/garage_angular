@@ -115,6 +115,7 @@ export class CommentSectionComponent implements OnInit {
     this.dialog.open(AuthenticatorComponent, {
       // NoopScrollStrategy: does nothing
       scrollStrategy: new NoopScrollStrategy(),
+      width: '850px',
       panelClass: 'custom-modalbox'
     });
   }

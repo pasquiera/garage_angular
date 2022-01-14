@@ -32,13 +32,15 @@ import { CarEditComponent } from './cars/car-edit/car-edit.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CarouselDialogComponent } from './cars/upload-box/carousel-dialog/carousel-dialog.component';
 import { UploadBoxComponent } from './cars/upload-box/upload-box/upload-box.component';
-import { CommentSectionComponent } from './cars/comment-section/comment-section.component';
+import { CommentSectionComponent } from './shared/comment-section/comment-section.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropperComponent } from './accounts/image-cropper/image-cropper.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BarLoadingComponent } from './shared/bar-loading/bar-loading.component';
 import { FaqComponent } from './faq/faq.component';
 import { UserBidComponent } from './accounts/user-bid/user-bid.component';
+import { AuthGuard } from './services/auth.guard';
+import { CarGuard } from './services/car.guard';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -70,11 +72,11 @@ registerLocaleData(localeFr, 'fr');
     RouterModule.forRoot([
       { path: 'auctions', component: CarListComponent },
       { path: '', redirectTo: 'auctions', pathMatch: 'full' },
-      { path: 'settings', component: ProfileSettingComponent},
-      { path: 'bid', component: UserBidComponent},
+      { path: 'settings', component: ProfileSettingComponent, canActivate: [AuthGuard]},
+      { path: 'bid', component: UserBidComponent, canActivate: [AuthGuard]},
       { path: 'create', component: CarEditComponent},
-      { path: 'edit/:id', component: CarEditComponent},
-      { path: "emailVerification", component: EmailVerificationComponent },
+      { path: 'edit/:id', component: CarEditComponent, canActivate: [CarGuard]},
+      { path: "emailVerification", component: EmailVerificationComponent, canActivate: [AuthGuard] },
       { path: 'car/:id', component: CarDetailComponent },
       { path: 'faq', component: FaqComponent },
       { path: '**', redirectTo: 'auctions', pathMatch: 'full' },

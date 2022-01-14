@@ -1,38 +1,26 @@
-
+<div class="container">
     <table>
         <tr id="header">
-            <th class="first">Véhicule</th>
-            <th>Temps restant</th>
+            <th class="first-th">Véhicule</th>
             <th>Prix de réserve</th>
+            <th>Temps restant</th>
             <th>Meilleur offre</th>
             <th>Options</th>
         </tr>
-        <tr>
-            <td class="first">Johnzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Doezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Doezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>24zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Male</td>
-        </tr>
-        <tr>
-            <td class="first">Johnzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Doezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Doezzzzzzzzzzz</td>
-            <td>24</td>
-            <td>Male</td>
-        </tr>
-        <tr>
-            <td class="first">Johnzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Doezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Doezzzzzzzzzzz</td>
-            <td>24</td>
-            <td>Male</td>
-        </tr>
-        <tr>
-            <td class="first">Johnzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Doezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</td>
-            <td>Doezzzzzzzzzzz</td>
-            <td>24</td>
-            <td>Male</td>
+        
+        <tr id="{{car.id}}" *ngFor="let car of cars" [routerLink]="['/car', car.id]">        
+            <td class="first-td"><img [src]="car.firstImage || 'assets/img/blank.jpg'" [title]="car.brand | uppercase" class="img" [alt]="car.brand" />{{ car.brand }} {{ car.model }}</td>
+            <td>{{ car.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</td>
+            <td><app-count-down [endDate]="car.endDate"></app-count-down></td>
+            <td>{{ car.bid | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</td>
+            <td>
+                <span class="material-icons-outlined edit" [routerLink]="['/edit', car.id]" (click)="stop($event)">
+                edit
+                </span>
+                <span class="material-icons-outlined delete" (click)="delete($event, car.id)">
+                    delete
+                </span>    
+            </td>
         </tr>
     </table>
+</div>

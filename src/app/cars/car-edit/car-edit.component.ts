@@ -201,6 +201,16 @@ export class CarEditComponent implements OnInit {
     console.log(this.words);
   }
 
+  OnlyNumbersAllowed(event):boolean {
+    const charCode = (event.which)?event.which: event.keyCode;
+
+    if(charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+
+    return true;
+  }
+
   /* Progress bar functions */
 
   next1Click() {

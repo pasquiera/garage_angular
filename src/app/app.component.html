@@ -9,12 +9,18 @@
         <a id="sell" (click)="activeLink('sell')" [routerLink]="['/create']">Vendre</a>
         <a id="faq" (click)="activeLink('faq')" [routerLink]="['/faq']">FAQ</a>
 
+
         <span *ngIf="!loggedIn()" (click)="onLoginClick()" class="icon material-icons-outlined">account_circle</span>
+
 
         <div class="dropdown" *ngIf="loggedIn()">
           <img class="avatar" [src]="userImg">
+          <span class="material-icons-outlined arrow">
+            arrow_drop_down
+          </span>
           <div class="list">
-            <div class="links" id="settings" (click)="activeLink('settings')" [routerLink]="['/settings']">Paramètres</div>
+            <div class="links" id="settings" (click)="activeLink('settings')" [routerLink]="['/settings']">Paramètres
+            </div>
             <div class="links" id="bid" (click)="activeLink('bid')" [routerLink]="['/bid']">Mes enchères</div>
             <div class="links" (click)="onLogoutClick()">Déconnexion</div>
           </div>

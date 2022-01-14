@@ -82,23 +82,27 @@ export class CarService {
   }
 
   getAllCarAsc(latestDoc: string) {
-    // Will look for documents in all collections named user-cars
+    // All vehicle in ascending order
     return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(10)).get();
   }
 
-
   getCarOnly(latestDoc: string) {
-    // Will look for documents in all collections named user-cars
+    // Only type 'auto'
     return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', 'auto').orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
   }
 
   getBikeOnly(latestDoc: string) {
-    // Will look for documents in all collections named user-cars
+    // Only type 'moto'
     return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', 'moto').orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
   }
 
   getCar(doc: string) {
-    return this.afs.collection<Car>('cars/rAsOJFBpQCdIY3lBHmfI9bTHYxl2/user-cars').doc(doc).valueChanges();
+    // Get a specific car of the current user (car-edit)
+    return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges();
+  }
+
+  getUserCars() {
+    return this.afs.collectionGroup('user-cars', ref => ref.where('owner', '==', this.auth.userID)).get();
   }
 
   getImage(path: string) {
@@ -109,9 +113,18 @@ export class CarService {
     // not optimal way to get the count
     return this.afs.collectionGroup('user-cars').get();
   }
-  
+
   getRandomCar(latestDoc: string) {
     return this.afs.collectionGroup('user-cars', ref => ref.orderBy('id').startAfter(latestDoc).limit(1)).get();
+  }
+
+  deleteCar(id: string) {
+    this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(id).delete().then(res => {
+      // console.log('Product deleted Successfully');
+    })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
   }
 
   updateCar(doc: string, type: string, brand: string,
@@ -127,7 +140,7 @@ export class CarService {
 
     this.uploadImage(image, imagePath);
 
-    this.afs.collection<Car>('cars/rAsOJFBpQCdIY3lBHmfI9bTHYxl2/user-cars').doc(doc).update({
+    this.afs.collection<Car>('cars/'+this.auth.userID+'/user-cars').doc(doc).update({
       type: type,
       brand: brand.toLowerCase(),
       model: model.toLowerCase(),
