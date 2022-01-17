@@ -101,6 +101,11 @@ export class CarService {
     return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges();
   }
 
+  getCarDetail(id: string) {
+    // Get a specific car for car-detail component
+    return this.afs.collectionGroup('user-cars', ref => ref.where('id', '==', id)).get();
+  }
+
   getUserCars() {
     return this.afs.collectionGroup('user-cars', ref => ref.where('owner', '==', this.auth.userID)).get();
   }

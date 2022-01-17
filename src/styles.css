@@ -17,6 +17,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: o
     background-color: rgb(144, 144, 144);
 }
 
-.custom-modalbox .mat-dialog-container {
-    padding: 0;
-}
+.mat-dialog-container {
+    padding: 0 !important;
+    }

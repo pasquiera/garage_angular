@@ -1,8 +1,16 @@
-img {
-    object-fit: scale-down;
+.container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.mat-dialog-content{
-    overflow-y: hidden; /* Hide vertical scrollbar */
-    overflow-x: hidden; /* Hide horizontal scrollbar */
- }
+img {
+    height: 680px;
+    width: 1200px;
+    background-color: #000;
+    object-fit: scale-down;
+}

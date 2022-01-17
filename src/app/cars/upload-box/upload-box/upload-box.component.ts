@@ -140,6 +140,7 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
         data: {
           imageURL: this.imageURL,
           index: index,
+          panelClass: 'custom-modalbox'
         }
       });
   }

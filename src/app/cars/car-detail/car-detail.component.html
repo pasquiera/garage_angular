@@ -1,1 +1,15 @@
+<div class="container">
+    <h2>{{carInfo.brand}} {{carInfo.model}} - {{carInfo.year}}</h2>
+    <div class="endDate-bid">
+    <div class="endDate">
+        <p>Termine dans </p>
+        <app-count-down [endDate]="carInfo.endDate"></app-count-down>
+    </div>
+    <div class="bid">
+        <p>Meilleure enchère : </p>
+        <span>{{carInfo.bid | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</span>
+    </div>
+</div>
+</div>
+
 <app-comment-section></app-comment-section>

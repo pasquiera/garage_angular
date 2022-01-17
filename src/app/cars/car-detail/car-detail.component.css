@@ -1,0 +1,44 @@
+.container {
+    max-width: 900px;
+    margin-top: 7em;
+}
+
+h2 {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+
+.endDate-bid {
+    display: flex;
+}
+
+.endDate {
+    margin-right: 50px;
+}
+
+.endDate,
+.bid{
+    display:flex;
+    margin-top: 30px;
+    font-size: 22px;
+}
+
+.endDate p,
+.bid p {
+    white-space: pre;
+}
+
+.bid span {
+    font-weight: 700;
+}
+
+@media (max-width: 540px){
+    .endDate-bid {
+        display: block;
+    }
+
+    .bid {
+        margin-top: 0px;
+    }
+}

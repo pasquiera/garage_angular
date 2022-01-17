@@ -1,11 +1,8 @@
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { first } from 'rxjs/operators';
-import { AuthenticatorComponent } from 'src/app/accounts/authenticator/authenticator.component';
-import { AuthService } from 'src/app/services/auth.service';
-import { CommentService } from 'src/app/services/comment.service';
-import { UtilityService } from 'src/app/services/utility.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CarService } from 'src/app/services/car.service';
+import { ICar } from '../shared/models/car';
 
 @Component({
   selector: 'app-car-detail',
@@ -14,10 +11,79 @@ import { UtilityService } from 'src/app/services/utility.service';
 })
 export class CarDetailComponent implements OnInit {
 
+  private subscription: Subscription[];
+  carInfo: ICar;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, public car: CarService) { }
 
   ngOnInit(): void {
+
+    this.subscription = [];
+
+    this.carInfo = {
+      owner: null,
+      id:  null,
+      brand:  null,
+      model:  null,
+      price:  null,
+      imageUrls:  null,
+      endDate:  null,
+      bid: null,
+      type:  null,
+      year:  null,
+      mileage:  null,
+      fuel:  null,
+      gearbox:  null,
+      engine:  null,
+      hp:  null,
+      consumption:  null,
+      description:  null,
+    }
+
+    this.subscription[0] = this.route.params.subscribe(params => {
+      if (params['id'] != null) {
+        this.getCarInfo(params['id']);
+      }
+    });
+  }
+
+  async getCarInfo(id: string) {
+    await this.car.getCarDetail(id).subscribe(querySnapshot => {
+      querySnapshot.docs.forEach(doc => {
+        this.carInfo = {
+          owner: doc.get("owner"),
+          id: doc.get("id"),
+          brand: doc.get("brand"),
+          model: doc.get("model"),
+          price: doc.get("price"),
+          imageUrls: doc.get("imageUrls"),
+          endDate: doc.get("endDate"),
+          bid: doc.get("bid"),
+          type: doc.get("type"),
+          year: doc.get("year"),
+          mileage: doc.get("mileage"),
+          fuel: doc.get("fuel"),
+          gearbox: doc.get("gearbox"),
+          engine: doc.get("engine"),
+          hp: doc.get("hp"),
+          consumption: doc.get("consuption"),
+          description: doc.get("description"),
+        }
+
+        this.getCarImages(this.carInfo.imageUrls);
+
+      });
+    })
+  }
+
+  getCarImages(imagePath: string[]) {
+    // 
+    var files = new Array(imagePath.length);
+    for (let i = 0; i < files.length; i++) {
+      this.car.getImage(imagePath[i]).then(url => {
+        files[i] = [url];
+      });
+    }
 
   }
 
