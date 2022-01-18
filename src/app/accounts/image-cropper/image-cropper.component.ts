@@ -18,12 +18,15 @@ export class ImageCropperComponent implements OnInit {
   }
 
   imageCropped(event: ImageCroppedEvent) {
-    // Preview
     this.croppedImage = event.base64;
   }
 
   upload() {
     this.dialogRef.close(this.croppedImage)
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 
 }

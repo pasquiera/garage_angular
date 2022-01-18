@@ -1,5 +1,10 @@
 <div class="container">
     <div id="carousel" class="carousel" data-bs-interval="false">
+
+        <span class="material-icons-outlined" (click)="closeDialog()">
+            cancel
+        </span>
+
         <div class="carousel-inner">
             <div class="carousel-item" *ngFor="let image of data.imageURL; let i = index"
                 [ngClass]="{'active': i == data.index }">

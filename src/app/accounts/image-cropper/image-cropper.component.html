@@ -1,13 +1,12 @@
-<div>
-    <image-cropper 
-    style="width: 512px; height: 512px;"
-    [imageChangedEvent]="data.imageChangedEvent"
-    (imageCropped)="imageCropped($event)"
-    [resizeToWidth]="138"
-    [roundCropper]=true>
-  
-    </image-cropper>
-    <img [src]="croppedImage">
+<div class="container">
+
+  <image-cropper style="max-height: 600px; max-width: 800px;" [imageChangedEvent]="data.imageChangedEvent"
+    (imageCropped)="imageCropped($event)" [resizeToWidth]="138" [roundCropper]=true>
+  </image-cropper>
+
+  <div class="btn">
+    <button type="button" class="submit_btn" (click)="upload()">Valider</button>
+    <button type="button" class="submit_btn" (click)="closeDialog()">Annuler</button>
   </div>
-  
-  <button type="button" (click)="upload()">Test</button>
+
+</div>

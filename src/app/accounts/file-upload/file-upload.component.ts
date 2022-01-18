@@ -27,7 +27,7 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
   croppedImage: any = '';
   @Output() imageEvent = new EventEmitter<string>();
 
-  @HostListener('change', ['$event']) emitFiles(event: FileList) {
+  selectFile(event) {
     // listen for file upload and open ImageCropperComponent
     this.imageChangedEvent = event;
 
@@ -36,17 +36,22 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
         // NoopScrollStrategy: does nothing
         scrollStrategy: new NoopScrollStrategy(),
         data: {
-          imageChangedEvent: this.imageChangedEvent
+          imageChangedEvent: this.imageChangedEvent,
+          panelClass: 'custom-modalbox'
         }
       });
 
     dialogRef.afterClosed().subscribe(async result => {
       // get image from ImageCropperComponent and send it to parent form
-      let file = base64ToFile(result);
-      this.onChange(file);
+      if (result != null) {
+        let file = base64ToFile(result);
+        this.onChange(file);
 
-      // send image url to display new profile picture in parent component
-      this.imageEvent.emit(result);
+        // send image url to display new profile picture in parent component
+        this.imageEvent.emit(result);
+      } else {
+        event.target.value = '';
+      }
     });
 
   }

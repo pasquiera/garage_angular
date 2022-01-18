@@ -364,11 +364,11 @@ input[type=number] {
 }
 
 .alert .close-btn:hover {
-    background: rgb(255, 137, 151);;
+    background: rgb(255, 137, 151);
 }
 
 .close-btn .close-icon {
-    color: rgb(255, 69, 87);;
+    color: rgb(255, 69, 87);
     font-size: 22px;
     line-height: 40px;
 }
