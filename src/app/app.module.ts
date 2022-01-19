@@ -72,7 +72,7 @@ registerLocaleData(localeFr, 'fr');
     RouterModule.forRoot([
       { path: 'auctions', component: CarListComponent },
       { path: '', redirectTo: 'auctions', pathMatch: 'full' },
-      { path: 'settings', component: ProfileSettingComponent},
+      { path: 'settings', component: ProfileSettingComponent, canActivate: [AuthGuard]},
       { path: 'bid', component: UserBidComponent, canActivate: [AuthGuard]},
       { path: 'create', component: CarEditComponent},
       { path: 'edit/:id', component: CarEditComponent, canActivate: [CarGuard]},

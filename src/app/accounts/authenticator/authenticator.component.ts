@@ -49,6 +49,10 @@ export class AuthenticatorComponent implements OnInit {
         else if (error.code == 'auth/wrong-password') {
           document.getElementById('password').classList.add('invalid');
           this.showInfo("Mot de passe non valide", "info-login")
+        }  else if (error.code == 'auth/user-not-found') {
+          document.getElementById('email').classList.add('invalid');
+          document.getElementById('password').classList.add('invalid');
+          this.showInfo("Email et/ou mot de passe incorrect(s)", "info-login")
         }
       });
 

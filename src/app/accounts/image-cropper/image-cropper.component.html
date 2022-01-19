@@ -5,8 +5,16 @@
   </image-cropper>
 
   <div class="btn">
-    <button type="button" class="submit_btn" (click)="upload()">Valider</button>
-    <button type="button" class="submit_btn" (click)="closeDialog()">Annuler</button>
+    <button type="button" class="submit_btn validate" (click)="upload()">
+      <span class="material-icons-outlined">
+        done
+      </span>
+    </button>
+    <button type="button" class="submit_btn close" (click)="closeDialog()">
+      <span class="material-icons-outlined">
+        close
+      </span>
+    </button>
   </div>
 
 </div>

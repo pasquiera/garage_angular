@@ -21,75 +21,31 @@
 }
 
 button {
-    position: relative;
-    display: inline-block;
-    padding: 0px 90px;
-    margin: 0 5px;
-    width: 250px;
-    height: 48px;
+    border-radius: 100%;
     outline: none;
-    border: 0;
-    text-decoration: none;
-    font-size: 1rem;
+    border: none;
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
 }
 
-.submit_btn {
-    border-radius: 0.75em;
-    font-weight: 700;
-    color: #382b22;
-    text-transform: uppercase;
-    background: rgb(255, 69, 87)
+span {
+    margin-top: 5px;
+    color: #fff;
 }
 
-.submit_btn {
-    color: #FFF;
+.validate {
+    background-color: rgb(45,204,112);
 }
 
-.submit_btn:hover {
-    background: rgb(255, 137, 151)
+.validate:hover {
+    background-color: rgb(97, 245, 158);
 }
 
-.submit_btn:active {
-    background: rgb(255, 137, 151)
+.close {
+    background-color: rgb(231, 76, 60);
 }
 
-
-@media (max-width: 516px) {
-    .btn {
-        margin-top: 20px;
-    }
-
-    button {
-        padding: 0px 0px;
-        width: 200px;
-        height: 48px;
-     }
+.close:hover {
+    background-color: rgb(247, 126, 112);
 }
-
-@media (max-width: 416px) {
-    .btn {
-        margin-top: 20px;
-    }
-
-    button {
-        padding: 0px 0px;
-        width: 150px;
-        height: 48px;
-     }
-}
-
-
-@media (max-width: 312px) {
-    .btn {
-        margin-top: 20px;
-    }
-
-    button {
-        padding: 0px 0px;
-        width: 100px;
-        height: 48px;
-     }
-}
-
-
-

@@ -1,15 +1,205 @@
 <div class="container">
-    <h2>{{carInfo.brand}} {{carInfo.model}} - {{carInfo.year}}</h2>
+    <div class="title">
+        <h2>{{carInfo.brand}} {{carInfo.model}} - {{carInfo.year}}</h2>
+        <h4>
+            <span class="material-icons-outlined">
+                add_moderator
+            </span>
+            Paiement Sécurisé
+        </h4>
+    </div>
     <div class="endDate-bid">
-    <div class="endDate">
-        <p>Termine dans </p>
-        <app-count-down [endDate]="carInfo.endDate"></app-count-down>
+        <div class="endDate">
+            <p>Termine dans </p>
+            <app-count-down [endDate]="carInfo.endDate"></app-count-down>
+        </div>
+        <div class="bid">
+            <p>Meilleure enchère : </p>
+            <span>{{carInfo.bid | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</span>
+        </div>
     </div>
-    <div class="bid">
-        <p>Meilleure enchère : </p>
-        <span>{{carInfo.bid | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</span>
+
+    <div class="cover">
+        <img [src]="files[0] || 'assets/img/blank.jpg'">
+        <div class="more">
+            + {{lg}}
+        </div>
     </div>
-</div>
+
+    <div class="wrapper">
+
+        <div class="auction">
+            <h5>Enchérir</h5>
+            <div class="main-info">
+                <div class="car-info">
+                    <h6>Meilleure enchère</h6>
+                    <p class="txt">
+                        {{ carInfo.bid | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}
+                        <!-- registerLocaleData(localeFr, 'fr'); -->
+                    </p>
+                </div>
+                <div class="car-info">
+                    <h6>Termine dans</h6>
+                    <p class="txt">
+                        <app-count-down [endDate]="carInfo.endDate"></app-count-down>
+                        <!-- [endDate] = même valeur que le input() fichier count-down -->
+                    </p>
+                </div>
+            </div>
+
+            <!--  <div class="instruction-div">
+                <p class="instruction">Montant de votre enchère :</p>
+            </div>
+            <div class="bid-select">
+                <div class="value">
+                    <input #registerName type="text" id="userName" class="form_input" autocomplete="off" required>
+                </div>
+                <div class="input">
+                    <button type="button" class="btn2">
+                        <span class="material-icons-outlined">
+                            done
+                        </span>
+                    </button>
+                </div>
+            </div> -->
+
+            <div class="bid-input">
+                <p>Vous devez être connecté pour enchérir</p>
+                <div class="fieldBtn">
+                    <button type="button" class="btn submit_btn">Se Connecter</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <h5>Vendeur</h5>
+            <div class="seller-info">
+                <div class="avatar">
+                    <img src="{{seller.avatar}}">
+                </div>
+                <div class="username">
+                    {{seller.userName}}
+                </div>
+            </div>
+            <h5>Acheteur</h5>
+            <div class="seller-info">
+                <div class="avatar">
+                    <img src="{{seller.avatar}}">
+                </div>
+                <div class="username">
+                    {{seller.userName}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="car-details">
+        <div class="row">
+            <div class="detail">
+                <div class="name">
+                    Marque
+                </div>
+                <div class="value">
+                    {{carInfo.brand}}
+                </div>
+            </div>
+            <div class="detail">
+                <div class="name">
+                    Modèle
+                </div>
+                <div class="value">
+                    {{carInfo.model}}
+                </div>
+            </div>
+            <div class="detail">
+                <div class="name">
+                    Kilométrage
+                </div>
+                <div class="value">
+                    {{carInfo.mileage}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="detail">
+                <div class="name">
+                    Moteur
+                </div>
+                <div class="value">
+                    {{carInfo.engine}}
+                </div>
+            </div>
+            <div class="detail">
+                <div class="name">
+                    Puissance
+                </div>
+                <div class="value">
+                    {{carInfo.hp}} CV
+                </div>
+            </div>
+            <div class="detail">
+                <div class="name">
+                    Energie
+                </div>
+                <div class="value">
+                    {{carInfo.fuel}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="detail">
+                <div class="name">
+                    Conso. (l/100)
+                </div>
+                <div class="value">
+                    {{carInfo.consumption}}
+                </div>
+            </div>
+            <div class="detail">
+                <div class="name">
+                    Boite
+                </div>
+                <div class="value">
+                    {{carInfo.gearbox}}
+                </div>
+            </div>
+            <div class="detail">
+                <div class="name">
+
+                </div>
+                <div class="value">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <h3>Galerie</h3>
+    <div class="galerie">
+        <div class="image">
+            <img [src]="files[0] || 'assets/img/blank.jpg'">
+        </div>
+        <div class="image">
+            <img [src]="files[0] || 'assets/img/blank.jpg'">
+        </div>
+        <div class="image">
+            <img [src]="files[0] || 'assets/img/blank.jpg'">
+        </div>
+        <div class="image">
+            <img [src]="files[0] || 'assets/img/blank.jpg'">
+        </div>
+        <div class="image">
+            <img [src]="files[0] || 'assets/img/blank.jpg'">
+        </div>
+        <div class="image">
+            <img [src]="files[0] || 'assets/img/blank.jpg'">
+        </div>
+    </div>
+
 </div>
 
 <app-comment-section></app-comment-section>

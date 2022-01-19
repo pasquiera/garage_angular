@@ -204,7 +204,7 @@ export class CarEditComponent implements OnInit {
   OnlyNumbersAllowed(event):boolean {
     const charCode = (event.which)?event.which: event.keyCode;
 
-    if(charCode > 31 && (charCode < 48 || charCode > 57)) {
+    if(charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
       return false;
     }
 

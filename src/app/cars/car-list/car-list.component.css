@@ -31,6 +31,10 @@
     font-weight: 600;
     left: 5%;
     text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:100%;
 }
 
 .main-box .car-info{
@@ -231,7 +235,7 @@ h5 {
 
 .car-image {
     height: 400px;
-    background-color: rgb(247, 247, 247);;
+    background-color: rgb(247, 247, 247);
 }
 
 .carousel-item {

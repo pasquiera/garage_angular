@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { CarService } from 'src/app/services/car.service';
 import { ICar } from '../shared/models/car';
 
@@ -13,8 +14,11 @@ export class CarDetailComponent implements OnInit {
 
   private subscription: Subscription[];
   carInfo: ICar;
+  lg = 0;
+  files: any = [];
+  seller;
 
-  constructor(private route: ActivatedRoute, public car: CarService) { }
+  constructor(private route: ActivatedRoute, public car: CarService, public auth: AuthService) { }
 
   ngOnInit(): void {
 
@@ -22,22 +26,27 @@ export class CarDetailComponent implements OnInit {
 
     this.carInfo = {
       owner: null,
-      id:  null,
-      brand:  null,
-      model:  null,
-      price:  null,
-      imageUrls:  null,
-      endDate:  null,
+      id: null,
+      brand: null,
+      model: null,
+      price: null,
+      imageUrls: null,
+      endDate: null,
       bid: null,
-      type:  null,
-      year:  null,
-      mileage:  null,
-      fuel:  null,
-      gearbox:  null,
-      engine:  null,
-      hp:  null,
-      consumption:  null,
-      description:  null,
+      type: null,
+      year: null,
+      mileage: null,
+      fuel: null,
+      gearbox: null,
+      engine: null,
+      hp: null,
+      consumption: null,
+      description: null,
+    }
+
+    this.seller = {
+      userName: null,
+      avatar: "assets/img/default.jpg"
     }
 
     this.subscription[0] = this.route.params.subscribe(params => {
@@ -66,11 +75,12 @@ export class CarDetailComponent implements OnInit {
           gearbox: doc.get("gearbox"),
           engine: doc.get("engine"),
           hp: doc.get("hp"),
-          consumption: doc.get("consuption"),
+          consumption: doc.get("consumption"),
           description: doc.get("description"),
         }
 
         this.getCarImages(this.carInfo.imageUrls);
+        this.getOwnerInfo(this.carInfo.owner);
 
       });
     })
@@ -78,13 +88,19 @@ export class CarDetailComponent implements OnInit {
 
   getCarImages(imagePath: string[]) {
     // 
-    var files = new Array(imagePath.length);
-    for (let i = 0; i < files.length; i++) {
+    this.files = new Array(imagePath.length);
+    for (let i = 0; i < this.files.length; i++) {
       this.car.getImage(imagePath[i]).then(url => {
-        files[i] = [url];
+        this.files[i] = [url];
+        this.lg++;
       });
     }
+  }
 
+  getOwnerInfo(owner: string) {
+    Promise.all([this.auth.getName(owner), this.auth.getAvatar(owner)]).then(data => {
+      this.seller = { userName: data[0].get("userName"), avatar: data[1] };
+    });
   }
 
 }

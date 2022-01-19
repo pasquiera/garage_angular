@@ -1,11 +1,57 @@
 .container {
-    max-width: 900px;
+    max-width: 1000px;
+    width: 100%;
     margin-top: 7em;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
 }
 
 h2 {
     font-weight: 700;
     text-transform: capitalize;
+}
+
+.title h4 {
+    display: flex;
+    color: rgb(80, 227, 158);
+}
+
+.title h4 span {
+    margin-top: 1px;
+    margin-right: 5px;
+}
+
+.cover {
+    position: relative;
+    background-color: rgb(247, 247, 247);
+    min-height: 53px;
+    margin-top: 20px;
+}
+
+.cover img {
+    max-height: 400px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.more {
+    height: 50px;
+    width: 50px;
+    z-index: 2;
+    position: absolute;
+    bottom: 1%;
+    right: 0.5%;
+    background-color: #000;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
 }
 
 
@@ -33,7 +79,251 @@ h2 {
     font-weight: 700;
 }
 
+.wrapper {
+    display: flex;
+}
+
+.auction,
+.user-info {
+    margin-top: 30px;
+    height: 251px;
+    border: 1px solid #f4f4f4;
+    padding: 20px;
+}
+
+.auction {
+    max-width: 600px;
+    width: 100%;
+}
+
+.user-info {
+    margin-left: 20px;
+    width: 100%;
+}
+
+.auction h5,
+.user-info h5 {
+    padding: 0px 50px;
+}
+
+.main-info {
+    display: flex;
+    padding-bottom: 15px;
+}
+
+.main-info h6 {
+    font-size: .8571428571rem;
+    color: #8b8c93;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 1em;
+}
+
+.car-info{
+    padding: 0px 50px;
+}
+
+.bid-input {
+    padding: 0px 50px;
+}
+
+.btn {
+    margin-top: -10px;
+    padding: 0px 50px;
+    width: 300px;
+    height: 48px;
+    outline: none;
+    border: 0;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.submit_btn {
+    border-radius: 0.75em;
+    font-weight: 700;
+    color: #382b22;
+    text-transform: uppercase;
+    background: rgb(244, 44, 4);
+    transform-style: preserve-3d;
+    transition: .05s cubic-bezier(0, 0, .6, 1);
+}
+
+.submit_btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: rgb(194, 35, 5);
+    transform: translate3d(0, .5em, -1em);
+    transition: .05s cubic-bezier(0, 0, .6, 1);
+}
+
+.submit_btn:hover::before {
+    transform: translate3d(0, .25em, -1em);
+}
+
+.submit_btn {
+    color: #FFF;
+}
+
+.submit_btn:hover {
+    background: rgb(252, 123, 98);
+    transform: translate(0, .25em);
+}
+
+.submit_btn:active {
+    background: rgb(252, 123, 98);
+    transform: translate(0, .55em);
+}
+
+.submit_btn:active::before {
+    transform: translate3d(0, 0, -1em);
+}
+
+.form_input {
+    width: 300px;
+    height: 48px;
+    outline: none;
+    border: 1px solid rgb(218, 220, 224);
+    background-color: transparent;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-left: 50px;
+    margin-right: 10px;
+}
+
+.bid-select {
+    display: flex;
+    position: relative;
+}
+
+.btn2 {
+    width: 50px;
+    height: 48px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    background: rgb(244, 44, 4);
+    color: #fff;
+}
+
+.btn2:hover {
+    background: rgb(252, 123, 98);
+}
+
+.instruction-div {
+    padding: 0px 50px;
+}
+
+.seller-info {
+    padding: 0px 50px;
+    padding-top: 10px;
+    margin-bottom: 22px;
+    display: flex;
+    position: relative;
+}
+
+.avatar img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.username {
+    margin-top: 10px;
+    margin-left: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:100%;
+}
+
+.car-details {
+    height: 100%;
+    width: 100%;
+    margin-top: 30px;
+    border: 1px solid #f4f4f4;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 50px;
+}
+
+.detail {
+    display: flex;
+    max-width: 30%;
+}
+
+.detail .name {
+    text-transform: uppercase;
+    width: 195px;
+    font-size: .8571428571rem;
+    color: #8b8c93;
+    font-weight: 500;
+    margin-top: 2.5px;
+    margin-right: 5px;
+}
+
+.detail .value {
+    text-transform: capitalize;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:100%;
+}
+
+@media (max-width: 768px){
+    .wrapper {
+        display: block;
+    }
+
+    .auction,
+    .user-info{
+        margin-left: 0;
+        max-width: 900px;
+        width: 100%;
+    }
+
+    .detail {
+        max-width: 100%;
+    }
+
+}
+
+h3 {
+    margin-top: 30px;
+}
+
+.galerie{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 705px;
+    width: 100%;
+}
+
+.image img {
+    width: 155px;
+    height: 105px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
 @media (max-width: 540px){
+
+    .title {
+        display: block;
+    }
+
     .endDate-bid {
         display: block;
     }
@@ -41,4 +331,49 @@ h2 {
     .bid {
         margin-top: 0px;
     }
+
+}
+
+@media (max-width: 500px){
+    .bid-input p,
+    .instruction{
+        font-size: 13px;
+    }
+    .form_input {
+        width: 200px;
+    }
+}
+
+@media (max-width: 400px){
+
+    .btn {
+        width: 220px;
+    }
+
+    .bid-input p,
+    .instruction{
+        font-size: 11px;
+    }
+
+    button {
+        width: 220px;
+    }
+
+    .car-info{
+        padding: 0px 20px;
+    }
+
+    .bid-input,
+    .instruction-div{
+        padding: 0px 0px;
+    }
+
+    .form_input {
+        margin-left: 0px;
+    }
+
+    .form_input {
+        width: 100px;
+    }
+
 }

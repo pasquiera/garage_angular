@@ -49,9 +49,8 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
 
         // send image url to display new profile picture in parent component
         this.imageEvent.emit(result);
-      } else {
-        event.target.value = '';
       }
+        event.target.value = '';
     });
 
   }
