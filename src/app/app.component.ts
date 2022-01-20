@@ -2,12 +2,10 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { AuthenticatorComponent } from './accounts/authenticator/authenticator.component';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { ActivatedRouteSnapshot, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { fader } from './route-animations'
 import { AuthService } from './services/auth.service';
 import { UtilityService } from './services/utility.service';
-import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +19,7 @@ export class AppComponent {
   title: string = "Garage Automobile";
   userHasProfile = true;
   userImg = "assets/img/default.jpg";
+  userName;
   subscription: any;
   mobileActiveLink = 'auction_m';
 
@@ -34,7 +33,7 @@ export class AppComponent {
       if (val) {
 
         this.subscription = this.auth.getUserData().subscribe(user => {
-
+          this.userName = user.userName;
           this.auth.getUserImage(user.imageProfile).then(val => {
             this.userImg = val;
             this.utility.updateData(val);
@@ -106,6 +105,11 @@ export class AppComponent {
       document.getElementById(this.mobileActiveLink).classList.toggle('is-active');
       document.getElementById(id).classList.toggle('is-active');
     }
+  }
+
+  menuToggle() {
+    const toggleMenu = document.querySelector('.list');
+    toggleMenu.classList.toggle('active');
   }
 
 }

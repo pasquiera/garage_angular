@@ -145,7 +145,7 @@ export class CarService {
 
     this.uploadImage(image, imagePath);
 
-    this.afs.collection<Car>('cars/'+this.auth.userID+'/user-cars').doc(doc).update({
+    this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).update({
       type: type,
       brand: brand.toLowerCase(),
       model: model.toLowerCase(),
@@ -161,5 +161,11 @@ export class CarService {
     })
   }
 
+  updateBid(bid: number, owner: string, id: string, buyer: string) {
+    this.afs.collection<Car>('cars/' + owner + '/user-cars').doc(id).update({
+      bid: bid,
+      buyer: buyer,
+    })
+  }
 
 }

@@ -15,31 +15,100 @@ nav {
     padding: 15px 0px;
 }
 
-.dropdown:hover .list {
-    display: block;
-}
-
-.list {
-    display: none;
+.dropdown .list {
     position: absolute;
-    margin-top: 15px;
+    top: 120px;
+    right: -25px;
+    padding: 10px 0px;
+    background: #fff;
     width: 200px;
-    background-color: #FFF;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .2);
+    box-sizing: 0 5px 25px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    transition: 0.5s;
+    border: 1px solid #f4f4f4;
+    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, .1);
+    visibility: hidden;
+    opacity: 0;
 }
 
-.links {
+.dropdown .list.active {
+    top: 70px;
+    visibility: visible;
+    opacity: 1;
+}
+
+.dropdown .list::before {
+    content:  '';
+    position: absolute;
+    top: -5px;
+    right: 28px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(45deg);
+    z-index: -1;
+    border: 1px solid #f4f4f4;
+    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, .01);
+}
+
+.dropdown .list::after {
+    content:  '';
+    position: absolute;
+    top: -5px;
+    right: 28px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(45deg);
+}
+
+
+.dropdown .list h3{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px;
+    font-weight: 500;
+    color: #555;
+    line-height: 1.2em;
+
+}
+
+.dropdown .list ul li {
     cursor: pointer;
-    padding: 15px 20px;
-    color: rgb(92, 92, 92);
-    font-weight: 600;
-    text-decoration: none;
-    border-bottom: 1px solid;
-    border-color: rgb(242, 243, 245);
+    list-style: none;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
 }
 
-.links:hover{
-    color: #000;
+
+.dropdown .list ul li span{
+    max-width: 20px;
+    margin-right: 10px;
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+.dropdown .list ul li:hover span{
+    opacity: 1;
+}
+
+.dropdown .list ul li .links {
+    display: inline-block;
+    text-decoration: none;
+    color: #555;
+    font-weight: 550;
+    transition: 0.5s;
+}
+
+
+.dropdown .list ul li:hover .links {
+    color: royalblue;
 }
 
 nav {
@@ -50,7 +119,6 @@ nav {
     z-index: 99;
     background-color: #FFF;
     padding: 0 32px;
-
     box-shadow: 0 0px 10px 0 rgba(0, 0, 0, .2);
 }
 
@@ -202,6 +270,10 @@ hr {
     border-radius: 50%;
     margin: -2px 0 0 30px;
     cursor: pointer;
+}
+
+.avatar:hover {
+    box-shadow: 0 0px 0px 5px rgba(240, 240, 240, 1);
 }
 
 .arrow {

@@ -57,6 +57,8 @@ export class CarListComponent implements OnInit {
             imageUrls: [],
             endDate: doc.get("endDate"),
             bid: doc.get("bid"),
+            createDateAsc: doc.get("createDateAsc"),
+            buyer: doc.get("buyer"),
         }
 
         for (let i = 0; i < car.imagePath.length; i++) {

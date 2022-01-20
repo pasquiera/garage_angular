@@ -7,19 +7,50 @@
             <th>Meilleur offre</th>
             <th>Options</th>
         </tr>
-        
-        <tr id="{{car.id}}" *ngFor="let car of cars" [routerLink]="['/car', car.id]">        
-            <td class="first-td"><img [src]="car.firstImage || 'assets/img/blank.jpg'" [title]="car.brand | uppercase" class="img" [alt]="car.brand" />{{ car.brand }} {{ car.model }}</td>
+
+        <tr id="{{car.id}}" *ngFor="let car of cars" [routerLink]="['/car', car.id]">
+            <td class="first-td"><img [src]="car.firstImage || 'assets/img/blank.jpg'" [title]="car.brand | uppercase"
+                    class="img" [alt]="car.brand" />{{ car.brand }} {{ car.model }}</td>
             <td>{{ car.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</td>
-            <td><app-count-down [endDate]="car.endDate"></app-count-down></td>
+            <td>
+                <app-count-down [endDate]="car.endDate"></app-count-down>
+            </td>
             <td>{{ car.bid | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</td>
             <td>
                 <span class="material-icons-outlined edit" [routerLink]="['/edit', car.id]" (click)="stop($event)">
-                edit
+                    edit
                 </span>
                 <span class="material-icons-outlined delete" (click)="delete($event, car.id)">
                     delete
-                </span>    
+                </span>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr id="header">
+            <th class="first-th">Véhicule</th>
+            <th>Prix de réserve</th>
+            <th>Temps restant</th>
+            <th>Meilleur offre</th>
+            <th>Acheteur</th>
+        </tr>
+
+        <tr id="{{car.id}}" *ngFor="let car of cars" [routerLink]="['/car', car.id]">
+            <td class="first-td"><img [src]="car.firstImage || 'assets/img/blank.jpg'" [title]="car.brand | uppercase"
+                    class="img" [alt]="car.brand" />{{ car.brand }} {{ car.model }}</td>
+            <td>{{ car.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</td>
+            <td>
+                <app-count-down [endDate]="car.endDate"></app-count-down>
+            </td>
+            <td>{{ car.bid | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr'}}</td>
+            <td>
+                <span class="material-icons-outlined edit" [routerLink]="['/edit', car.id]" (click)="stop($event)">
+                    edit
+                </span>
+                <span class="material-icons-outlined delete" (click)="delete($event, car.id)">
+                    delete
+                </span>
             </td>
         </tr>
     </table>

@@ -83,6 +83,10 @@ h2 {
     display: flex;
 }
 
+.wrap {
+    padding: 0px 50px;
+}
+
 .auction,
 .user-info {
     margin-top: 30px;
@@ -300,11 +304,11 @@ h2 {
 
 }
 
-h3 {
+h2:not(.title-h2) {
     margin-top: 30px;
 }
 
-.galerie{
+.more-info{
     display: flex;
     flex-wrap: wrap;
     max-width: 705px;
@@ -316,6 +320,8 @@ h3 {
     height: 105px;
     margin-right: 10px;
     margin-bottom: 10px;
+    object-fit: cover;
+    cursor: pointer;
 }
 
 @media (max-width: 540px){

@@ -12,18 +12,34 @@
 
         <span *ngIf="!loggedIn()" (click)="onLoginClick()" class="icon material-icons-outlined">account_circle</span>
 
-
-        <div class="dropdown" *ngIf="loggedIn()">
+        <div class="dropdown" *ngIf="loggedIn()" (click)="menuToggle()">
           <img class="avatar" [src]="userImg">
-          <span class="material-icons-outlined arrow">
-            arrow_drop_down
-          </span>
           <div class="list">
-            <div class="links" id="settings" (click)="activeLink('settings')" [routerLink]="['/settings']">Paramètres
-            </div>
-            <div class="links" id="bid" (click)="activeLink('bid')" [routerLink]="['/bid']">Mes enchères</div>
-            <div class="links" (click)="onLogoutClick()">Déconnexion</div>
+            <h3>{{userName}}</h3>
+            <ul>
+              <li id="settings" (click)="activeLink('settings')" [routerLink]="['/settings']">
+                <span class="material-icons-outlined">
+                  settings
+                </span>
+                <div class="links">
+                  Paramètres
+                </div>
+              </li>
+              <li id="bid" (click)="activeLink('bid')" [routerLink]="['/bid']">
+                <span class="material-icons-outlined">
+                  directions_car_filled
+                </span>
+                <div class="links">Mes enchères</div>
+              </li>
+              <li (click)="onLogoutClick()">
+                <span class="material-icons-outlined">
+                  logout
+                </span>
+                <div class="links">Déconnexion</div>
+              </li>
+            </ul>
           </div>
+
         </div>
 
       </div>

@@ -42,7 +42,8 @@ export class AuthService {
           firstName: '',
           address: '',
           phoneNumber: '',
-          imageProfile: 'default/default.jpg'
+          imageProfile: 'default/default.jpg',
+          auctions: []
         }
 
         this.sendEmailVerif();
@@ -160,6 +161,14 @@ export class AuthService {
       console.log("Error getting document:", error);
     });
 
+  }
+
+  updateAuctionsList(auctions: string[], carID: string) {
+
+    auctions[auctions.length] = carID;
+    this.afs.collection<IUser>('users').doc(this.userID).update({
+      auctions: auctions,
+    });
   }
 
 }

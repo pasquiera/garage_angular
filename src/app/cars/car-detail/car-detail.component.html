@@ -1,6 +1,6 @@
 <div class="container">
     <div class="title">
-        <h2>{{carInfo.brand}} {{carInfo.model}} - {{carInfo.year}}</h2>
+        <h2 class="title-h2">{{carInfo.brand}} {{carInfo.model}} - {{carInfo.year}}</h2>
         <h4>
             <span class="material-icons-outlined">
                 add_moderator
@@ -47,26 +47,29 @@
                 </div>
             </div>
 
-            <!--  <div class="instruction-div">
-                <p class="instruction">Montant de votre enchère :</p>
+            <div *ngIf="loggedIn()">
+                <div class="instruction-div">
+                    <p class="instruction">Montant de votre enchère :</p>
+                </div>
+                <div class="bid-select">
+                    <div class="value">
+                        <input #bidValue type="text" id="bid" class="form_input" autocomplete="off" required
+                            (keypress)="OnlyNumbersAllowed($event)">
+                    </div>
+                    <div class="input">
+                        <button type="button" class="btn2" (click)="checkBid(bidValue)">
+                            <span class="material-icons-outlined">
+                                done
+                            </span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="bid-select">
-                <div class="value">
-                    <input #registerName type="text" id="userName" class="form_input" autocomplete="off" required>
-                </div>
-                <div class="input">
-                    <button type="button" class="btn2">
-                        <span class="material-icons-outlined">
-                            done
-                        </span>
-                    </button>
-                </div>
-            </div> -->
 
-            <div class="bid-input">
+            <div class="bid-input" *ngIf="!loggedIn()">
                 <p>Vous devez être connecté pour enchérir</p>
                 <div class="fieldBtn">
-                    <button type="button" class="btn submit_btn">Se Connecter</button>
+                    <button type="button" class="btn submit_btn" (click)="login()">Se Connecter</button>
                 </div>
             </div>
         </div>
@@ -84,10 +87,10 @@
             <h5>Acheteur</h5>
             <div class="seller-info">
                 <div class="avatar">
-                    <img src="{{seller.avatar}}">
+                    <img src="{{buyer.avatar}}">
                 </div>
                 <div class="username">
-                    {{seller.userName}}
+                    {{buyer.userName}}
                 </div>
             </div>
         </div>
@@ -114,10 +117,10 @@
             </div>
             <div class="detail">
                 <div class="name">
-                    Kilométrage
+                    Boite
                 </div>
                 <div class="value">
-                    {{carInfo.mileage}}
+                    {{carInfo.gearbox}}
                 </div>
             </div>
         </div>
@@ -160,10 +163,10 @@
             </div>
             <div class="detail">
                 <div class="name">
-                    Boite
+                    Kilométrage
                 </div>
                 <div class="value">
-                    {{carInfo.gearbox}}
+                    {{carInfo.mileage}}
                 </div>
             </div>
             <div class="detail">
@@ -178,25 +181,37 @@
 
     </div>
 
-    <h3>Galerie</h3>
-    <div class="galerie">
-        <div class="image">
-            <img [src]="files[0] || 'assets/img/blank.jpg'">
+    <div class="wrap">
+        <h2>Description</h2>
+        <div class="more-info">
+            <div>
+                <p style="margin-top: 20px;">{{carInfo.description}}</p>
+            </div>
         </div>
-        <div class="image">
-            <img [src]="files[0] || 'assets/img/blank.jpg'">
+
+        <h2 style="text-transform: none;">Informations sur la vente</h2>
+        <div class="more-info">
+            <div>
+                <p style="font-size: 20px; margin-top: 20px;">Dates</p>
+                <p>Date d'ouverture des enchères : <span style="font-weight: 500;">{{carInfo.createDateAsc}}</span></p>
+                <p style="margin-top: -20px;">Date de fin des enchères : <span
+                        style="font-weight: 500;">{{carInfo.endDate}}</span></p>
+
+                <div style="display: flex; font-style: italic; margin-top: 20px;">
+                    <span class="material-icons" style="margin-top: -0.5px;margin-right: 3px;">
+                        info
+                    </span>
+                    <p>
+                        Un prix de réserve a été défini, enchérissez pour accéder à l'indicateur</p>
+                </div>
+            </div>
         </div>
-        <div class="image">
-            <img [src]="files[0] || 'assets/img/blank.jpg'">
-        </div>
-        <div class="image">
-            <img [src]="files[0] || 'assets/img/blank.jpg'">
-        </div>
-        <div class="image">
-            <img [src]="files[0] || 'assets/img/blank.jpg'">
-        </div>
-        <div class="image">
-            <img [src]="files[0] || 'assets/img/blank.jpg'">
+
+        <h2>Galerie</h2>
+        <div class="more-info">
+            <div class="image" *ngFor="let image of files; let i = index">
+                <img [src]="image || 'assets/img/blank.jpg'" (click)="openDialog(i)">
+            </div>
         </div>
     </div>
 

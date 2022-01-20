@@ -7,4 +7,5 @@ export interface IUser {
     address: string;
     phoneNumber: string;
     imageProfile: string;
+    auctions: string[];
   }
