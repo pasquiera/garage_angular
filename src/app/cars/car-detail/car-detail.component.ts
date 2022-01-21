@@ -23,6 +23,7 @@ export class CarDetailComponent implements OnInit {
   files: any = [];
   seller;
   buyer;
+  cpt = 0;
 
   constructor(private dialog: MatDialog, private route: ActivatedRoute, public car: CarService, public auth: AuthService) { }
 
@@ -69,41 +70,48 @@ export class CarDetailComponent implements OnInit {
     });
   }
 
-  async getCarInfo(id: string) {
-    await this.car.getCarDetail(id).subscribe(querySnapshot => {
-      querySnapshot.docs.forEach(doc => {
-        this.carInfo = {
-          owner: doc.get("owner"),
-          id: doc.get("id"),
-          brand: doc.get("brand"),
-          model: doc.get("model"),
-          price: doc.get("price"),
-          imageUrls: doc.get("imageUrls"),
-          endDate: doc.get("endDate"),
-          bid: doc.get("bid"),
-          type: doc.get("type"),
-          year: doc.get("year"),
-          mileage: doc.get("mileage"),
-          fuel: doc.get("fuel"),
-          gearbox: doc.get("gearbox"),
-          engine: doc.get("engine"),
-          hp: doc.get("hp"),
-          consumption: doc.get("consumption"),
-          description: doc.get("description"),
-          createDateAsc: doc.get("createDateAsc"),
-          buyer: doc.get("buyer"),
-        }
+  getCarInfo(id: string) {
+    this.car.getCarOwner(id).pipe(first()).subscribe(querySnapshot => {
+      querySnapshot.docs.forEach(val => {
+        this.car.getCarDetail(id, val.get("owner")).subscribe(doc => {
+          this.carInfo = {
+            owner: doc.owner,
+            id: doc.id,
+            brand: doc.brand,
+            model: doc.model,
+            price: doc.price,
+            imageUrls: doc.imageUrls,
+            endDate: doc.endDate,
+            bid: doc.bid,
+            type: doc.type,
+            year: doc.year,
+            mileage: doc.mileage,
+            fuel: doc.fuel,
+            gearbox: doc.gearbox,
+            engine: doc.engine,
+            hp: doc.hp,
+            consumption: doc.consumption,
+            description: doc.description,
+            createDateAsc: doc.createDateAsc,
+            buyer: doc.buyer,
+          }
 
-        this.getCarImages(this.carInfo.imageUrls);
-        this.getOwnerInfo(this.carInfo.owner);
+          if (this.cpt == 0) {
+            // don't need to update after init
+            this.getCarImages(this.carInfo.imageUrls);
+            this.getOwnerInfo(this.carInfo.owner);
 
-        if (this.carInfo.buyer == null) {
-          this.buyer.userName = "-";
-        } else {
-          this.getBuyerInfo(this.carInfo.buyer);
-        }
+            if (this.carInfo.buyer == null) {
+              this.buyer.userName = "-";
+            } else {
+              this.getBuyerInfo(this.carInfo.buyer);
+            }
+          }
 
-      });
+          this.cpt++;
+
+        });
+      })
     })
   }
 
@@ -169,7 +177,6 @@ export class CarDetailComponent implements OnInit {
   }
 
   checkBid(bidValue: HTMLInputElement) {
-    // (Should use a reactive form to update bid instead)
     let bid = Number(bidValue.value);
     if (bid > this.carInfo.bid) {
       this.auth.getUserData().pipe(first()).subscribe(user => {
@@ -180,12 +187,11 @@ export class CarDetailComponent implements OnInit {
           if (!user.auctions.includes(this.carInfo.id)) {
             this.auth.updateAuctionsList(user.auctions, this.carInfo.id);
           }
-          this.carInfo.bid = bid;
         })
       })
+    } else {
+
     }
-
   }
-
 
 }

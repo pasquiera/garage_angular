@@ -21,8 +21,6 @@ export class CarGuard implements CanActivate {
       if (this.auth.isLoggedIn) {
         this.car.getCar(id).pipe(first()).subscribe(data => {
           if (data.owner == this.auth.userID) {
-            console.log(this.auth.userID)
-            console.log(data.owner)
             obs.next(true);
           }
           else {

@@ -112,16 +112,14 @@ export class AuthService {
   }
 
   uploadImage(image: any) {
-    console.log(image);
     return this.storage.ref('users/' + this.userID + '/profile.jpg').put(image).then(() => {
-      console.log('image uploaded successfully');
 
       this.afs.collection<IUser>('users').doc(this.userID).update({
         imageProfile: 'users/' + this.userID + '/profile.jpg'
       });
 
     }).catch(err => {
-      console.log(err);
+
     })
   }
 
@@ -129,7 +127,6 @@ export class AuthService {
     return new Observable(observer => {
       this.firebaseAuth.onAuthStateChanged((user) => {
         if (user) {
-          console.log(user.uid);
           this.userID = user.uid;
           observer.next(!!user); //cast variable into true or false
         } else {
@@ -158,7 +155,7 @@ export class AuthService {
         return this.storage.ref('default/default.jpg').getDownloadURL().toPromise()
       }
     }).catch((error) => {
-      console.log("Error getting document:", error);
+  
     });
 
   }

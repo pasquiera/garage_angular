@@ -164,7 +164,7 @@ a {
     cursor: pointer;
     border-color: rgb(229, 232, 235);
     border-radius: 10px;
-    
+    transition: all .2s ease-in;
 }
 
 .card:hover {

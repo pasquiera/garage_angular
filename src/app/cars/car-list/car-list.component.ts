@@ -111,7 +111,7 @@ export class CarListComponent implements OnInit {
 
                 this.carousel.push(car);
             });
-            console.log(this.carousel)
+            
         });
     }
 

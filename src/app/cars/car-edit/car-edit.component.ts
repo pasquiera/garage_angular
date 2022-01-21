@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { first } from "rxjs/operators";
 import { CarService } from "src/app/services/car.service";
+import { UtilityService } from "src/app/services/utility.service";
 
 @Component({
   selector: 'app-car-edit',
@@ -20,7 +22,11 @@ export class CarEditComponent implements OnInit {
   state = CarEditCompState.CREATE;
   error: boolean;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, public car: CarService) { }
+  constructor(private route: ActivatedRoute,
+    private fb: FormBuilder,
+    public car: CarService,
+    public utility: UtilityService,
+    private router: Router) { }
 
 
   ngOnInit(): void {
@@ -56,25 +62,9 @@ export class CarEditComponent implements OnInit {
 
   }
 
-  showError() {
-    const alert = document.getElementById('alert');
-    alert.hidden = false;
-    alert.classList.remove('hide');
-    alert.classList.add('show');
-    setTimeout(() => {
-      this.closeError();
-    }, 2000);
-  }
-
-  closeError() {
-    const alert = document.getElementById('alert');
-    alert.classList.remove('show');
-    alert.classList.add('hide');
-  }
-
   async getCarInfo() {
     //this.subscription[1]
-    await this.car.getCar(this.carID).subscribe(res => {
+    await this.car.getCar(this.carID).pipe(first()).subscribe(res => {
       this.carForm.patchValue({
         carType: res.type,
         brand: res.brand,
@@ -131,7 +121,7 @@ export class CarEditComponent implements OnInit {
 
       if (this.imgNameInit == this.imgName) {
         // compare initial and new array of image names after submit
-        // if same array, no new images had been added or image position has been changed
+        // if same array, no new images had been added or image positions had been changed
         // image array that contains files set to [] to not push blank file in firebase
         image = []
       }
@@ -142,8 +132,11 @@ export class CarEditComponent implements OnInit {
         mileage, model, year,
         image, this.imgName);
 
+      this.utility.updateAlert(1);
+      this.router.navigate(['/bid']);
+
     } else {
-      this.showError();
+      this.utility.updateAlert(2)
     }
   }
 
@@ -172,7 +165,7 @@ export class CarEditComponent implements OnInit {
 
     } else {
       this.checkEmpty();
-      this.showError();
+      this.utility.updateAlert(2);
     }
   }
 
@@ -201,10 +194,10 @@ export class CarEditComponent implements OnInit {
     console.log(this.words);
   }
 
-  OnlyNumbersAllowed(event):boolean {
-    const charCode = (event.which)?event.which: event.keyCode;
+  OnlyNumbersAllowed(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
 
-    if(charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
       return false;
     }
 
@@ -251,7 +244,7 @@ export class CarEditComponent implements OnInit {
   }
 
   ngOnDestroy() {
-
+    this.subscription.forEach(element => element.unsubscribe());
   }
 
   /* check current state */

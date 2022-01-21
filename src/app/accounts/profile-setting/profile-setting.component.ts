@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { UtilityService } from 'src/app/services/utility.service';
 import { IUser } from 'src/app/user';
 
 
@@ -17,7 +18,9 @@ export class ProfileSettingComponent implements OnInit {
   imgURL = "assets/img/default.jpg";
   subscription;
 
-  constructor(private fb: FormBuilder, public auth: AuthService) {
+  constructor(private fb: FormBuilder, 
+    public auth: AuthService,
+    public utility: UtilityService) {
   }
 
   ngOnInit(): void {
@@ -50,10 +53,12 @@ export class ProfileSettingComponent implements OnInit {
 
       if (image != null) {
         this.auth.uploadImage(image).then(res => {
-          this.showSucces();
+          this.utility.updateAlert(1);
+          this.hideInfo();
         });
       } else {
-        this.showSucces();
+        this.utility.updateAlert(1);
+        this.hideInfo();
       }
 
       // avoid image reupload for each submit
@@ -96,7 +101,6 @@ export class ProfileSettingComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    console.log("done");
   }
 
   showInfo() {
@@ -109,27 +113,10 @@ export class ProfileSettingComponent implements OnInit {
     document.getElementById('blank').hidden = false;
   }
 
-  showSucces() {
-    this.hideInfo();
-    const alert = document.getElementById('alert');
-    alert.hidden = false;
-    alert.classList.remove('hide');
-    alert.classList.add('show');
-    setTimeout(() => {
-      this.closeSuccess();
-    }, 2000);
-  }
+  OnlyNumbersAllowed(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
 
-  closeSuccess() {
-    const alert = document.getElementById('alert');
-    alert.classList.remove('show');
-    alert.classList.add('hide');
-  }
-
-  OnlyNumbersAllowed(event):boolean {
-    const charCode = (event.which)?event.which: event.keyCode;
-
-    if(charCode > 31 && (charCode < 48 || charCode > 57)) {
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }
 

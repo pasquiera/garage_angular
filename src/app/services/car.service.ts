@@ -3,13 +3,17 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Car } from '../cars/shared/models/car';
 import { AuthService } from './auth.service';
+import { UtilityService } from './utility.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarService {
 
-  constructor(public afs: AngularFirestore, public storage: AngularFireStorage, public auth: AuthService) { }
+  constructor(public afs: AngularFirestore, 
+    public storage: AngularFireStorage, 
+    public auth: AuthService,
+    public utility: UtilityService,) { }
 
   createCar(type: string, brand: string, consumption: string,
     description: string, engine: string, fuel: string,
@@ -61,14 +65,14 @@ export class CarService {
 
   uploadImage(image: File[], imagePaths: string[]) {
     // Upload each file on storage with the right url
-    console.log(image);
-    console.log(imagePaths);
+    let cpt = 1;
     image.forEach((element, index) => {
       if (element != null) {
         this.storage.ref(imagePaths[index]).put(element).then(() => {
-          console.log('all images uploaded successfully');
-        }).catch(err => {
-          console.log(err);
+          cpt++
+          /* if(image.length == cpt) {
+            this.utility.updateCompleted(true);
+          } */
         })
       }
     }
@@ -101,13 +105,22 @@ export class CarService {
     return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges();
   }
 
-  getCarDetail(id: string) {
+  getCarDetail(carID: string, ownerID: string) {
+    // Get a specific car for car-detail component
+    return this.afs.collection<Car>('cars/' + ownerID + '/user-cars').doc(carID).valueChanges();
+  }
+
+  getCarOwner(id: string) {
     // Get a specific car for car-detail component
     return this.afs.collectionGroup('user-cars', ref => ref.where('id', '==', id)).get();
   }
 
   getUserCars() {
     return this.afs.collectionGroup('user-cars', ref => ref.where('owner', '==', this.auth.userID)).get();
+  }
+
+  getCarByID(carID: string) {
+    return this.afs.collectionGroup('user-cars', ref => ref.where('id', '==', carID)).get();
   }
 
   getImage(path: string) {

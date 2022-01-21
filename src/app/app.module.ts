@@ -41,6 +41,7 @@ import { FaqComponent } from './faq/faq.component';
 import { UserBidComponent } from './accounts/user-bid/user-bid.component';
 import { AuthGuard } from './services/auth.guard';
 import { CarGuard } from './services/car.guard';
+import { AlertComponent } from './shared/alert/alert.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -62,6 +63,7 @@ registerLocaleData(localeFr, 'fr');
     BarLoadingComponent,
     FaqComponent,
     UserBidComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur

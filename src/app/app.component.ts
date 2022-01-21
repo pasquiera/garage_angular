@@ -51,6 +51,7 @@ export class AppComponent {
           this.activeLink('auction');
         }
       }
+
     })
 
   }

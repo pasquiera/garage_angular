@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 import { CarService } from 'src/app/services/car.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-user-bid',
@@ -8,11 +11,16 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class UserBidComponent implements OnInit {
 
-  cars: any[] = [];
+  myCars: any[] = [];
+  auctions: any[] = [];
+  cpt = 0;
 
-  constructor(public car: CarService) { }
+  constructor(public car: CarService,
+    public auth: AuthService,
+    public utility: UtilityService) { }
 
   ngOnInit(): void {
+
     this.car.getUserCars().subscribe(querySnapshot => {
       querySnapshot.docs.forEach(doc => {
         const car = {
@@ -31,24 +39,72 @@ export class UserBidComponent implements OnInit {
           car.firstImage = result;
         })
 
-        this.cars.push(car);
+        this.myCars.push(car);
       });
     });
+
+    this.auth.getUserData().pipe(first()).subscribe(res => {
+      const auctions = res.auctions;
+      auctions.forEach(element => this.getCar(element));
+    })
+  }
+
+  getCar(element: any) {
+    this.car.getCarByID(element).subscribe(querySnapshot => {
+      querySnapshot.docs.forEach(doc => {
+        let car = {
+          owner: doc.get("owner"),
+          id: doc.get("id"),
+          brand: doc.get("brand"),
+          model: doc.get("model"),
+          price: doc.get("price"),
+          imagePath: doc.get("imageUrls"), // Contain only image path
+          firstImage: null,
+          endDate: doc.get("endDate"),
+          bid: doc.get("bid"),
+          ID: doc.get("buyer"),
+          buyer: ''
+        }
+
+        this.car.getImage(car.imagePath[0]).then(result => {
+          car.firstImage = result;
+        })
+
+        this.auctions[this.cpt] = car;
+        this.getBuyerName(this.cpt);
+
+        this.cpt++;
+      })
+    })
+  }
+
+  getBuyerName(index: number) {
+    if (this.auctions[index].ID == this.auth.userID) {
+      this.auctions[index].buyer = "Vous"
+    } else {
+      this.auth.getName(this.auctions[index].ID).then(res => {
+        this.auctions[index].buyer = res.get("userName");
+        document.getElementById('b:' + this.auctions[index].id).style.color = 'red';
+      })
+    }
   }
 
   stop(event) {
     // stop routerlink propagation for carousel cursors
     event.stopPropagation();
-}
+  }
 
   delete(event, id: string) {
     event.stopPropagation();
     this.car.deleteCar(id);
     document.getElementById(id).remove();
-    const index = this.cars.indexOf(id);
+    const index = this.myCars.indexOf(id);
     if (index > -1) {
-      this.cars.splice(index, 1);
+      this.myCars.splice(index, 1);
     }
+  }
+
+  ngOnDestroy() {
   }
 }
 

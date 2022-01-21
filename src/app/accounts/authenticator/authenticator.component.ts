@@ -94,7 +94,6 @@ export class AuthenticatorComponent implements OnInit {
         this.checkVerif();
 
       }).catch(error => {
-        console.log(error.code)
         if (error.code == 'auth/invalid-email') {
           document.getElementById('email3').classList.add('invalid');
           this.showInfo("Veuillez saisir une adresse mail valide", "info-register")

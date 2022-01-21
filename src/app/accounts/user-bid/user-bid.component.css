@@ -34,7 +34,10 @@ th, td {
 .first-th, .first-td {
     text-align: left;
     width: 560px;
+}
 
+.buyer {
+    max-width: 10px;
 }
 
 td {

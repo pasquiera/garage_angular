@@ -1,0 +1,113 @@
+.success {
+    z-index: 99;
+    background: rgb(195, 243, 216);
+    padding: 20px 40px;
+    min-width: 420px;
+    position: fixed;
+    right: 0;
+    top: 80px;
+    overflow: hidden;
+    border-radius: 4px;
+    border-left: 8px solid rgb(37, 174, 88);
+}
+
+.success .valid-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgb(37, 174, 88);
+    font-size: 30px;
+}
+
+.success .msg {
+    padding: 0 20px;
+    font-size: 18px;
+    color: rgb(37, 174, 88);
+}
+
+.success .close-btn {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgb(149, 235, 186);
+    padding: 18px 18px;
+    cursor: pointer;
+}
+
+.success .close-btn:hover {
+    background: rgb(98, 230, 155);
+}
+
+.success .close-btn .close-icon {
+    color: rgb(37, 174, 88);;
+    font-size: 22px;
+    line-height: 40px;
+}
+
+.success.show {
+    animation: show_slide 0.8s ease forwards;
+}
+
+.success.hide {
+    animation: hide_slide 0.8s ease forwards;
+}
+
+
+.alert {
+    z-index: 99;
+    background: rgb(255, 212, 212);
+    padding: 20px 40px;
+    min-width: 420px;
+    position: fixed;
+    right: 0;
+    top: 80px;
+    overflow: hidden;
+    border-radius: 4px;
+    border-left: 8px solid rgb(255, 69, 87);
+}
+
+.alert .exclamation-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgb(255, 69, 87);;
+    font-size: 30px;
+}
+
+.alert .msg {
+    padding: 0 20px;
+    font-size: 18px;
+    color: rgb(255, 69, 87);;
+}
+
+.alert .close-btn {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgb(255, 155, 166);
+    padding: 18px 18px;
+    cursor: pointer;
+}
+
+.alert .close-btn:hover {
+    background: rgb(255, 137, 151);
+}
+
+.alert .close-btn .close-icon {
+    color: rgb(255, 69, 87);
+    font-size: 22px;
+    line-height: 40px;
+}
+
+.alert.show {
+    animation: show_slide 0.8s ease forwards;
+}
+
+.alert.hide {
+    animation: hide_slide 0.8s ease forwards;
+}
+
