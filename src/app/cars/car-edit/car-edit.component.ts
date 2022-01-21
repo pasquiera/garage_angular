@@ -54,6 +54,7 @@ export class CarEditComponent implements OnInit {
 
     this.subscription[0] = this.route.params.subscribe(params => {
       if (params['id'] != null) {
+        this.utility.updateSpinner(true);
         this.carID = params['id'];
         this.getCarInfo();
         this.state = CarEditCompState.EDIT;
@@ -95,6 +96,11 @@ export class CarEditComponent implements OnInit {
         var strOut = imagePath[i].substr(pos2 + 1);
         files[i] = [strOut, url]; // ["name","firebase url"]
         this.imgName[i] = strOut; // names
+
+        if (i == files.length - 1) {
+          this.utility.updateSpinner(false);
+        }
+
       });
     }
     this.imgNameInit = this.imgName;
@@ -132,8 +138,16 @@ export class CarEditComponent implements OnInit {
         mileage, model, year,
         image, this.imgName);
 
-      this.utility.updateAlert(1);
-      this.router.navigate(['/bid']);
+      this.utility.updateSpinner(true);
+
+      this.subscription[1] = this.utility.getCompleted().subscribe(res => {
+        if (res == true) {
+          this.utility.updateAlert(1);
+          this.router.navigate(['/bid']);
+          this.utility.updateCompleted(false);
+          this.utility.updateSpinner(false);
+        }
+      })
 
     } else {
       this.utility.updateAlert(2)
@@ -162,6 +176,17 @@ export class CarEditComponent implements OnInit {
         gearbox, hp, mileage,
         model, price, year,
         image, this.imgName);
+
+      this.utility.updateSpinner(true);
+
+      this.subscription[1] = this.utility.getCompleted().subscribe(res => {
+        if (res == true) {
+          this.utility.updateAlert(3);
+          this.router.navigate(['/auctions']);
+          this.utility.updateCompleted(false);
+          this.utility.updateSpinner(false);
+        }
+      })
 
     } else {
       this.checkEmpty();

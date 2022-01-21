@@ -1,12 +1,11 @@
+<div id="firstCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+  <div class="carousel-inner">
 
-  <div id="firstCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
-    <div class="carousel-inner">
+    <div class="carousel-item" *ngFor="let car of carousel let i = index" [ngClass]="{'active': i == 0 }">
+      <a [routerLink]="['/car', car.id]">
+        <img [src]="car.firstImage || 'assets/img/blank.jpg'" class="card-img-top first-carousel-img"
+          [alt]="car.brand" />
 
-      <div class="carousel-item" *ngFor="let car of carousel let i = index" [ngClass]="{'active': i == 0 }">
-        <a [routerLink]="['/car', car.id]">
-          <img [src]="car.firstImage || 'assets/img/blank.jpg'" [title]="car.brand | uppercase" class="card-img-top first-carousel-img"
-            [alt]="car.brand" />
-        </a>
 
         <div class="carousel-caption">
           <h5>{{ car.brand }} {{ car.model }} - {{ car.year }}</h5>
@@ -28,22 +27,20 @@
             </div>
           </div>
         </div>
-
-      </div>
-
-      <a (click)="delete($event)" class="carousel-control-prev" href="#firstCarousel" type="button"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
       </a>
-      <a (click)="delete($event)" class="carousel-control-next" href="#firstCarousel" type="button"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </a>
-
     </div>
+
+    <a (click)="delete($event)" class="carousel-control-prev" href="#firstCarousel" type="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a (click)="delete($event)" class="carousel-control-next" href="#firstCarousel" type="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+
   </div>
+</div>
 
 
 <div class="container">
@@ -103,7 +100,7 @@
                   <div class="carousel-item" *ngFor="let image of car.imageUrls let i = index"
                     [ngClass]="{'active': i == 0 }">
                     <a [routerLink]="['/car', car.id]">
-                      <img [src]="image || 'assets/img/blank.jpg'" [title]="car.brand | uppercase" class="card-img-top" [alt]="car.brand" />
+                      <img [src]="image || 'assets/img/blank.jpg'" class="card-img-top" [alt]="car.brand" />
                     </a>
                   </div>
 

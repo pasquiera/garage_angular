@@ -42,6 +42,7 @@ import { UserBidComponent } from './accounts/user-bid/user-bid.component';
 import { AuthGuard } from './services/auth.guard';
 import { CarGuard } from './services/car.guard';
 import { AlertComponent } from './shared/alert/alert.component';
+import { SpinnerLoadingComponent } from './shared/spinner-loading/spinner-loading.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -64,6 +65,7 @@ registerLocaleData(localeFr, 'fr');
     FaqComponent,
     UserBidComponent,
     AlertComponent,
+    SpinnerLoadingComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur

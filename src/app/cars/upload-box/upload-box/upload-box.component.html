@@ -2,7 +2,7 @@
     (cdkDropListDropped)="drop($event)">
 
 
-    <div *ngIf="isEmpty()" class="placeholder" id="placeholder">
+    <div *ngIf="isEmpty() && showSpinner == false" class="placeholder" id="placeholder">
         <span class="material-icons-outlined icon">
             cloud_upload
         </span>
@@ -14,28 +14,34 @@
         <span class="format">Formats: JPEG, JPG, PNG</span>
     </div>
 
-    <div class="file_upload_list" cdkDrag *ngFor="let image of imageName; let i = index">
-        <ul>
-            <li>
-                <div class="file_item">
+    <div *ngIf="showSpinner == true" class="placeholder" id="placeholder" style="z-index: 99;">
+        <app-spinner-loading></app-spinner-loading>
+    </div>
 
-                    <button type="button" mat-icon-button (click)="openDialog(i)">
-                        <mat-icon class="photo_icon">insert_photo</mat-icon>
-                    </button>
+    <div id="file_list">
+        <div class="file_upload_list" id="file_upload_list" cdkDrag *ngFor="let image of imageName; let i = index">
+            <ul>
+                <li>
+                    <div class="file_item">
 
-                    <div class="file_info">
-                        <div class="file_name">
-                            {{image}}
+                        <button type="button" mat-icon-button (click)="openDialog(i)">
+                            <mat-icon class="photo_icon">insert_photo</mat-icon>
+                        </button>
+
+                        <div class="file_info">
+                            <div class="file_name">
+                                {{image}}
+                            </div>
                         </div>
+
+                        <span class="exit_icon material-icons-outlined" (click)="removeImage(i)">
+                            close
+                        </span>
+
                     </div>
-
-                    <span class="exit_icon material-icons-outlined" (click)="removeImage(i)">
-                        close
-                    </span>
-
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 
 </div>

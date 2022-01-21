@@ -10,8 +10,8 @@ import { UtilityService } from './utility.service';
 })
 export class CarService {
 
-  constructor(public afs: AngularFirestore, 
-    public storage: AngularFireStorage, 
+  constructor(public afs: AngularFirestore,
+    public storage: AngularFireStorage,
     public auth: AuthService,
     public utility: UtilityService,) { }
 
@@ -65,19 +65,23 @@ export class CarService {
 
   uploadImage(image: File[], imagePaths: string[]) {
     // Upload each file on storage with the right url
-    let cpt = 1;
-    image.forEach((element, index) => {
-      if (element != null) {
-        this.storage.ref(imagePaths[index]).put(element).then(() => {
-          cpt++
-          /* if(image.length == cpt) {
-            this.utility.updateCompleted(true);
-          } */
-        })
+    const val = image.filter(x => x != null).length;
+    if (val == 0) {
+      this.utility.updateCompleted(true);
+    } else {
+      let cpt = 0;
+      image.forEach((element, index) => {
+        if (element != null) {
+          this.storage.ref(imagePaths[index]).put(element).then(() => {
+            cpt++
+            if (val == cpt) {
+              this.utility.updateCompleted(true);
+            }
+          });
+        }
       }
+      );
     }
-    );
-
   }
 
   getAllCar(latestDoc: string) {

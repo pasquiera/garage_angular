@@ -4,6 +4,7 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ElementRef, HostListener, Output, EventEmitter, } from '@angular/core';
 import { CarouselDialogComponent } from '../carousel-dialog/carousel-dialog.component';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-upload-box',
@@ -26,7 +27,11 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
 
   @Output() imageEvent = new EventEmitter<string[]>();
 
-  constructor(private dialog: MatDialog) { }
+  showSpinner = false;
+  subscription;
+
+  constructor(private dialog: MatDialog,
+    public utility: UtilityService) { }
 
   onDrop(event) {
     // upload function for drag and drop
@@ -150,6 +155,19 @@ export class UploadBoxComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
+    this.subscription = this.utility.getSpinner().subscribe(res => {
+      if (res == true) {
+        this.showSpinner = true;
+        document.getElementById("file_list").style.visibility = 'hidden';
+      } else if (res == false){
+        this.showSpinner = false;
+        document.getElementById("file_list").style.visibility = 'visible';
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

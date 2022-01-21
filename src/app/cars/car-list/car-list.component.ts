@@ -94,19 +94,25 @@ export class CarListComponent implements OnInit {
         let cars: ICar[] = [];
         this.car.getAllCarAsc(null).subscribe(querySnapshot => {
             querySnapshot.docs.forEach(doc => {
-                const car = {
-                    id: doc.get("id"),
-                    brand: doc.get("brand"),
-                    model: doc.get("model"),
-                    year: doc.get("year"),
+                let car = {
+                    id: null,
+                    brand: null,
+                    model: null,
+                    year: null,
                     imagePath: doc.get("imageUrls"), // Contain only image path
                     firstImage: null,
-                    endDate: doc.get("endDate"),
-                    bid: doc.get("bid"),
+                    endDate: null,
+                    bid: null,
                 }
 
                 this.car.getImage(car.imagePath[0]).then(result => {
                     car.firstImage = result;
+                    car.id = doc.get("id");
+                    car.brand = doc.get("brand");
+                    car.model = doc.get("model");
+                    car.year = doc.get("year");
+                    car.endDate = doc.get("endDate");
+                    car.bid = doc.get("bid");
                 })
 
                 this.carousel.push(car);

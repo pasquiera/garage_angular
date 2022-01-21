@@ -16,6 +16,8 @@ export class AlertComponent implements OnInit {
         this.showSucces();
       } else if (val == 2) {
         this.showError();
+      } else if (val == 3) {
+        this.showSucces2();
       }
     })
   }
@@ -54,5 +56,24 @@ export class AlertComponent implements OnInit {
     success.classList.remove('show');
     success.classList.add('hide');
   }
+
+  
+  showSucces2() {
+    const success = document.getElementById('success2');
+    success.hidden = false;
+    success.classList.remove('hide');
+    success.classList.add('show');
+    setTimeout(() => {
+      this.closeSuccess2();
+    }, 2000);
+  }
+
+  closeSuccess2() {
+    this.utility.updateAlert(0);
+    const success = document.getElementById('success2');
+    success.classList.remove('show');
+    success.classList.add('hide');
+  }
+
 
 }
