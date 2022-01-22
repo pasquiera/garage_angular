@@ -169,7 +169,7 @@ a {
 
 .card:hover {
     box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .2);
-    top: -3px;
+    transform: scale(1.02);
 }
 
 .card-title, .sub-title {

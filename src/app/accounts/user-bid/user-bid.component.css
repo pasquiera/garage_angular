@@ -55,19 +55,38 @@ img {
     object-fit: cover;
 }
 
-.edit {
-    margin-right: 10px;
+.wrapper{
+    display: flex;
+    float:right;
 }
 
-.edit:hover {
+.edit-btn,
+.delete-btn {
+    width: 34px;
+    height: 34px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 100%;
+}
+
+.edit-btn:hover .edit {
     color: royalblue;
+}
+
+.delete-btn{
+    margin-left: 7px;
+}
+
+.edit,
+.delete {
+    margin-top: 5px;
+    margin-right: 5px;
 }
 
 .delete {
     color: red;
 }
 
-.delete:hover {
+.delete-btn:hover .delete {
     color: rgb(194, 35, 5);
 }
 

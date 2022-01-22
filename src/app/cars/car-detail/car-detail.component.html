@@ -21,7 +21,7 @@
 
     <div class="cover">
         <img [src]="files[0] || 'assets/img/blank.jpg'">
-        <div class="more">
+        <div class="more" (click)="scrollFunction()">
             + {{lg}}
         </div>
     </div>
@@ -192,9 +192,9 @@
         <div class="more-info">
             <div>
                 <p style="font-size: 20px; margin-top: 20px;">Dates</p>
-                <p>Date d'ouverture des enchères : <span style="font-weight: 500;">{{carInfo.createDateAsc}}</span></p>
+                <p>Date d'ouverture des enchères : <span style="font-weight: 500;">{{carInfo.date1}}</span></p>
                 <p style="margin-top: -20px;">Date de fin des enchères : <span
-                        style="font-weight: 500;">{{carInfo.endDate}}</span></p>
+                        style="font-weight: 500;">{{carInfo.date2}}</span></p>
 
                 <div style="display: flex; font-style: italic; margin-top: 20px;">
                     <span class="material-icons" style="margin-top: -0.5px;margin-right: 3px;">
@@ -207,7 +207,7 @@
         </div>
 
         <h2>Galerie</h2>
-        <div class="more-info">
+        <div class="more-info" id="more-info">
             <div class="image" *ngFor="let image of files; let i = index">
                 <img [src]="image || 'assets/img/blank.jpg'" (click)="openDialog(i)">
             </div>

@@ -18,7 +18,7 @@ import { CarouselDialogComponent } from '../upload-box/carousel-dialog/carousel-
 export class CarDetailComponent implements OnInit {
 
   private subscription: Subscription[];
-  carInfo: ICar;
+  carInfo;
   lg = 0;
   files: any = [];
   seller;
@@ -51,6 +51,8 @@ export class CarDetailComponent implements OnInit {
       description: null,
       createDateAsc: null,
       buyer: null,
+      date1: null,
+      date2: null,
     }
 
     this.seller = {
@@ -73,7 +75,7 @@ export class CarDetailComponent implements OnInit {
   getCarInfo(id: string) {
     this.car.getCarOwner(id).pipe(first()).subscribe(querySnapshot => {
       querySnapshot.docs.forEach(val => {
-        this.car.getCarDetail(id, val.get("owner")).subscribe(doc => {
+        this.subscription[1] = this.car.getCarDetail(id, val.get("owner")).subscribe(doc => {
           this.carInfo = {
             owner: doc.owner,
             id: doc.id,
@@ -95,6 +97,11 @@ export class CarDetailComponent implements OnInit {
             createDateAsc: doc.createDateAsc,
             buyer: doc.buyer,
           }
+
+          const dateObject1 = new Date(this.carInfo.createDateAsc);
+          const dateObject2 = new Date(this.carInfo.endDate);
+          this.carInfo.date1 = dateObject1.toLocaleString();
+          this.carInfo.date2 = dateObject2.toLocaleString();
 
           if (this.cpt == 0) {
             // don't need to update after init
@@ -192,6 +199,15 @@ export class CarDetailComponent implements OnInit {
     } else {
 
     }
+  }
+
+  scrollFunction() {
+    var elmnt = document.getElementById("more-info");
+    elmnt.scrollIntoView();
+  }
+
+  ngOnDestroy() {
+    this.subscription.forEach(element => element.unsubscribe());
   }
 
 }
