@@ -136,9 +136,8 @@ export class AuthService {
     });
   }
 
-  /**
-   * Next functions are use for comment section in car-detail.component
-   */
+
+  /* comment section (car-detail.component) functions */
 
   getName(id: string) {
     return this.afs.collection<IUser>('users').doc(id).get().toPromise();
@@ -155,7 +154,7 @@ export class AuthService {
         return this.storage.ref('default/default.jpg').getDownloadURL().toPromise()
       }
     }).catch((error) => {
-  
+
     });
 
   }

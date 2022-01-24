@@ -12,7 +12,7 @@
 
         <span *ngIf="!loggedIn()" (click)="onLoginClick()" class="icon material-icons-outlined">account_circle</span>
 
-        <div class="dropdown" *ngIf="loggedIn()" (click)="menuToggle()">
+        <div class="dropdown" *ngIf="loggedIn()">
           <img class="avatar" [src]="userImg">
           <div class="list">
             <h3>{{userName}}</h3>

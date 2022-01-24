@@ -42,8 +42,9 @@ export class CarService {
       imageUrls: null,
       endDate: Date.now() + 604800000,
       createDateAsc: Date.now(),
-      createDateDsc: -Date.now(),
+      createDateDsc: -Date.now(), // for sorting purposes only
       bid: 0,
+      bid_Dsc: 0, // for sorting purposes only
       buyer: null,
 
     }).then(docRef => {
@@ -84,61 +85,45 @@ export class CarService {
     }
   }
 
-  getAllCar(latestDoc: string) {
-    // Will look for documents in all collections named user-cars in descending order (most recent first)
-    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+    /* sorting functions */
+
+  getCarDsc(latestDoc: string, type: string) {
+    if (type == "all") {
+      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+    } else {
+      // type == "auto" || type == "moto"
+      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+    }
   }
 
-  getAllCarAsc(latestDoc: string) {
+  getCarAsc(latestDoc: string, type: string) {
     // All vehicle in ascending order
-    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(10)).get();
+    if (type == "all") {
+      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(2)).get();
+    } else {
+      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('createDateAsc').startAfter(latestDoc).limit(2)).get();
+    }
   }
 
-  getCarOnly(latestDoc: string) {
-    // Only type 'auto'
-    return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', 'auto').orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+  getCarPriceAsc(latestDoc: string, type: string) {
+    // 
+    if (type == "all") {
+      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('bid').startAfter(latestDoc).limit(2)).get();
+    } else {
+      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('bid').startAfter(latestDoc).limit(2)).get();
+    }
   }
 
-  getBikeOnly(latestDoc: string) {
-    // Only type 'moto'
-    return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', 'moto').orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+  getCarPriceDsc(latestDoc: string, type: string) {
+    //
+    if (type == "all") {
+      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('bid_Dsc').startAfter(latestDoc).limit(2)).get();
+    } else {
+      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('bid_Dsc').startAfter(latestDoc).limit(2)).get();
+    }
   }
 
-  getCar(doc: string) {
-    // Get a specific car of the current user (car-edit)
-    return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges();
-  }
-
-  getCarDetail(carID: string, ownerID: string) {
-    // Get a specific car for car-detail component
-    return this.afs.collection<Car>('cars/' + ownerID + '/user-cars').doc(carID).valueChanges();
-  }
-
-  getCarOwner(id: string) {
-    // Get a specific car for car-detail component
-    return this.afs.collectionGroup('user-cars', ref => ref.where('id', '==', id)).get();
-  }
-
-  getUserCars() {
-    return this.afs.collectionGroup('user-cars', ref => ref.where('owner', '==', this.auth.userID)).get();
-  }
-
-  getCarByID(carID: string) {
-    return this.afs.collectionGroup('user-cars', ref => ref.where('id', '==', carID)).get();
-  }
-
-  getImage(path: string) {
-    return this.storage.ref(path).getDownloadURL().toPromise();
-  }
-
-  getCarCount() {
-    // not optimal way to get the count
-    return this.afs.collectionGroup('user-cars').get();
-  }
-
-  getRandomCar(latestDoc: string) {
-    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('id').startAfter(latestDoc).limit(1)).get();
-  }
+  /* update functions */
 
   deleteCar(id: string) {
     this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(id).delete().then(res => {
@@ -181,8 +166,52 @@ export class CarService {
   updateBid(bid: number, owner: string, id: string, buyer: string) {
     this.afs.collection<Car>('cars/' + owner + '/user-cars').doc(id).update({
       bid: bid,
+      bid_Dsc: -bid,
       buyer: buyer,
     })
+  }
+
+   /* other functions */
+
+   getCarCarousel(latestDoc: string) {
+    // get 10 vehicles for header carousel
+    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(10)).get();
+  }
+
+  getCar(doc: string) {
+    // Get a specific car of the current user (car-edit)
+    return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges();
+  }
+
+  getCarDetail(carID: string, ownerID: string) {
+    // Get a specific car for car-detail component
+    return this.afs.collection<Car>('cars/' + ownerID + '/user-cars').doc(carID).valueChanges();
+  }
+
+  getCarOwner(id: string) {
+    // Get a specific car for car-detail component
+    return this.afs.collectionGroup('user-cars', ref => ref.where('id', '==', id)).get();
+  }
+
+  getUserCars() {
+    return this.afs.collectionGroup('user-cars', ref => ref.where('owner', '==', this.auth.userID)).get();
+  }
+
+  getCarByID(carID: string) {
+    return this.afs.collectionGroup('user-cars', ref => ref.where('id', '==', carID)).get();
+  }
+
+  getImage(path: string) {
+    return this.storage.ref(path).getDownloadURL().toPromise();
+  }
+
+  getCarCount() {
+    // not optimal way to get the count
+    return this.afs.collectionGroup('user-cars').get();
+  }
+
+  getRandomCar(latestDoc: string) {
+    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('id').startAfter(latestDoc).limit(1)).get();
   }
 
 }

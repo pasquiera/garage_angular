@@ -12,19 +12,22 @@ import { ICar } from '../shared/models/car';
 export class CarListComponent implements OnInit {
 
     public title = ' enchères en cours';
+    public placeholder = "Trier par"
     public showBadge: boolean = true;
     public filteredCars: ICar[] = [];
     public errMsg: string = '';
     public default: any[] = [];
     public latestDoc = null; // Store latest document
-    state = TypeState.ALL;
     empty = false;
     carousel: any[] = [];
+
+    state = TypeState.ALL;
+    filter = Filter.DATE_DSC;
 
     constructor(public car: CarService) { }
 
     ngOnInit(): void {
-        this.load();
+        this.load(this.car.getCarDsc(this.latestDoc, "all"));
         this.getCount();
         this.carouselDisplay();
     }
@@ -57,6 +60,7 @@ export class CarListComponent implements OnInit {
             imageUrls: [],
             endDate: doc.get("endDate"),
             bid: doc.get("bid"),
+            bid_Dsc: null,
             createDateAsc: doc.get("createDateAsc"),
             buyer: doc.get("buyer"),
         }
@@ -73,9 +77,9 @@ export class CarListComponent implements OnInit {
         return car;
     }
 
-    load(): void {
+    load(fn: any): void {
         let cars: ICar[] = [];
-        this.car.getAllCar(this.latestDoc).subscribe(querySnapshot => {
+        fn.subscribe(querySnapshot => {
             querySnapshot.docs.forEach(doc => {
                 cars.push(this.createCar(doc));
             });
@@ -92,7 +96,7 @@ export class CarListComponent implements OnInit {
 
     carouselDisplay(): void {
         let cars: ICar[] = [];
-        this.car.getAllCarAsc(null).subscribe(querySnapshot => {
+        this.car.getCarCarousel(null).subscribe(querySnapshot => {
             querySnapshot.docs.forEach(doc => {
                 let car = {
                     id: null,
@@ -117,53 +121,35 @@ export class CarListComponent implements OnInit {
 
                 this.carousel.push(car);
             });
-            
-        });
-    }
 
-    loadCar(): void {
-        let cars: ICar[] = [];
-        this.car.getCarOnly(this.latestDoc).subscribe(querySnapshot => {
-            querySnapshot.docs.forEach(doc => {
-                cars.push(this.createCar(doc));
-            });
-
-            // Update lastestDoc
-            this.latestDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-            // Unattach event listener if no more docs
-            if (querySnapshot.empty) {
-                this.empty = true;
-            }
-            this.filteredCars.push(...cars);
-        });
-    }
-
-    loadBike(): void {
-        let cars: ICar[] = [];
-        this.car.getBikeOnly(this.latestDoc).subscribe(querySnapshot => {
-            querySnapshot.docs.forEach(doc => {
-                cars.push(this.createCar(doc));
-            });
-
-            // Update lastestDoc
-            this.latestDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-            // Unattach event listener if no more docs
-            if (querySnapshot.empty) {
-                this.empty = true;
-            }
-            this.filteredCars.push(...cars);
         });
     }
 
     loadMore() {
         // when loadMore button is clicked
+        let type;
         if (!this.empty) {
             if (this.isAllState()) {
-                this.load();
+                type = "all";
             } else if (this.isCarState()) {
-                this.loadCar();
+                type = "auto";
             } else if (this.isBikeState()) {
-                this.loadBike();
+                type = "moto";
+            }
+
+            switch (this.filter) {
+                case Filter.DATE_DSC:
+                    this.load(this.car.getCarDsc(this.latestDoc, type));
+                    break;
+                case Filter.DATE_ASC:
+                    this.load(this.car.getCarAsc(this.latestDoc, type));
+                    break;
+                case Filter.PRICE_ASC:
+                    this.load(this.car.getCarPriceAsc(this.latestDoc, type));
+                    break;
+                case Filter.PRICE_DSC:
+                    this.load(this.car.getCarPriceDsc(this.latestDoc, type));
+                    break;
             }
         }
     }
@@ -188,7 +174,7 @@ export class CarListComponent implements OnInit {
         this.state = TypeState.ALL;
         this.reset();
         document.getElementById("all_type").classList.add('active');
-        this.load();
+        this.load(this.car.getCarDsc(this.latestDoc, "all"));
     }
 
     onCarClick() {
@@ -196,7 +182,7 @@ export class CarListComponent implements OnInit {
         this.state = TypeState.CAR;
         this.reset();
         document.getElementById("car_type").classList.add('active');
-        this.loadCar();
+        this.load(this.car.getCarDsc(this.latestDoc, "auto"));
     }
 
     onBikeClick() {
@@ -204,7 +190,32 @@ export class CarListComponent implements OnInit {
         this.state = TypeState.BIKE;
         this.reset();
         document.getElementById("bike_type").classList.add('active');
-        this.loadBike();
+        this.load(this.car.getCarDsc(this.latestDoc, "moto"));
+    }
+
+    sortFilter(filter: string) {
+        this.filteredCars = [];
+        this.latestDoc = null;
+        this.empty = false;
+        switch (filter) {
+            case 'priceAsc':
+                this.filter = Filter.PRICE_ASC;
+                this.placeholder = "Prix croissant" ;
+                break;
+            case 'priceDsc':
+                this.filter = Filter.PRICE_DSC;
+                this.placeholder = "Prix décroissant" ;
+                break;
+            case 'dateAsc':
+                this.filter = Filter.DATE_ASC;
+                this.placeholder = "Annonces moins récentes" ;
+                break;
+            case 'dateDsc':
+                this.filter = Filter.DATE_DSC;
+                this.placeholder = "Annonces plus récentes" ;
+                break;
+        }
+        this.loadMore();
     }
 
     /* check current state to display the right vehicle list */
@@ -227,4 +238,11 @@ export enum TypeState {
     ALL,
     CAR,
     BIKE,
+}
+
+export enum Filter {
+    DATE_ASC,
+    DATE_DSC, // default
+    PRICE_ASC,
+    PRICE_DSC,
 }

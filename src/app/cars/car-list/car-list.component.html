@@ -54,6 +54,21 @@
     <button class="filter_btn" id="bike_type" type="button" (click)="onBikeClick()">MOTOS</button>
   </div>
 
+  <div class="dropdown">
+    <div class="dropdown-select">
+      <span class="select">{{placeholder}}</span>
+      <span class="material-icons-outlined">
+        arrow_drop_down
+      </span>
+    </div>
+    <div class="dropdown-list">
+      <div class="dropdown-list__item" (click)="sortFilter('priceAsc')">Prix croissant</div>
+      <div class="dropdown-list__item" (click)="sortFilter('priceDsc')">Prix décroissant</div>
+      <div class="dropdown-list__item" (click)="sortFilter('dateDsc')">Annonces plus récentes</div>
+      <div class="dropdown-list__item" (click)="sortFilter('dateAsc')">Annonces moins récentes</div>
+    </div>
+  </div>
+
   <div class="row gy-4">
     <div class="col-lg-6" *ngFor="let car of filteredCars">
       <div class="card" id="card" [routerLink]="['/car', car.id]">

@@ -16,6 +16,7 @@ export interface ICar {
     imageUrls: string[];
     endDate: number;
     bid: number;
+    bid_Dsc: number;
     createDateAsc: number,
     buyer: string,
 }
@@ -40,6 +41,7 @@ export class Car implements ICar {
         public imageUrls: string[],
         public endDate: number,
         public bid: number,
+        public bid_Dsc: number,
         public createDateAsc: number,
         public buyer: string,
     ) { }

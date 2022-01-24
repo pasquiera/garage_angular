@@ -31,7 +31,7 @@ nav {
     opacity: 0;
 }
 
-.dropdown .list.active {
+.dropdown:hover .list {
     top: 70px;
     visibility: visible;
     opacity: 1;

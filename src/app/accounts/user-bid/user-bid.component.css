@@ -7,6 +7,7 @@
 table {
     width: 100%;
     text-transform: capitalize;
+    margin-top: -10px;
 }
 
 tr {
@@ -88,6 +89,10 @@ img {
 
 .delete-btn:hover .delete {
     color: rgb(194, 35, 5);
+}
+
+.h2 {
+    margin-top: 100px;
 }
 
 @media (max-width: 500px) {
