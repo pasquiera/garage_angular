@@ -43,6 +43,7 @@ import { AuthGuard } from './services/auth.guard';
 import { CarGuard } from './services/car.guard';
 import { AlertComponent } from './shared/alert/alert.component';
 import { SpinnerLoadingComponent } from './shared/spinner-loading/spinner-loading.component';
+import { SellComponent } from './sell/sell.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -66,6 +67,7 @@ registerLocaleData(localeFr, 'fr');
     UserBidComponent,
     AlertComponent,
     SpinnerLoadingComponent,
+    SellComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur
@@ -78,7 +80,8 @@ registerLocaleData(localeFr, 'fr');
       { path: '', redirectTo: 'auctions', pathMatch: 'full' },
       { path: 'settings', component: ProfileSettingComponent, canActivate: [AuthGuard]},
       { path: 'bid', component: UserBidComponent, canActivate: [AuthGuard]},
-      { path: 'create', component: CarEditComponent},
+      /* { path: 'create', component: CarEditComponent}, */
+      { path: 'create', component: SellComponent},
       { path: 'edit/:id', component: CarEditComponent, canActivate: [CarGuard]},
       { path: "emailVerification", component: EmailVerificationComponent, canActivate: [AuthGuard] },
       { path: 'car/:id', component: CarDetailComponent },

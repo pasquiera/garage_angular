@@ -173,14 +173,14 @@ export class CarService {
 
    /* other functions */
 
-   getCarCarousel(latestDoc: string) {
+   getCarCarousel(latestDoc: string, nb: number) {
     // get 10 vehicles for header carousel
-    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(10)).get();
+    return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(nb)).get();
   }
 
   getCar(doc: string) {
     // Get a specific car of the current user (car-edit)
-    return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges();
+    return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges(); 
   }
 
   getCarDetail(carID: string, ownerID: string) {

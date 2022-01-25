@@ -96,7 +96,7 @@ export class CarListComponent implements OnInit {
 
     carouselDisplay(): void {
         let cars: ICar[] = [];
-        this.car.getCarCarousel(null).subscribe(querySnapshot => {
+        this.car.getCarCarousel(null, 10).subscribe(querySnapshot => {
             querySnapshot.docs.forEach(doc => {
                 let car = {
                     id: null,

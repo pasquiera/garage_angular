@@ -1,0 +1,246 @@
+.container {
+    margin-top: 6em;
+    text-align:center;
+}
+
+.banner {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.banner img{
+    max-width: 1000px;
+    max-height: 200px;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+    filter: brightness(40%);
+}
+
+.info {
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: center;
+    max-width: 1000px;
+    width: 100%;
+    background-color: rgb(244, 244, 244);
+    margin-top: 100px;
+    padding-bottom: 50px;
+}
+
+.info h2 {
+    padding-top: 60px;
+    font-weight: 600;
+}
+
+.info .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.info .bloc {
+    max-width: 219px;
+    width: 100%;
+    margin: 10px;
+    margin-top: 50px;
+}
+
+.info .bloc .icon .symbol{
+    font-size: 44px;
+    padding: 5px;
+    border: 4px solid #000;
+    border-radius: 100%;
+}
+
+.info .bloc h6 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 550;
+}
+
+.title h2 {
+    margin-top: 80px;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.car-show {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.car-img {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    margin: 5px;
+    width: 340px;
+    height: 300px;
+    background-color: rgb(247, 247, 247);
+    overflow: hidden;
+}
+
+.car-img .price {
+    position: absolute;
+    display: flex;
+    right: 5%; bottom: 5%;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.car-img span{
+    margin-top: -2px;
+    margin-left: 5px;
+    color: #fff;
+    font-size: 30px;
+}
+
+.car-img .icon span {
+    font-size: 34px;
+}
+
+.car-img img{
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+    transition: transform .4s; 
+}
+
+.car-img:hover img{
+    transform: scale(1.1);
+}
+
+.login {
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: center;
+    max-width: 1000px;
+    width: 100%;
+    margin-top: 100px;
+    border-top: 2px solid rgb(234, 234, 234);
+    border-bottom: 2px solid rgb(234, 234, 234);
+}
+
+.wrapper {
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.wrapper .article {
+    width: 49%;
+    
+}
+
+.wrapper .left{
+    text-align: left;
+}
+
+.wrapper .left p{
+    color: rgb(156, 156, 156);
+}
+
+.wrapper .right {
+    margin-top: 20px;
+    text-align: right;
+}
+
+
+
+button {
+    padding: 0px 50px;
+    margin: 0 15px;
+    width:300px;
+    height: 48px;
+    outline: none;
+    border: 0;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.submit_btn {
+    border-radius: 0.75em;
+    font-weight: 700;
+    color: #382b22;
+    text-transform: uppercase;
+    background: rgb(244, 44, 4);
+    transform-style: preserve-3d;
+    transition: .05s cubic-bezier(0, 0, .6, 1);
+}
+
+.submit_btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: rgb(194, 35, 5);
+    transform: translate3d(0, .5em, -1em);
+    transition: .05s cubic-bezier(0, 0, .6, 1);
+}
+
+.submit_btn:hover::before {
+    transform: translate3d(0, .25em, -1em);
+}
+
+.submit_btn {
+    color: #FFF;
+}
+
+.submit_btn:hover {
+    background: rgb(252, 123, 98);
+    transform: translate(0, .25em);
+}
+
+.submit_btn:active {
+    background: rgb(252, 123, 98);
+    transform: translate(0, .55em);
+}
+
+.submit_btn:active::before {
+    transform: translate3d(0, 0, -1em);
+}
+
+@media (max-width: 992px) {
+    .car-img {
+        width: 100%;
+        height: 180px;
+    }
+
+    .wrapper {
+        display: block;
+    }
+
+    .wrapper .article {
+        width: 100%;
+    }
+
+    .wrapper .right {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+}
+
+@media (max-width: 350px) {
+    button {
+        width: 200px;
+    }
+}
