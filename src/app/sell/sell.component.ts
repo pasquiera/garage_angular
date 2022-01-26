@@ -1,5 +1,8 @@
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthenticatorComponent } from '../accounts/authenticator/authenticator.component';
 import { AuthService } from '../services/auth.service';
 import { CarService } from '../services/car.service';
 
@@ -14,7 +17,8 @@ export class SellComponent implements OnInit {
   display = null;
   subscription;
 
-  constructor(private router: Router,
+  constructor(private dialog: MatDialog,
+    private router: Router,
     public car: CarService,
     public auth: AuthService) { }
 
@@ -34,12 +38,14 @@ export class SellComponent implements OnInit {
     this.car.getCarCarousel(null, 6).subscribe(querySnapshot => {
       querySnapshot.docs.forEach(doc => {
         let car = {
+          id: null,
           imagePath: doc.get("imageUrls"), // Contain only image path
           firstImage: null,
           bid: null,
         }
 
         this.car.getImage(car.imagePath[0]).then(result => {
+          car.id = doc.get("id");
           car.firstImage = result;
           car.bid = doc.get("bid");
 
@@ -56,6 +62,21 @@ export class SellComponent implements OnInit {
       });
 
     });
+  }
+
+  openAuction(index: number) {
+    this.router.navigate(['/car/' + this.cars[index].id]);
+  }
+
+  login(): void {
+    // open AuthenticatorComponent if the user is not connected
+    this.dialog.open(AuthenticatorComponent, {
+      // NoopScrollStrategy: does nothing
+      scrollStrategy: new NoopScrollStrategy(),
+      width: '850px',
+      panelClass: 'custom-modalbox'
+    });
+
   }
 
   ngOnDestroy() {

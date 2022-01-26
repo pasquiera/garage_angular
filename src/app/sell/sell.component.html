@@ -1,6 +1,22 @@
 <div class="container">
     <div class="banner">
-        <img [src]="display || 'assets/img/blank.jpg'">
+        <img class="bg" [src]="display || 'assets/img/blank.jpg'">
+        <div class="logo-img">
+            <img src="/assets/img/logo2.png" alt="">
+            <h1>Herocar</h1>
+        </div>
+    </div>
+
+    <div class="title">
+        <h2>Vendre sa voiture sans stress</h2>
+        <div class="txt">
+            <p>Herocar vous permet de vendre au meilleur prix, sans effort, en 7 jours. Commencez dès maintenant en
+                remplissant le formulaire de vente gratuitement.</p>
+        </div>
+    </div>
+
+    <div class="fieldBtn">
+        <button type="button" class="submit_btn" id="next" (click)="login()">commencer</button>
     </div>
 
     <div class="info">
@@ -60,9 +76,9 @@
 
     <div class="car-show">
 
-        <div class="wrap" *ngFor="let car of cars">
+        <div class="wrap" *ngFor="let car of cars;let i = index">
             <div class="car-img">
-                <img [src]="car.firstImage || 'assets/img/blank.jpg'">
+                <img [src]="car.firstImage || 'assets/img/blank.jpg'" (click)="openAuction(i)">
                 <div class="price">Enchère : {{car.bid}} € <span class="material-icons-outlined">
                         arrow_circle_right
                     </span></div>

@@ -5,6 +5,14 @@
 
 nav {
     height: 58px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background-color: #FFF;
+    padding: 0 32px;
+    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, .2);
 }
 
 .container {
@@ -116,23 +124,29 @@ nav {
     color: royalblue;
 }
 
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 99;
-    background-color: #FFF;
-    padding: 0 32px;
-    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, .2);
+.logo {
+    cursor: pointer;
+    display: flex;
 }
 
 h1 {
     color: #000;
     font-size: 28px;
     font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    letter-spacing: normal;
+    margin-top: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: italic;
+}
+
+.logo-img {
+margin-top: 6px;
+margin-right: 5px;
+}
+
+.logo-img img{
+    width: 50px;
+    height: 32px;
 }
 
 .icon {
