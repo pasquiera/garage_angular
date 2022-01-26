@@ -6,9 +6,8 @@
       <div class="menu">
 
         <a class="is-active" id="auction" (click)="activeLink('auction')" [routerLink]="['/auctions']">Enchères</a>
-        <a id="sell" (click)="activeLink('sell')" [routerLink]="['/create']">Vendre</a>
+        <a id="sell" (click)="activeLink('sell'); selectRoute()">Vendre</a>
         <a id="faq" (click)="activeLink('faq')" [routerLink]="['/faq']">FAQ</a>
-
 
         <span *ngIf="!loggedIn()" (click)="onLoginClick()" class="icon material-icons-outlined">account_circle</span>
 
@@ -69,7 +68,10 @@
 
 <app-alert></app-alert>
 
-<div [@routeAnimations]="prepareRoute(outlet)" class="content">
-  <router-outlet #outlet="outlet"></router-outlet> <!-- path dans RouterModule -->
+<div class="wrapper">
+  <div [@routeAnimations]="prepareRoute(outlet)" class="content">
+    <router-outlet #outlet="outlet"></router-outlet> <!-- path dans RouterModule -->
+  </div>
 </div>
 
+<app-footer></app-footer>

@@ -24,7 +24,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { EmailVerificationComponent } from './accounts/email-verification/email-verification.component';
 import { ProfileSettingComponent } from './accounts/profile-setting/profile-setting.component';
 import { FileUploadComponent } from './accounts/file-upload/file-upload.component';
 import { CarEditComponent } from './cars/car-edit/car-edit.component';
@@ -44,6 +43,7 @@ import { CarGuard } from './services/car.guard';
 import { AlertComponent } from './shared/alert/alert.component';
 import { SpinnerLoadingComponent } from './shared/spinner-loading/spinner-loading.component';
 import { SellComponent } from './sell/sell.component';
+import { FooterComponent } from './footer/footer.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -55,7 +55,6 @@ registerLocaleData(localeFr, 'fr');
     CarDetailComponent,
     CarEditComponent,
     AuthenticatorComponent,
-    EmailVerificationComponent,
     ProfileSettingComponent,
     FileUploadComponent,
     CarouselDialogComponent,
@@ -68,6 +67,7 @@ registerLocaleData(localeFr, 'fr');
     AlertComponent,
     SpinnerLoadingComponent,
     SellComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur
@@ -80,10 +80,9 @@ registerLocaleData(localeFr, 'fr');
       { path: '', redirectTo: 'auctions', pathMatch: 'full' },
       { path: 'settings', component: ProfileSettingComponent, canActivate: [AuthGuard]},
       { path: 'bid', component: UserBidComponent, canActivate: [AuthGuard]},
-      /* { path: 'create', component: CarEditComponent}, */
-      { path: 'create', component: SellComponent},
+      { path: 'create', component: CarEditComponent, canActivate: [AuthGuard]},
+      { path: 'sell', component: SellComponent},
       { path: 'edit/:id', component: CarEditComponent, canActivate: [CarGuard]},
-      { path: "emailVerification", component: EmailVerificationComponent, canActivate: [AuthGuard] },
       { path: 'car/:id', component: CarDetailComponent },
       { path: 'faq', component: FaqComponent },
       { path: '**', redirectTo: 'auctions', pathMatch: 'full' },

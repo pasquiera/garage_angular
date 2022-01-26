@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ICar } from '../cars/shared/models/car';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { CarService } from '../services/car.service';
 
 @Component({
@@ -11,10 +12,21 @@ export class SellComponent implements OnInit {
 
   cars: any[] = [];
   display = null;
+  subscription;
 
-  constructor(public car: CarService) { }
+  constructor(private router: Router,
+    public car: CarService,
+    public auth: AuthService) { }
 
   ngOnInit(): void {
+
+    const url = location.pathname.split('/').slice(-1)[0]
+
+    this.subscription = this.auth.getLogin().subscribe(res => {
+      if (res == true && url == 'sell') {
+        this.router.navigate(["create"]);
+      }
+    })
 
     var x = Math.floor((Math.random() * 5) + 0);
     var cpt = 0;
@@ -46,5 +58,8 @@ export class SellComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }

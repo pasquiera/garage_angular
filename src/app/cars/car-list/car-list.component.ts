@@ -167,6 +167,10 @@ export class CarListComponent implements OnInit {
         document.querySelector('.filter_btn.active').classList.toggle('active');
     }
 
+    ngOnDestroy() {
+        
+    }
+
     /* switch to the right state when filter is clicked */
 
     onAllClick() {

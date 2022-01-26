@@ -19,7 +19,7 @@ trigger('routeAnimations', [
 
       group([
         query(':leave', [
-          animate(200, style({
+          animate(0, style({
             opacity: 0,
           }))
         ], { optional: true }),
@@ -28,7 +28,7 @@ trigger('routeAnimations', [
           style({
             opacity: 0
           }),
-          animate(200, style({
+          animate(1000, style({
             opacity: 1,
           }))
         ], { optional: true })

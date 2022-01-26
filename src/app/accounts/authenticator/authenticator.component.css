@@ -115,8 +115,6 @@
     padding: 0 30px;
     font-size: 16px;
     font-weight: 500;
-    border-bottom: 2px solid rgba(0,0,0,0.2);
-    border-color: royalblue;
  }
 
  .form_input {
@@ -168,7 +166,7 @@
  }
 
  form .form-content .text span{
-     color: rgb(13, 110, 253);
+     color: #4285f4;
      cursor: pointer;
  }
 
@@ -184,7 +182,7 @@
 
  form .form-content .button input{
      color: #FFF;
-     background: royalblue;
+     background: rgb(25, 131, 204);
      border-radius: 6px;
      padding: 0;
      cursor: pointer;
@@ -192,7 +190,7 @@
  }
 
  form .form-content .button input:hover {
-    background: rgb(39, 69, 158);
+    background: rgb(96, 178, 235);
  }
 
  form .form-content label {

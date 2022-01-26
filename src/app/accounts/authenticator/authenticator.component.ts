@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { UtilityService } from 'src/app/services/utility.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-authenticator',
@@ -38,7 +39,6 @@ export class AuthenticatorComponent implements OnInit {
     if (this.isNotEmpty(email) && this.isNotEmpty(password)) {
 
       this.auth.signIn(email, password).then(res => { //make a callback function isEmailVerified
-
         this.checkVerif();
 
       }).catch(error => {
@@ -49,7 +49,7 @@ export class AuthenticatorComponent implements OnInit {
         else if (error.code == 'auth/wrong-password') {
           document.getElementById('password').classList.add('invalid');
           this.showInfo("Mot de passe non valide", "info-login")
-        }  else if (error.code == 'auth/user-not-found') {
+        } else if (error.code == 'auth/user-not-found') {
           document.getElementById('email').classList.add('invalid');
           document.getElementById('password').classList.add('invalid');
           this.showInfo("Email et/ou mot de passe incorrect(s)", "info-login")
@@ -149,7 +149,13 @@ export class AuthenticatorComponent implements OnInit {
         if (res.emailVerified == true) {
           //this.router.navigate(["auctions"]);
         } else {
-          this.router.navigate(["emailVerification"]);
+          //this.router.navigate(["emailVerification"]);
+          Swal.fire({
+            title: 'Un mail de confirmation vous a été envoyé',
+            html: 'Merci de vérifier votre adresse mail',
+            icon: 'success',
+            confirmButtonColor:'#1983CC',
+          });
         }
       })
     }

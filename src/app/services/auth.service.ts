@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../user';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { IUser } from '../user';
 })
 export class AuthService {
 
+  private login: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoggedIn = false;
   userID;
   userData: Observable<IUser>;
@@ -22,8 +23,7 @@ export class AuthService {
       .then(userCredential => {
 
         this.setLoginState(true);
-        //this.userID = userCredential.user.uid;
-        //console.log(this.userID);
+        this.updateLogin(true);
 
       }).catch(err => {
         throw err;
@@ -72,6 +72,7 @@ export class AuthService {
     return this.firebaseAuth.signOut().then(() => {
       this.userID = null;
       this.setLoginState(false);
+      this.updateLogin(false);
     });
   }
 
@@ -165,6 +166,14 @@ export class AuthService {
     this.afs.collection<IUser>('users').doc(this.userID).update({
       auctions: auctions,
     });
+  }
+
+  getLogin(): Observable<boolean> {
+    return this.login;
+  }
+
+  updateLogin(bool: boolean): void {
+    this.login.next(bool);
   }
 
 }

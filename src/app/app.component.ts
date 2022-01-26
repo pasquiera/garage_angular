@@ -108,4 +108,12 @@ export class AppComponent {
     }
   }
 
+  selectRoute() {
+    if (this.auth.isLoggedIn) {
+      this.router.navigate(['/create']);
+    } else {
+      this.router.navigate(['/sell']);
+    }
+  }
+
 }

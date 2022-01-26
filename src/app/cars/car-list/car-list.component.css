@@ -6,7 +6,14 @@
     min-height: 1000px;
     max-height: 80%;
     box-sizing: border-box;
-    overflow: auto;
+    overflow: hidden;
+}
+
+.car-list {
+    min-height: 800px;
+    height: 100%;
+    position: relative;
+    overflow-y: hidden;
 }
 
 #firstCarousel .carousel-inner {
@@ -63,7 +70,8 @@
     display: none;
 }
 
-.filter {
+.filter,
+.load {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,7 +79,8 @@
     margin-bottom: 50px;
 }
 
-.filter button {
+.filter button,
+.load button {
     padding: 0px 90px;
     margin: 0 15px;
     width: 250px;
@@ -278,7 +287,7 @@ img {
 }
 
 .dropdown {
-    z-index: 99;
+    z-index: 1;
     width: 100%;
     margin: 0 auto;
     display: flex;
@@ -329,6 +338,26 @@ img {
 .dropdown-list__item:hover {
     background-color: #f5f5f5;
 }
+
+.load {
+    position: relative;
+    bottom: 0;
+}
+
+.load button {
+    color: #FFF;
+    margin-top: 40px;
+    background: rgb(25, 131, 204);
+    border-radius: 6px;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.4 ease;
+}
+
+.load button:hover {
+    background: rgb(96, 178, 235);
+}
+
 
 @keyframes thing {
     0% {
