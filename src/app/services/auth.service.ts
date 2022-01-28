@@ -15,13 +15,14 @@ export class AuthService {
   isLoggedIn = false;
   userID;
   userData: Observable<IUser>;
+  userCredential;
 
   constructor(public firebaseAuth: AngularFireAuth, public afs: AngularFirestore, public storage: AngularFireStorage) { }
 
   signIn(email: string, password: string) {
     return this.firebaseAuth.signInWithEmailAndPassword(email, password)
       .then(userCredential => {
-
+        this.userCredential = userCredential
         this.setLoginState(true);
         this.updateLogin(true);
 
@@ -71,6 +72,7 @@ export class AuthService {
   signOut() {
     return this.firebaseAuth.signOut().then(() => {
       this.userID = null;
+      this.userCredential = null;
       this.setLoginState(false);
       this.updateLogin(false);
     });
@@ -102,14 +104,19 @@ export class AuthService {
     return this.storage.ref(path).getDownloadURL().toPromise();
   }
 
-  updateDocument(lastName: string, firstName: string, userName: string, address: string, phoneNumber: string) {
+  updateDocument(lastName: string, firstName: string, userName: string, address: string, phoneNumber: string, email: string) {
     this.afs.collection<IUser>('users').doc(this.userID).update({
       lastName: lastName,
       firstName: firstName,
       userName: userName,
+      email: email,
       address: address,
       phoneNumber: phoneNumber
     });
+  }
+
+  updateEmail(email: string) {
+    this.userCredential.user.updateEmail(email);
   }
 
   uploadImage(image: any) {

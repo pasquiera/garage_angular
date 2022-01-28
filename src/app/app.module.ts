@@ -44,6 +44,7 @@ import { AlertComponent } from './shared/alert/alert.component';
 import { SpinnerLoadingComponent } from './shared/spinner-loading/spinner-loading.component';
 import { SellComponent } from './sell/sell.component';
 import { FooterComponent } from './footer/footer.component';
+import { ContactComponent } from './contact/contact.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -68,6 +69,7 @@ registerLocaleData(localeFr, 'fr');
     SpinnerLoadingComponent,
     SellComponent,
     FooterComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule, //permet de faire fonctionner l'application dans le navigateur

@@ -12,6 +12,7 @@ export class UtilityService {
   private alert: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private completed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private spinner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private route: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor() {
 
@@ -51,6 +52,14 @@ export class UtilityService {
 
   getSpinner(): Observable<boolean> {
     return this.spinner;
+  }
+
+  updateRoute(id: string): void {
+    this.route.next(id);
+  }
+
+  getRoute(): Observable<string> {
+    return this.route;
   }
 
 }

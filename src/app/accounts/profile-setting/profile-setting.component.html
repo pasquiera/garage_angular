@@ -16,6 +16,13 @@
             </div>
 
             <div class="input-data">
+                <input id="profileEmail" type="text" class="" formControlName="profileEmail" autocomplete="off"
+                    placeholder=' ' required>
+                <div class="underline"></div>
+                <label for="profileEmail" class="details"> Email </label>
+            </div>
+
+            <div class="input-data">
                 <input id="profileLastNameId" type="text" class="" formControlName="profileLastName" autocomplete="off"
                     placeholder=' '>
                 <div class="underline"></div>
@@ -27,13 +34,6 @@
                     autocomplete="off" placeholder=' '>
                 <div class="underline"></div>
                 <label for="profileFirstNameId" class="details"> Prénom </label>
-            </div>
-
-            <div class="input-data">
-                <input id="profileEmail" type="text" class="" formControlName="profileEmail" autocomplete="off"
-                    placeholder=' '>
-                <div class="underline"></div>
-                <label for="profileEmail" class="details"> Email </label>
             </div>
 
             <div class="input-data">
@@ -53,7 +53,7 @@
             <div class="blank" id="blank"><span></span></div>
 
             <div class="info" id="info" hidden>
-                Erreur: Champs invalides
+                {{error}}
                 <div>
                     <span class="material-icons-outlined exclamation-icon">error</span>
                 </div>

@@ -1,0 +1,30 @@
+<div class="container">
+
+    <div class="title">
+        <h4>Une question ? Contactez-moi !</h4>
+        <p>Je vous répondrai sous 24h</p>
+    </div>
+
+
+    <div class="main-info">
+        <div class="info name">
+            <span>Votre nom</span>
+            <input #name type="text" class="field">
+        </div>
+
+        <div class="info">
+            <span>Votre email</span>
+            <input #email type="email" class="field">
+        </div>
+    </div>
+
+    <div class="info">
+        <span>Votre message</span>
+        <textarea #text class="field"></textarea>
+    </div>
+
+    <div class="button">
+        <button class="submit_btn" type="button" (click)="sendMessage(name, email, text)">Envoyer</button>
+    </div>
+
+</div>

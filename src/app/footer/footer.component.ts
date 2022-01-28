@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthenticatorComponent } from '../accounts/authenticator/authenticator.component';
 import { AuthService } from '../services/auth.service';
+import { UtilityService } from '../services/utility.service';
 
 @Component({
   selector: 'app-footer',
@@ -14,7 +15,8 @@ export class FooterComponent implements OnInit {
   connected = false;
 
   constructor(private dialog: MatDialog,
-    public auth: AuthService) { }
+    public auth: AuthService,
+    public utility: UtilityService) { }
 
   ngOnInit(): void {
     this.subscription = this.auth.getLogin().subscribe(res => {
@@ -34,7 +36,10 @@ export class FooterComponent implements OnInit {
       width: '850px',
       panelClass: 'custom-modalbox'
     });
+  }
 
+  selectRoute(id: string){
+    this.utility.updateRoute(id);
   }
 
 }

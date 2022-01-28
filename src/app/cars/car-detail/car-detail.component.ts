@@ -186,6 +186,8 @@ export class CarDetailComponent implements OnInit {
   checkBid(bidValue: HTMLInputElement) {
     let bid = Number(bidValue.value);
     if (bid > this.carInfo.bid) {
+      (document.querySelector('.form_input') as HTMLInputElement).value = '';
+      document.querySelector('.form_input').classList.remove('error');
       this.auth.getUserData().pipe(first()).subscribe(user => {
         this.buyer.userName = user.userName;
         this.auth.getUserImage(user.imageProfile).then(val => {
@@ -197,7 +199,7 @@ export class CarDetailComponent implements OnInit {
         })
       })
     } else {
-
+      document.querySelector('.form_input').classList.add('error');
     }
   }
 

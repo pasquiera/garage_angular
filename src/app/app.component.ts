@@ -54,6 +54,15 @@ export class AppComponent {
 
     })
 
+    this.utility.getRoute().subscribe(res => {
+      if (res != '') {
+        this.activeLink(res);
+      }
+      if (res == 'sell') {
+        this.selectRoute();
+      }
+    })
+
   }
 
 

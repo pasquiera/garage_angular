@@ -325,6 +325,10 @@ h2:not(.title-h2) {
     cursor: pointer;
 }
 
+.form_input.error {
+    border-color: red;
+}
+
 @media (max-width: 540px){
 
     .title {

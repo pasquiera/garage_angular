@@ -1,11 +1,14 @@
-.login {
+.login,
+.footer-info {
     flex-wrap: wrap;
     margin: 0 auto;
     justify-content: center;
     width: 90%;
-    margin-top: 100px;
     border-top: 2px solid rgb(234, 234, 234);
-    border-bottom: 2px solid rgb(234, 234, 234);
+}
+
+.login {
+    margin-top: 100px;
 }
 
 .wrapper {
@@ -88,6 +91,23 @@ button {
 
 .submit_btn:active::before {
     transform: translate3d(0, 0, -1em);
+}
+
+.info h6 {
+    margin-top: 2px;
+}
+
+.pages {
+    display: flex;
+}
+
+.pages span {
+    margin-right: 20px;
+}
+.pages span a{
+    cursor: pointer;
+    color: rgb(139, 140, 147);
+    text-decoration: none; 
 }
 
 @media (max-width: 992px) {

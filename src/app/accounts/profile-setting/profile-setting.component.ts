@@ -15,10 +15,12 @@ export class ProfileSettingComponent implements OnInit {
   public profileForm: FormGroup;
 
   user: IUser;
+  email;
+  error = "Erreur: Champs manquants";
   imgURL = "assets/img/default.jpg";
   subscription;
 
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
     public auth: AuthService,
     public utility: UtilityService) {
   }
@@ -30,7 +32,7 @@ export class ProfileSettingComponent implements OnInit {
       profileLastName: [''],
       profileFirstName: [''],
       profileUserName: ['', [Validators.required]],
-      profileEmail: [''],
+      profileEmail: ['', [Validators.required]],
       profileAddress: [''],
       profilePhoneNumber: ['']
     });
@@ -46,25 +48,39 @@ export class ProfileSettingComponent implements OnInit {
       let lastName = this.profileForm.get('profileLastName').value;
       let firstName = this.profileForm.get('profileFirstName').value;
       let userName = this.profileForm.get('profileUserName').value;
+      let email = this.profileForm.get('profileEmail').value;
       let address = this.profileForm.get('profileAddress').value;
       let phoneNumber = this.profileForm.get('profilePhoneNumber').value;
 
-      this.auth.updateDocument(lastName, firstName, userName, address, phoneNumber);
+      if (this.validateEmail(email)) {
 
-      if (image != null) {
-        this.auth.uploadImage(image).then(res => {
+        if(this.email != email){
+          this.auth.updateEmail(email);
+        }
+
+        this.auth.updateDocument(lastName, firstName, userName, address, phoneNumber, email);
+
+        if (image != null) {
+          this.auth.uploadImage(image).then(res => {
+            this.utility.updateAlert(1);
+            this.hideInfo();
+          });
+        } else {
           this.utility.updateAlert(1);
           this.hideInfo();
-        });
+        }
+
+        // avoid image reupload for each submit
+        this.profileForm.reset();
+
       } else {
-        this.utility.updateAlert(1);
-        this.hideInfo();
+        this.error = "Erreur: Email invalide";
+        this.showInfo();
       }
 
-      // avoid image reupload for each submit
-      this.profileForm.reset();
 
     } else {
+      this.error = "Erreur: Champs manquants";
       this.showInfo();
     }
   }
@@ -77,10 +93,12 @@ export class ProfileSettingComponent implements OnInit {
         profileLastName: val.lastName,
         profileFirstName: val.firstName,
         profileUserName: val.userName,
+        profileEmail: val.email,
         profileAddress: val.address,
         profilePhoneNumber: val.phoneNumber
       })
 
+      this.email = val.email;
       this.getUserImage(val.imageProfile);
 
     })
@@ -121,6 +139,13 @@ export class ProfileSettingComponent implements OnInit {
     }
 
     return true;
+  }
+
+  validateEmail(mail: string) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return true
+    }
+    return false
   }
 
 }
