@@ -37,7 +37,6 @@ export class FileUploadComponent implements OnInit, ControlValueAccessor {
         scrollStrategy: new NoopScrollStrategy(),
         data: {
           imageChangedEvent: this.imageChangedEvent,
-          panelClass: 'custom-modalbox'
         }
       });
 

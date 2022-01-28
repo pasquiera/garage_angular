@@ -1,14 +1,18 @@
 .login,
 .footer-info {
-    flex-wrap: wrap;
     margin: 0 auto;
-    justify-content: center;
     width: 90%;
     border-top: 2px solid rgb(234, 234, 234);
 }
 
 .login {
+    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 100px;
+}
+
+.footer-info {
+    display: flex;
 }
 
 .wrapper {
@@ -101,6 +105,10 @@ button {
     display: flex;
 }
 
+.page1 {
+    margin-right: 50px;
+}
+
 .pages span {
     margin-right: 20px;
 }
@@ -110,13 +118,49 @@ button {
     text-decoration: none; 
 }
 
+.wrap-logo {
+    display: none;
+}
+
+.logo {
+    margin-left: 90px;
+    margin-top: -12px;
+    display: flex;
+}
+
+h1{
+    color: #000;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: normal;
+    margin-top: 5px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-style: italic;
+}
+
+.logo-img {
+margin-top: 6px;
+margin-right: 5px;
+}
+
+.logo-img img{
+    width: 50px;
+    height: 32px;
+}
+
+@media screen and (min-width: 1400px) {
+    .wrap-logo{
+        display: flex;
+    }
+  }
+
 @media (max-width: 992px) {
     .car-img {
         width: 100%;
         height: 180px;
     }
 
-    .wrapper {
+    .wrapper:not(.wrap-logo) {
         display: block;
     }
 
@@ -128,6 +172,23 @@ button {
         margin-top: 40px;
         text-align: center;
     }
+
+    .footer-info {
+        display: block;
+    }
+
+    .pages {
+        display: block;
+    }
+
+    .page2 {
+        margin-top: -20px;
+    }
+
+}
+
+@media (max-width: 768px){
+
 
 }
 

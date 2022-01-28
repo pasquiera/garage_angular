@@ -168,7 +168,6 @@ export class CarDetailComponent implements OnInit {
         data: {
           imageURL: this.files,
           index: index,
-          panelClass: 'custom-modalbox'
         }
       });
   }

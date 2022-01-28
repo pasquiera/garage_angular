@@ -19,15 +19,38 @@
         <div class="wrapper">
             <div class="info-left">
                 <div class="info">
-                    <div class="pages">
-                        <span><h6>Pages</h6></span>
+                    <div class="pages page1">
+                        <span>
+                            <h6>Pages</h6>
+                        </span>
                         <span><a (click)="selectRoute('auction')" [routerLink]="['/auctions']">Enchères</a></span>
                         <span><a (click)="selectRoute('sell')">Vendre</a></span>
                         <span><a (click)="selectRoute('faq')" [routerLink]="['/faq']">FAQ</a></span>
                     </div>
                 </div>
             </div>
-            
+        </div>
+        <div class="wrapper">
+            <div class="info-left">
+                <div class="info">
+                    <div class="pages page2">
+                        <span>
+                            <h6>À propos</h6>
+                        </span>
+                        <span><a (click)="openDialog('cgu')">CGU / CGV</a></span>
+                        <span><a (click)="openDialog('politique')">Politique de Confidentialité</a></span>
+                        <span><a (click)="selectRoute('faq')" [routerLink]="['/faq']">Contact</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper wrap-logo">
+            <div class="logo">
+                <div class="logo-img">
+                    <img src="/assets/img/logo.png" alt="">
+                </div>
+                <h1>Herocar</h1>
+            </div>
         </div>
     </div>
 </div>

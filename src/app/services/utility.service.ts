@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 
@@ -14,7 +15,7 @@ export class UtilityService {
   private spinner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private route: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor() {
+  constructor(public afs: AngularFirestore) {
 
   }
 
@@ -60,6 +61,16 @@ export class UtilityService {
 
   getRoute(): Observable<string> {
     return this.route;
+  }
+
+  contactMessage(name: string, email: string, text: string) {
+    const messageRef: AngularFirestoreCollection<any> = this.afs.collection(`contact`);
+
+    messageRef.add({
+      name: name,
+      email: email,
+      text: text
+    });
   }
 
 }

@@ -315,6 +315,7 @@
 
 .bloc h6 {
     margin-top: 20px;
+    font-weight: 100;
 }
 
 @keyframes fadeIn {

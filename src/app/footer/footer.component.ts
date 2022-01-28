@@ -2,6 +2,7 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthenticatorComponent } from '../accounts/authenticator/authenticator.component';
+import { CguComponent } from '../cgu/cgu.component';
 import { AuthService } from '../services/auth.service';
 import { UtilityService } from '../services/utility.service';
 
@@ -38,8 +39,19 @@ export class FooterComponent implements OnInit {
     });
   }
 
-  selectRoute(id: string){
+  selectRoute(id: string) {
     this.utility.updateRoute(id);
   }
 
+  openDialog(title: string) {
+    this.dialog.open(CguComponent, {
+      // NoopScrollStrategy: does nothing
+      scrollStrategy: new NoopScrollStrategy(),
+      data: {
+        title: title,
+      },
+      width: '850px',
+      panelClass: 'custom-modalbox'
+    });
+  }
 }
