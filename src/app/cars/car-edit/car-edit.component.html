@@ -159,7 +159,8 @@
                         </span>
                     </label>
                     <input *ngIf="isCreateState()" id="priceId" type="number" autocomplete="off" class=""
-                        formControlName="price" placeholder="Prix de réserve (€)" (keypress)="OnlyNumbersAllowed($event)"required>
+                        formControlName="price" placeholder="Prix de réserve (€)"
+                        (keypress)="OnlyNumbersAllowed($event)" required>
                     <input *ngIf="isEditState()" type="text" class="disable-input" formControlName="price"
                         placeholder="Prix de réserve (€)" (keypress)="OnlyNumbersAllowed($event)">
                 </div>
@@ -191,10 +192,21 @@
 
             <div class="title">Photos du véhicule</div>
 
+            <div class="instruction">
+                <p class="p1">
+                    - Cliquez sur l'icône <span>
+                        <mat-icon class="photo_icon">insert_photo</mat-icon>
+                    </span> pour visualiser une image.
+                </p>
+                <p>
+                    - Changez l’ordre des images en effectuant un glisser-déposer.
+                </p>
+            </div>
+
             <app-upload-box class="upload-box" formControlName="carImage" (imageEvent)="receiveName($event)" required>
             </app-upload-box>
 
-            <div class="fieldBtn2">
+            <div class="fieldBtn2 fieldBtn3">
                 <button type="button" class="submit_btn" id="back2" (click)="back2Click()">Précédent</button>
                 <button *ngIf="isCreateState()" class="submit_btn submit" type="submit">Enregistrer</button>
                 <button *ngIf="isEditState()" class="submit_btn submit" type="button"

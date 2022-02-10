@@ -24,7 +24,7 @@ form .page{
     left: 0;
     right: 0;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: -30px;
 }
 
 .fieldBtn2 {
@@ -36,6 +36,10 @@ form .page{
     right: 0;
     text-align: center;
     margin-bottom: 130px;
+}
+
+.fieldBtn3 {
+    margin-bottom: 60px;
 }
 
 button {
@@ -313,6 +317,25 @@ input[type="radio"]:checked + label::after {
     background: #ccc;
  }
 
+ .instruction {
+    margin-bottom: 30px;
+ }
+
+ .instruction p{
+   display: flex;
+ }
+
+ .instruction .p1 {
+    margin-bottom: -2px;
+ }
+
+ .photo_icon {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #10ac17;
+ }
+
  /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -360,6 +383,7 @@ input[type=number] {
 @media (max-width: 584px){
     .container{
         max-width: 100%;
+        height: 1300px;
     }
 
     .container .car-details .input-box {
@@ -389,4 +413,10 @@ input[type=number] {
         margin-bottom: 10px;
     }
 
+}
+
+@media (max-width: 408px){
+    .instruction p{
+        display: block;
+      }
 }

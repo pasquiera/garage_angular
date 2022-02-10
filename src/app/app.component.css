@@ -104,7 +104,6 @@ nav {
     max-width: 20px;
     margin-right: 10px;
     opacity: 0.5;
-    transition: 0.5s;
 }
 
 .dropdown .list ul li:hover span{
@@ -116,9 +115,7 @@ nav {
     text-decoration: none;
     color: #555;
     font-weight: 550;
-    transition: 0.5s;
 }
-
 
 .dropdown .list ul li:hover .links {
     color: royalblue;
