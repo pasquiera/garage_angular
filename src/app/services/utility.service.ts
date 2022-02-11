@@ -8,11 +8,21 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class UtilityService {
 
+  // UtilityService use to pass data beetween component
 
+  // user profile picture
   private myData: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  // index of the alert to display
   private alert: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  // use in car.service
   private completed: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  // enable/disable loading spinner
   private spinner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  // use in footer component
   private route: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(public afs: AngularFirestore) {
@@ -64,6 +74,7 @@ export class UtilityService {
   }
 
   contactMessage(name: string, email: string, text: string) {
+    // store data pass in FAQ form in database
     const messageRef: AngularFirestoreCollection<any> = this.afs.collection(`contact`);
 
     messageRef.add({

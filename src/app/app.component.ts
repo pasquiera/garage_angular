@@ -30,6 +30,7 @@ export class AppComponent {
   ) {
 
     this.auth.initialize().subscribe(val => {
+      // subscription that return true if user is logged in or false if disconnected
       if (val) {
 
         this.subscription = this.auth.getUserData().subscribe(user => {
@@ -47,6 +48,7 @@ export class AppComponent {
         let sub = url.substring(0, 5);
 
         if (url == '/settings' || url == '/bid' || url == '/create' || sub == '/edit') {
+          // change current path if user disconnect in a page that requires login
           this.router.navigate(['/auctions']);
           this.activeLink('auction');
         }
@@ -55,6 +57,7 @@ export class AppComponent {
     })
 
     this.utility.getRoute().subscribe(res => {
+      // change the active link in navbar if user click on footer links
       if (res != '') {
         this.activeLink(res);
       }
@@ -98,7 +101,7 @@ export class AppComponent {
   }
 
   activeLink(id: string) {
-
+    // switch active link in navbar and hamburger menu for mobile
     document.querySelector('.is-active').classList.toggle('is-active');
     document.getElementById(this.mobileActiveLink).classList.toggle('is-active');
 

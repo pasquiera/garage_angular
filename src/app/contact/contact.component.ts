@@ -15,6 +15,7 @@ export class ContactComponent implements OnInit {
   }
 
   sendMessage(InputName: HTMLInputElement, InputEmail: HTMLInputElement, InputText: HTMLTextAreaElement) {
+    // contact form in FAQ
     let name = InputName.value;
     let email = InputEmail.value;
     let text = InputText.value;

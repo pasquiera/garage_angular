@@ -33,8 +33,15 @@ section {
 }
 
 .block.active .answer{
-    max-height: 1000px;
     animation:  fade 1s ease-in-out;
+}
+
+.block.active .answer1 {
+    max-height: 1000px;
+}
+
+.block.active .answer2 {
+    max-height: 1500px;
 }
 
 .block.active svg {
@@ -43,6 +50,23 @@ section {
 
 svg {
     transition: transform 0.5s ease-in;
+}
+
+h6 {
+    margin-top: 30px;
+    margin-left: 50px; 
+}
+
+.page {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    font-style: italic;
+}
+
+span {
+    position: relative;
+    top: 3px;
 }
 
 @keyframes fade{

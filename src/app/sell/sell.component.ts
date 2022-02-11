@@ -12,7 +12,7 @@ import { CarService } from '../services/car.service';
   styleUrls: ['./sell.component.css']
 })
 export class SellComponent implements OnInit {
-
+  // landing page when user is not connected
   cars: any[] = [];
   display = null;
   subscription;

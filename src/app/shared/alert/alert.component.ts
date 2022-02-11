@@ -11,6 +11,7 @@ export class AlertComponent implements OnInit {
   constructor(public utility: UtilityService) { }
 
   ngOnInit(): void {
+    // get the index of the alert and trigger the right show function below
     this.utility.getAlert().subscribe(val => {
       if (val == 1) {
         this.showSucces();

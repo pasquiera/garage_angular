@@ -22,6 +22,7 @@ export class UserBidComponent implements OnInit {
   ngOnInit(): void {
 
     this.car.getUserCars().subscribe(querySnapshot => {
+      // retrive all cars sell by current user from the database
       querySnapshot.docs.forEach(doc => {
         const car = {
           owner: doc.get("owner"),
@@ -44,12 +45,14 @@ export class UserBidComponent implements OnInit {
     });
 
     this.auth.getUserData().pipe(first()).subscribe(res => {
+      // get auctions[] array which contains all user current auctions
       const auctions = res.auctions;
       auctions.forEach(element => this.getCar(element));
     })
   }
 
   getCar(element: any) {
+    // get all cars on which the current user has bid
     this.car.getCarByID(element).subscribe(querySnapshot => {
       querySnapshot.docs.forEach(doc => {
         let car = {

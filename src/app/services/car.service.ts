@@ -85,9 +85,10 @@ export class CarService {
     }
   }
 
-    /* sorting functions */
+  /* sorting functions */
 
   getCarDsc(latestDoc: string, type: string) {
+    // All vehicule in default order
     if (type == "all") {
       return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
     } else {
@@ -106,7 +107,7 @@ export class CarService {
   }
 
   getCarPriceAsc(latestDoc: string, type: string) {
-    // 
+    // All vehicule in price ascending order
     if (type == "all") {
       return this.afs.collectionGroup('user-cars', ref => ref.orderBy('bid').startAfter(latestDoc).limit(2)).get();
     } else {
@@ -115,7 +116,7 @@ export class CarService {
   }
 
   getCarPriceDsc(latestDoc: string, type: string) {
-    //
+    // All vehicule in price descending order
     if (type == "all") {
       return this.afs.collectionGroup('user-cars', ref => ref.orderBy('bid_Dsc').startAfter(latestDoc).limit(2)).get();
     } else {
@@ -171,16 +172,16 @@ export class CarService {
     })
   }
 
-   /* other functions */
+  /* other functions */
 
-   getCarCarousel(latestDoc: string, nb: number) {
+  getCarCarousel(latestDoc: string, nb: number) {
     // get 10 vehicles for header carousel
     return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(nb)).get();
   }
 
   getCar(doc: string) {
     // Get a specific car of the current user (car-edit)
-    return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges(); 
+    return this.afs.collection<Car>('cars/' + this.auth.userID + '/user-cars').doc(doc).valueChanges();
   }
 
   getCarDetail(carID: string, ownerID: string) {
@@ -194,6 +195,7 @@ export class CarService {
   }
 
   getUserCars() {
+    // return all the cars of the current user
     return this.afs.collectionGroup('user-cars', ref => ref.where('owner', '==', this.auth.userID)).get();
   }
 

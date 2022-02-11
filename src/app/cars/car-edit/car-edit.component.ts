@@ -13,6 +13,9 @@ import { UtilityService } from "src/app/services/utility.service";
 })
 export class CarEditComponent implements OnInit {
 
+  // car-edit component is accessible by two different paths: /create and /edit
+  // this component contains all functions to create and edit a car
+
   private subscription: Subscription[];
   public carForm: FormGroup;
   imgName: string[];
@@ -53,6 +56,7 @@ export class CarEditComponent implements OnInit {
 
 
     this.subscription[0] = this.route.params.subscribe(params => {
+      // if path equal /edit/[:id]
       if (params['id'] != null) {
         this.utility.updateSpinner(true);
         this.carID = params['id'];
@@ -195,6 +199,7 @@ export class CarEditComponent implements OnInit {
   }
 
   checkEmpty() {
+    // check if inputs are empty
     if ((document.getElementById("brandId") as HTMLInputElement).value == "") { this.carForm.controls['brand'].markAsTouched(); }
     if ((document.getElementById("modelId") as HTMLInputElement).value == "") { this.carForm.controls['model'].markAsTouched(); }
     if ((document.getElementById("yearId") as HTMLInputElement).value == "") { this.carForm.controls['year'].markAsTouched(); }

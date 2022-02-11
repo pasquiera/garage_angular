@@ -73,6 +73,7 @@ export class CarDetailComponent implements OnInit {
   }
 
   getCarInfo(id: string) {
+    // retrive all car info from database
     this.car.getCarOwner(id).pipe(first()).subscribe(querySnapshot => {
       querySnapshot.docs.forEach(val => {
         this.subscription[1] = this.car.getCarDetail(id, val.get("owner")).subscribe(doc => {
@@ -183,6 +184,7 @@ export class CarDetailComponent implements OnInit {
   }
 
   checkBid(bidValue: HTMLInputElement) {
+    // check if the number entered by the user is higher than the actual bid
     let bid = Number(bidValue.value);
     if (bid > this.carInfo.bid) {
       (document.querySelector('.form_input') as HTMLInputElement).value = '';
