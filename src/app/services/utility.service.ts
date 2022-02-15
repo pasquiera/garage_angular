@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 
@@ -25,7 +26,7 @@ export class UtilityService {
   // use in footer component
   private route: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor(public afs: AngularFirestore) {
+  constructor(public afs: AngularFirestore, public storage: AngularFireStorage) {
 
   }
 
@@ -82,6 +83,10 @@ export class UtilityService {
       email: email,
       text: text
     });
+  }
+
+  getImage(index: number) {
+    return this.storage.ref('faq/' + index +'.jpg').getDownloadURL().toPromise();
   }
 
 }

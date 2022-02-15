@@ -41,7 +41,7 @@ section {
 }
 
 .block.active .answer2 {
-    max-height: 1500px;
+    max-height: 3000px;
 }
 
 .block.active svg {
@@ -69,6 +69,28 @@ span {
     top: 3px;
 }
 
+.more-info{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 705px;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.image {
+    margin: 0 auto;
+}
+
+.image img {
+    width: 155px;
+    height: 105px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
 @keyframes fade{
     from {
         opacity: 0;
@@ -77,5 +99,11 @@ span {
     to {
         opacity: 1;
         transform: translateY(0px);
+    }
+}
+
+@media (max-width: 415px){
+    .block.active .answer{
+        overflow-y: visible;
     }
 }

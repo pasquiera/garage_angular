@@ -90,37 +90,37 @@ export class CarService {
   getCarDsc(latestDoc: string, type: string) {
     // All vehicule in default order
     if (type == "all") {
-      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateDsc').startAfter(latestDoc).limit(4)).get();
     } else {
       // type == "auto" || type == "moto"
-      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('createDateDsc').startAfter(latestDoc).limit(2)).get();
+      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('createDateDsc').startAfter(latestDoc).limit(4)).get();
     }
   }
 
   getCarAsc(latestDoc: string, type: string) {
     // All vehicle in ascending order
     if (type == "all") {
-      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(2)).get();
+      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('createDateAsc').startAfter(latestDoc).limit(4)).get();
     } else {
-      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('createDateAsc').startAfter(latestDoc).limit(2)).get();
+      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('createDateAsc').startAfter(latestDoc).limit(4)).get();
     }
   }
 
   getCarPriceAsc(latestDoc: string, type: string) {
     // All vehicule in price ascending order
     if (type == "all") {
-      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('bid').startAfter(latestDoc).limit(2)).get();
+      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('bid').startAfter(latestDoc).limit(4)).get();
     } else {
-      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('bid').startAfter(latestDoc).limit(2)).get();
+      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('bid').startAfter(latestDoc).limit(4)).get();
     }
   }
 
   getCarPriceDsc(latestDoc: string, type: string) {
     // All vehicule in price descending order
     if (type == "all") {
-      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('bid_Dsc').startAfter(latestDoc).limit(2)).get();
+      return this.afs.collectionGroup('user-cars', ref => ref.orderBy('bid_Dsc').startAfter(latestDoc).limit(4)).get();
     } else {
-      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('bid_Dsc').startAfter(latestDoc).limit(2)).get();
+      return this.afs.collectionGroup('user-cars', ref => ref.where('type', '==', type).orderBy('bid_Dsc').startAfter(latestDoc).limit(4)).get();
     }
   }
 
