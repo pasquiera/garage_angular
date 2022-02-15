@@ -74,6 +74,8 @@ export class UtilityService {
     return this.route;
   }
 
+   /* faq functions */
+
   contactMessage(name: string, email: string, text: string) {
     // store data pass in FAQ form in database
     const messageRef: AngularFirestoreCollection<any> = this.afs.collection(`contact`);
@@ -86,6 +88,7 @@ export class UtilityService {
   }
 
   getImage(index: number) {
+    // get images for faq
     return this.storage.ref('faq/' + index +'.jpg').getDownloadURL().toPromise();
   }
 
